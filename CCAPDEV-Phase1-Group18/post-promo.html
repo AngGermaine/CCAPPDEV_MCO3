@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Post A Promo | Coffee Lens </title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    </head>
+    <body>
+        <!-- DASHBOARD -->
+        <div class="top-bar"> 
+            <!-- FOR THE LOGO -->
+            <div class = "div-logo"> 
+                <h1> <i class="fa-solid fa-mug-hot logo"></i> <i>COFFEE LENS</i></h1>
+            </div> <!-- END OF LOGO-->
+        
+            <!-- FOR THE TOP NAV BAR -->
+            <div class = "nav"> 
+                <div class = "top-search-bar">
+                    <input class = "search" type = "text" placeholder="Search"> 
+                    <button class = "search-bttn"> Search </button>
+                </div>
+                <div class = "links">
+                    <a href ="index.html"> Home </a>  <!-- TODO: Change directory -->
+                    <a href ="index.html"> About </a> <!-- TODO: Change directory -->
+                    <a href ="index.html"> Cafes </a> <!-- TODO: Change directory -->
+                </div>
+                <img src = "assets/default-profile-icon.png"> 
+            </div> 
+        </div> <!-- END OF TAP NAV BAR -->
+
+        <form action="#">
+        <div class="postbox-main">
+            <div class="infobox">
+                <div class="profile-detail"> <!-- Profile Icon-->
+                    <img src = "assets/default-profile-icon.png">
+                    username
+                </div>
+                <div class="date-posted">
+                    Date: 15/02/2024
+                </div>
+            </div> 
+            <div class="infobox">
+                <div class="select-cafe">
+                    Select Cafe:
+                    <div class="dropdown" tabindex="0">  
+                        <div class="select">
+                            <span class="selected">-</span>
+                            <div class="caret"></div>
+                        </div>
+                        <ul class="menu">
+                            <li>Cafe1</li>
+                            <li>Cafe2</li>
+                            <li>Cafe3</li>
+                            <li class="active">-</li>
+                        </ul>
+                    </div>
+                </div> 
+                <div class="promo-validity">
+                    Promo Validity: 02/08/24 to 0/14/24
+                </div>
+            </div>
+            <div class="inputbox">
+                <div class="textarea">
+                    <textarea cols="30" placeholder="Enter Promo details..."></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="btns">
+            <div class="back">
+                <button type="back">BACK</button>
+            </div>
+            <div class="post">
+                <button type="submit">POST</button>
+            </div>
+        </div>
+        </form>
+    </body>
+</html>
