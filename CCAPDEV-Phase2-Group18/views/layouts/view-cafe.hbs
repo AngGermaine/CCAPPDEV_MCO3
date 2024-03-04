@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            {{title}}
+        </title>
+        <link rel= "stylesheet" href = "style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+        <!-- DASHBOARD -->
+        {{{top-nav}}}
+        <!-- END OF TAP NAV BAR -->
+
+        <div class = "cafe-profile-main">
+            <!-- CAFE INFORMATION -->
+            <div class = "cafe-info-container">
+                <div class = "cafe-logo"> <!-- CAFE LOGO -->
+                    <img src = "{{cafe-logo-url}}">
+                </div>
+                <div class = "cafe-info">
+                    <div class = "cafe-name">{{cafe-name}}</div>
+                    <div class ="cafe-description-container">
+                        <div class ="description">{{cafe-description}}</div>
+                        <div class = "rating">Rating: 
+                            <span class="material-icons"> star_rate </span>
+                            <span class="material-icons"> star_rate </span>
+                            <span class="material-icons"> star_rate </span>
+                            <span class="material-icons"> star_rate </span>
+                            <span class="material-icons"> star_rate </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- REVIEWS OF THE CAFE -->
+            <!--Review 1-->
+            <div class = "cafe-profile-review-container">
+                <div class = "review-container" id="review1">
+                    <div class = "view-cafe-default-img">
+                        <img src = "assets/default-profile-icon.png"> 
+                    </div>
+                    <div class ="username-review">
+                        <div class="username" id="username1">{{username}}</div>
+                        <div class="review" id="review1">review1</div>
+                        <div class="like_btn_container">
+                            <div class="like-post-rating">
+                                <span class="like-btn material-icons"> thumb_up </span>
+                                <span class="like-count">{{like-count}}</span>
+                            </div>
+                            <div class="like-post-rating">
+                                <span class="like-btn material-icons"> thumb_down </span>
+                                <span class="like-count">{{dislike-count}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Review 2-->
+            <div class = "cafe-profile-review-container">
+                <div class = "review-container" id="review2">
+                    <div class = "view-cafe-default-img">
+                        <img src = "assets/default-profile-icon.png"> 
+                    </div>
+                    <div class ="username-review">
+                        <div class="username" id="username2">username2</div>
+                        <div class="review" id="review2">review2</div>
+                        <div class="like_btn_container">
+                            <div class="like-post-rating">
+                                <span class="like-btn material-icons"> thumb_up </span>
+                                <span class="like-count">0</span>
+                            </div>
+                            <div class="like-post-rating">
+                                <span class="like-btn material-icons"> thumb_down </span>
+                                <span class="like-count">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
