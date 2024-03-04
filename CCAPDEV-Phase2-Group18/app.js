@@ -31,6 +31,31 @@ server.get('/view_cafe', function(req,resp){
     });
 }); 
 
+server.get('/create_acc', function(req,resp){
+    resp.render('create-acc',{
+        title: 'Log In | Coffee Lens'
+    });
+}); 
+
+server.get('/edit_profile', function(req,resp){
+    resp.render('edit-profile',{
+        title: 'Edit Profile | Coffee Lens'
+    });
+}); 
+
+server.get('/edit_review', function(req,resp){
+    resp.render('edit-review',{
+        title: 'Edit Review | Coffee Lens'
+    });
+}); 
+
+server.get('/edit_promo', function(req,resp){
+    resp.render('edit-promo',{
+        title: 'Edit Promo Post | Coffee Lens'
+    });
+}); 
+
+
 server.get('/about', function(req,resp){
     resp.render('about',{
         title: 'About | Coffee Lens'
