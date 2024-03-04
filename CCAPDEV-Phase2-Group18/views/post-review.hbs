@@ -1,0 +1,71 @@
+{{>top-nav}}
+<form action="#">
+<div class="postbox-main">
+    <div class="infobox">
+        <div class="profile-detail"> <!-- Profile Icon-->
+            <img src = "assets/user-icons/cinnamoroll.jpg"> 
+            @cinnamoroll
+        </div>
+        <div class="date-posted">
+            Date: 15/02/2024
+        </div>
+    </div> 
+    <div class="infobox">
+        <div class="select-cafe">
+            Select Cafe:
+            <div class="dropdown" tabindex="0">  
+                <div class="select">
+                    <span class="selected">-</span>
+                    <div class="caret"></div>
+                </div>
+                <ul class="menu">
+                    <li>Cafe1</li>
+                    <li>Cafe2</li>
+                    <li>Cafe3</li>
+                    <li class="active">-</li>
+                </ul>
+            </div>
+        </div> 
+        <div class="star-rating">
+            Rating:
+            <div class="star-container">
+                <div class="star-widget">
+                    <input type="radio" name="rate" id="rate-5">
+                    <label for="rate-5" class="fas fa-star"></label>
+                    <input type="radio" name="rate" id="rate-4">
+                    <label for="rate-4" class="fas fa-star"></label>
+                    <input type="radio" name="rate" id="rate-3">
+                    <label for="rate-3" class="fas fa-star"></label>
+                    <input type="radio" name="rate" id="rate-2">
+                    <label for="rate-2" class="fas fa-star"></label>
+                    <input type="radio" name="rate" id="rate-1">
+                    <label for="rate-1" class="fas fa-star"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="inputbox">
+        <div class="textarea">
+            <textarea cols="30" placeholder="Please describe your experience!"></textarea>
+        </div>
+        <div class="file-upload">
+            <input type="file" id="myFile" name="filename">
+        </div>
+    </div>
+</div>
+<div class="btns">
+    <div class="back">
+        <button type="back" id="backButton">BACK</button>
+        <script>
+            document.getElementById('backButton').addEventListener('click', function(event) {
+                event.preventDefault();
+                window.location.href = 'index.html';
+            });
+        </script>
+        
+    </div>
+    <div class="post">
+        <button type="submit">POST</button>
+    </div>
+</div>
+</form>

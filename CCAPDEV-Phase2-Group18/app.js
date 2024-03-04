@@ -55,10 +55,27 @@ server.get('/edit_promo', function(req,resp){
     });
 }); 
 
+server.get('/post_promo', function(req,resp){
+    resp.render('post-promo',{
+        title: 'Post A Promo | Coffee Lens'
+    });
+}); 
+
+server.get('/post_review', function(req,resp){
+    resp.render('post-review',{
+        title: 'Post A Review | Coffee Lens'
+    });
+}); 
 
 server.get('/about', function(req,resp){
     resp.render('about',{
         title: 'About | Coffee Lens'
+    });
+}); 
+
+server.get('/view_all', function(req,resp){
+    resp.render('view-all',{
+        title: 'All Cafes | Coffee Lens'
     });
 }); 
 

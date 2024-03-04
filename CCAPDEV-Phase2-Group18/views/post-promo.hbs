@@ -1,0 +1,58 @@
+{{>top-nav}}
+
+<form action="#">
+<div class="postbox-main">
+    <div class="infobox">
+        <div class="profile-detail"> <!-- Profile Icon-->
+            <img src = "assets/cafe-owner/jake.jpg">
+            @jakesim
+        </div>
+        <div class="date-posted">
+            Date: 15/02/2024
+        </div>
+    </div> 
+    <div class="infobox">
+        <div class="select-cafe">
+            Select Cafe:
+            <div class="dropdown" tabindex="0">  
+                <div class="select">
+                    <span class="selected">-</span>
+                    <div class="caret"></div>
+                </div>
+                <ul class="menu">
+                    <li>Cafe1</li>
+                    <li>Cafe2</li>
+                    <li>Cafe3</li>
+                    <li class="active">-</li>
+                </ul>
+            </div>
+        </div> 
+        <div class="promo-validity">
+            Promo Validity: 02/08/24 to 0/14/24
+        </div>
+    </div>
+    <div class="inputbox">
+        <div class="textarea">
+            <textarea cols="30" placeholder="Enter Promo details..."></textarea>
+        </div>
+        <div class="file-upload">
+            <input type="file" id="myFile" name="filename">
+        </div>
+    </div>
+</div>
+<div class="btns">
+    <div class="back">
+        <button type="back" id="backButton">BACK</button>
+        <script>
+            document.getElementById('backButton').addEventListener('click', function(event) {
+                event.preventDefault();
+                window.location.href = 'index.html';
+            });
+        </script>
+        
+    </div>
+    <div class="post">
+        <button type="submit">POST</button>
+    </div>
+</div>
+</form>
