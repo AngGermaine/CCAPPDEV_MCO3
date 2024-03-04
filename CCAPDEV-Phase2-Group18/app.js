@@ -1,3 +1,7 @@
+/* Install commands: 
+    npm init
+    npm i express express-handlebars body-parser
+*/
 const express = require('express');
 const server = express();
 
@@ -14,7 +18,6 @@ server.engine('hbs', handlebars.engine({
 
 server.use(express.static('public'));
 
-//add code here
 server.get('/', function(req,resp){
     resp.render('main',{
         layout: 'index',
@@ -22,6 +25,17 @@ server.get('/', function(req,resp){
     });
 });
 
+server.get('/view_cafe', function(req,resp){
+    resp.render('view-cafe',{
+        title: 'View Cafe | Coffee Lens'
+    });
+}); 
+
+server.get('/about', function(req,resp){
+    resp.render('about',{
+        title: 'About | Coffee Lens'
+    });
+}); 
 
 const port = process.env.PORT | 9090;
 server.listen(port, function(){
