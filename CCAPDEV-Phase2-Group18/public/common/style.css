@@ -22,8 +22,7 @@ body
 }
 
 .logo {
-    font-size: 50px;
-    
+    font-size: 50px;   
 }
 
 .top-search-bar {
@@ -51,6 +50,47 @@ body
     cursor: pointer;
     background-color: white;
     color: #7F5539;
+}
+
+
+
+.about-pg {
+    padding: 20px;
+    padding-left: 20vh;
+    padding-right: 20vh;
+    margin: 20px;
+    background-color: #7F5539;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-desc h1,
+.about-dev h1 {
+    color: white;
+    font-size: 24px;
+}
+
+.about-desc p {
+    color: white;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.about-dev ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.about-dev li {
+    color: white;
+    font-size: 18px;
+    margin-bottom: 5px;
+    padding-left: 20px; /* Add some left padding to simulate bullet points */
+}
+
+.about-dev li:before {
+    content: none; /* Remove bullet points */
 }
 
 .nav {
@@ -277,7 +317,8 @@ body
 
 /*View Cafe Profile Page*/
 .cafe-profile-main,
-.user-profile-main{
+.user-profile-main,
+.edit-profile-main{
     display: flex;
     flex-direction: column;
     padding-left: 192px;
@@ -320,6 +361,12 @@ body
 }
 .username{
     font-weight: bold;
+}
+
+.username > a{
+    text-decoration: none;
+    color: white;
+    
 }
 .rating{
     width:10%;
@@ -369,6 +416,19 @@ body
     height: 82px;
 }
 
+.review > a{
+    text-decoration: none;
+    color:#EDE0D4;
+}
+.review > a:visited{
+    text-decoration: none;
+    color:#EDE0D4;
+}
+
+.review:hover{
+    color:#dbc1ac;
+    font-weight:bold;
+}
 /*Like and Dislike Buttons*/
 .like_btn_container{
     display: flex;
@@ -432,11 +492,14 @@ body
     padding-left: 35em;
 }
 
+.profile-detail{
+    gap: 10px;
+}
+
 .profile-detail > img{
     border-radius: 100%;
     width: 82px;
     height: 82px;
-    padding-right: 5px;
 }
 
 .dropdown{
@@ -554,6 +617,25 @@ input:checked ~ label{
     justify-content: center;
     flex-direction: column;
     padding-bottom: 60px;
+    position: relative;
+}
+
+.file-upload {
+    background-color: #EDE0D4;
+    border-radius: 5em;
+    padding: 4px;
+    color: white;
+    position: absolute;
+    bottom: 15px;
+    right: 30px;
+}
+
+
+.file-upload input {
+    display: block;
+    color: #573824;
+    
+    margin-left: 10px; 
 }
 
 form .textarea{
@@ -606,16 +688,18 @@ form .post button:hover, .back button:hover{
     color:white;
     padding: 20px 31px;
     margin-bottom: 31px;
+    align-items: center;
 }
 
 .profile-img{
-    width:156px;
+    padding-right: 29px;
 }
+
 .profile-img >img{
     width: 156px;
     height: 156px;
     border-radius: 100%;
-    display:flex;
+    
 }
 
 .user-info{
@@ -623,7 +707,6 @@ form .post button:hover, .back button:hover{
     flex-wrap:wrap;
     width:90%;
     align-items:center;
-    padding-left: 29px;
 }
 
 .name,.username-profile,.join-date{
@@ -642,21 +725,14 @@ form .post button:hover, .back button:hover{
     cursor: default;
 }
 
-.post-promo-container{
-    flex-direction:column;
-    align-items:unset;
-}
-
-.edit-profile-btn{
-    display:flex;
-    width: 100%;
-    height: 73px;
-    color:#7F5539;
-    background-color:white;
-    border-radius: 10%;
-    align-items: center;
+.post-promo-container {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center buttons horizontally */
     justify-content: center;
-    font-size:150%;
+    cursor: default;
+    flex-wrap: wrap;
+
 }
 
 .edit-profile-btn:hover,
@@ -666,19 +742,23 @@ form .post button:hover, .back button:hover{
 }
 
 
-.post-promo-btn{
-    display:flex;
-    width: 50%;
-    height: 50px;
-    color:#7F5539;
-    background-color:white;
-    border-radius: 10%;
+.post-promo-btn,
+.edit-profile-btn {
+    display: flex;
+    width: 100%;
+    height: 73px;
+    color: #7F5539;
+    background-color: white;
+    padding: 20px;
+    border-radius: 1em;
     align-items: center;
     justify-content: center;
-    font-size:100%;
+    font-size: 120%;
 }
 
-.post-promo-btn a{
+
+
+.post-promo-btn > a, .edit-profile-btn > a{
     text-decoration: none;
     color: inherit;
 }
@@ -693,7 +773,6 @@ form .post button:hover, .back button:hover{
 }
 .post-edit-btn-container{
     display:flex;
-    margin-bottom:40%;
 }
 
 /*User Posted Review*/
@@ -742,6 +821,11 @@ form .post button:hover, .back button:hover{
     height: 53px;
     justify-content: center;
     align-items: center;
+}
+
+.view-edit-btn > a{
+    text-decoration: none;
+    color: inherit;
 }
 
 .view-edit-btn:not(:last-child){
@@ -918,7 +1002,7 @@ form .login button:hover{
 
 /* Viewing full post review */ 
 /* Promos posted by establishment owner */
-.post
+.posting
 {
     background-color: white;
     margin-top: 35px;
@@ -931,6 +1015,7 @@ form .login button:hover{
     flex-wrap: wrap;
     border: 4px #573824 solid;
 }
+
 
 .poster-info, .post-info, .comment-section, 
 .reply, .create-reply, .post-content{
@@ -1098,3 +1183,160 @@ form .login button:hover{
     flex-grow: 1; 
     min-height: 50px; /* Set a minimum height for the textarea */
 }
+
+/*Edit Profile*/
+.edit-profile-main{
+    flex-direction: unset;
+    margin-right: 30vh;
+    margin-left: 30vh;
+}
+
+.edit-profile-container{
+    background-color:#7F5539;
+    width:100%;
+    color:#EDE0D4;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 25px;
+    padding: 10px 20px;
+}
+
+.edit-profile-label{
+    font-size: 45px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.edit-username-container,
+.edit-password-container,
+.edit-name-container{
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.pfp-upload{
+    background-color: #EDE0D4;
+    border-radius: 5em;
+    padding: 4px;
+    color:#573824;
+    padding-left: 12px;
+    margin-top:10px;
+}
+
+/*Edit Review*/
+.edit-changes-btn{
+    margin-top:10px;
+}
+
+.edit-profile-container > .back button{
+    background-color: white;
+    color: black;
+}
+
+.edit-profile-container > .back button:hover{
+    background-color: rgba(255, 255, 255, 0.548);
+    color: white;
+}
+
+.edit-rev-container,
+.edit-promo-container
+{
+    display:flex;
+    flex-grow:1;
+    align-items:center;
+    justify-content:right;
+}
+
+.edit-rev-btn{
+    display: flex;
+    justify-content: right;
+}
+
+.edit-rev-btn a,
+.edit-promo-btn a{
+    background-color: #EDE0D4;
+    display:flex;
+    align-items:center;
+    height: 25px;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 0px 15px;
+    color: #573824;
+    cursor:default;
+}
+
+.edit-rev-btn a:hover,
+.edit-promo-btn a:hover{
+    margin-left: 15px;
+    margin-right: 15px;
+    color: #573824;
+    cursor:pointer;
+}
+
+.edit-review,
+.edit-promo 
+{
+    display: flex;
+    margin-left:5%;
+    margin-right:5%;
+    margin-top:35px;
+}
+
+.edit-posting{
+    display: flex; 
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width:50%;
+    margin-right:20px;
+    border:4px #573824 solid;
+ }
+
+ .edit-rev-details,
+ .edit-promo-details
+ {
+    background-color: #7F5539;
+    color: white; 
+    padding: 10px;
+    display: flex; 
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    border: 4px #573824 solid;
+    width:50%;
+ }
+
+ .edit-rev-details > .dropdown,
+ .edit-promo-details > .dropdown
+ {
+    margin-left: 0;
+ }
+
+ .edit-rev-details > h1,
+ .edit-promo-details > h1
+ {
+    margin-bottom: 5px;
+ }
+
+.edit-promo > .posting{
+    margin-top: 35px;
+    margin-left:5vh;
+    margin-right:115vh;
+    display: flex; 
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+ }
+
+ .edit-rev-details > textarea,
+ .edit-promo-details > textarea
+ {
+    overflow: hidden;
+    width: 98%;
+    height: 30vh;
+ }
