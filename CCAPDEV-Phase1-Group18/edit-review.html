@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Edit Review | Coffee Lens</title>
+        <link rel= "stylesheet" href = "style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+        <!-- DASHBOARD -->
+        <div class="top-bar"> 
+            <!-- FOR THE LOGO -->
+            <div class = "div-logo"> 
+                <h1> <i class="fa-solid fa-mug-hot logo"></i> <i>COFFEE LENS</i></h1>
+            </div> <!-- END OF LOGO-->
+        
+            <!-- FOR THE TOP NAV BAR -->
+            <div class = "nav"> 
+                <div class = "top-search-bar">
+                    <input class = "search" type = "text" placeholder="Search"> 
+                    <button class = "search-bttn"> Search </button>
+                </div>
+                <div class = "links">
+                    <a href ="index.html"> Home </a> 
+                    <a href ="about.html"> About </a> 
+                    <a href ="view-all.html"> Cafes </a> 
+                    <a href ="login.html"> Log Out </a> 
+                </div>
+                <a href = "view-profile.html"> <img src= "assets/user-icons/cinnamoroll.jpg"> </a>
+            </div> 
+        </div> <!-- END OF TAP NAV BAR -->
+    
+        <div class = "edit-review">
+            <!-- REVIEW POST -->
+            <div class="edit-posting">
+                <div class="poster-info">
+                    <div>
+                        <img class="poster" src="assets/user-icons/cinnamoroll.jpg">
+                    </div>
+                    <div class="poster-details">
+                        <p><a href = "view-profile-owner.html"><b>@cinnamoroll</b></a></p>
+                        <p>Posted: Feb. 12, 2024</p>
+                        <div class = "rating">Rating: 
+                            <span class="material-icons"> star_rate </span>
+                            <span class="material-icons"> star_rate </span>
+                            <span class="material-icons"> star_rate </span>
+                            <span class="material-icons"> star_rate </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-info">
+                    <div class="post-pic">
+                        <img src="assets/rev1.jpg">
+                    </div>
+                    <div class="post-content">
+                        <p>@cinnamoroll: Went here with my friends yesterday. I tried their iced spanish latte. 5/10 yung coffee pero okay lang 10/10 naman yung owner. Super pogi</p>
+                        <div class="like_btn_container">
+                            <div class="like-post-rating">
+                                <span class="like-btn material-icons"> thumb_up </span>
+                                <span class="like-count">0</span>
+                            </div>
+                            <div class="like-post-rating">
+                                <span class="like-btn material-icons"> thumb_down </span>
+                                <span class="like-count">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Review -->
+            <div class = "edit-rev-details">
+                <h1> Edit Review:</h1>
+                
+                <h3> Cafe: </h3>
+                <div class="dropdown" tabindex="0">  
+                    <div class="select">
+                        <span class="selected">-</span>
+                        <div class="caret"></div>
+                    </div>
+                    <ul class="menu">
+                        <li>Cafe1</li>
+                        <li>Cafe2</li>
+                        <li>Cafe3</li>
+                        <li class="active">-</li>
+                    </ul>
+                </div>
+                <h3> Caption: </h3> <textarea rows="4" cols="50">Put your edits here...</textarea>
+
+                <h3>Edit image:</h3>
+                <div class="pfp-upload">
+                    <input type="file" id="myFile" name="filename">
+                </div>
+
+                <br> 
+                <div class="edit-changes-btn">
+                    <button formaction="submit">Confirm Changes</button>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>

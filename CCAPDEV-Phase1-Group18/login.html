@@ -15,25 +15,24 @@
 
             
             <div class="login-box"> <!-- log in box-->
+                <form action="#"> 
 
-                <form action="#"> <!-- temporary/css in progress -->
-
-                    <div> <!-- username/password-->
-                        <label for="email">Username:</label>
-                        <input type="username" id="username" name="username"><br><br>
-                        <label for="password">Password: </label>
+                    <div class="inputs"> <!-- username/password-->
+                        <label for="username">Username: &nbsp; </label>
+                        <input type="text" id="username" name="username"><br><br>
+                        <label for="password">Password: &ensp; </label>
                         <input type="password" id="password" name="password" minlength="8"><br><br>
                     </div>
 
                     <div class="btns"> <!-- login button -->
                         <div class="login">
-                            <button type="submit"> Log In </button>    
+                            <button formaction="index.html"> Log In </button>                         
                         </div>                      
                     </div>
 
                     <div class="btns"> <!-- login button -->
                         <div class="create-account">
-                            <button type="submit"> Create Account </button>    
+                            <button formaction="create-account.html"> create account </button>   
                         </div>                      
                     </div>
 

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Edit Profile | Coffee Lens</title>
+        <link rel= "stylesheet" href = "style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    </head>
+    <body>
+        <!-- DASHBOARD -->
+        <div class="top-bar"> 
+            <!-- FOR THE LOGO -->
+            <div class = "div-logo"> 
+                <h1> <i class="fa-solid fa-mug-hot logo"></i> <i>COFFEE LENS</i></h1>
+            </div> <!-- END OF LOGO-->
+        
+            <!-- FOR THE TOP NAV BAR -->
+            <div class = "nav"> 
+                <div class = "top-search-bar">
+                    <input class = "search" type = "text" placeholder="Search"> 
+                    <button class = "search-bttn"> Search </button>
+                </div>
+                <div class = "links">
+                    <a href ="index.html"> Home </a> 
+                    <a href ="about.html"> About </a> 
+                    <a href ="view-all.html"> Cafes </a> 
+                    <a href ="login.html"> Log Out </a> 
+                </div>
+                <a href = "view-profile.html"> <img src= "assets/user-icons/cinnamoroll.jpg"> </a>
+            </div> 
+        </div> <!-- END OF TAP NAV BAR -->
+        <div class="edit-profile-main">
+            <div class="edit-profile-container">
+                <div class="edit-profile-label">
+                    Edit Profile
+                </div>
+                <form action="#">
+                    <div class="edit-name-container"><!--EDIT NAME-->
+                        <div class="current-rname">
+                            Current Name: 
+                        </div>
+                        <div class ="edit-name">
+                            Enter New Name: <input type="text" id="username" name="new-name">
+                        </div>
+                    </div>
+                    <div class="edit-username-container"><!--EDIT USERNAME-->
+                        <div class="current-username">
+                            Current Username: 
+                        </div>
+                        <div class ="edit-username">
+                            Enter New Username: <input type="text" id="username" name="new-username">
+                        </div>
+                    </div>
+                    <div class="edit-password-container"><!--EDIT PASSWORD-->
+                        <div class="current-password">
+                            Current Password:
+                        </div>
+                        <div class="edit-password">
+                            Enter New Password: <input type="text" id="password" name="new-password">
+                        </div>
+                    </div>
+
+                    <div class="pfp-upload">
+                        <input type="file" id="myFile" name="filename">
+                    </div>
+
+                    <div class="edit-changes-btn">
+                        <button formaction="submit">Confirm Changes</button>
+                    </div>
+                </form>
+                <div class="back">
+                    <button type="back" id="backButton">BACK</button>
+                    <script>
+                        document.getElementById('backButton').addEventListener('click', function(event) {
+                            event.preventDefault();
+                            window.location.href = 'index.html';
+                        });
+                    </script>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </body>
+</html>

@@ -20,11 +20,12 @@
                     <button class = "search-bttn"> Search </button>
                 </div>
                 <div class = "links">
-                    <a href ="index.html"> Home </a>  <!-- TODO: Change directory -->
-                    <a href ="index.html"> About </a> <!-- TODO: Change directory -->
-                    <a href ="index.html"> Cafes </a> <!-- TODO: Change directory -->
+                    <a href ="index.html"> Home </a>  
+                    <a href ="about.html"> About </a>
+                    <a href ="view-all.html"> Cafes </a>
+                    <a href ="login.html"> Log Out </a> 
                 </div>
-                <img src = "assets/default-profile-icon.png"> 
+                <a href = "view-profile.html"> <img src= "assets/user-icons/cinnamoroll.jpg"> </a>
             </div> 
         </div> <!-- END OF TAP NAV BAR -->
 
@@ -32,8 +33,8 @@
         <div class="postbox-main">
             <div class="infobox">
                 <div class="profile-detail"> <!-- Profile Icon-->
-                    <img src = "assets/default-profile-icon.png">
-                    username
+                    <img src = "assets/cafe-owner/jake.jpg">
+                    @jakesim
                 </div>
                 <div class="date-posted">
                     Date: 15/02/2024
@@ -63,11 +64,21 @@
                 <div class="textarea">
                     <textarea cols="30" placeholder="Enter Promo details..."></textarea>
                 </div>
+                <div class="file-upload">
+                    <input type="file" id="myFile" name="filename">
+                </div>
             </div>
         </div>
         <div class="btns">
             <div class="back">
-                <button type="back">BACK</button>
+                <button type="back" id="backButton">BACK</button>
+                <script>
+                    document.getElementById('backButton').addEventListener('click', function(event) {
+                        event.preventDefault();
+                        window.location.href = 'index.html';
+                    });
+                </script>
+                
             </div>
             <div class="post">
                 <button type="submit">POST</button>
