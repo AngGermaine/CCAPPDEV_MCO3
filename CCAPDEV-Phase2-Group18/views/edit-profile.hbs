@@ -1,0 +1,52 @@
+{{>top-nav}}
+
+<div class="edit-profile-main">
+    <div class="edit-profile-container">
+        <div class="edit-profile-label">
+            Edit Profile
+        </div>
+        <form action="#">
+            <div class="edit-name-container"><!--EDIT NAME-->
+                <div class="current-rname">
+                    Current Name: 
+                </div>
+                <div class ="edit-name">
+                    Enter New Name: <input type="text" id="username" name="new-name">
+                </div>
+            </div>
+            <div class="edit-username-container"><!--EDIT USERNAME-->
+                <div class="current-username">
+                    Current Username: 
+                </div>
+                <div class ="edit-username">
+                    Enter New Username: <input type="text" id="username" name="new-username">
+                </div>
+            </div>
+            <div class="edit-password-container"><!--EDIT PASSWORD-->
+                <div class="current-password">
+                    Current Password:
+                </div>
+                <div class="edit-password">
+                    Enter New Password: <input type="text" id="password" name="new-password">
+                </div>
+            </div>
+
+            <div class="pfp-upload">
+                <input type="file" id="myFile" name="filename">
+            </div>
+
+            <div class="edit-changes-btn">
+                <button formaction="submit">Confirm Changes</button>
+            </div>
+        </form>
+        <div class="back">
+            <button type="back" id="backButton">BACK</button>
+            <script>
+                document.getElementById('backButton').addEventListener('click', function(event) {
+                    event.preventDefault();
+                    window.location.href = 'index.html';
+                });
+            </script>
+        </div>
+    </div>
+</div>
