@@ -5,6 +5,12 @@
 const express = require('express');
 const server = express();
 
+// for DB connection: 
+const connectDB = require("./dbConnect.js");
+
+//calling the DB connector 
+connectDB();
+
 const bodyParser = require('body-parser')
 server.use(express.json()); 
 server.use(express.urlencoded({ extended: true }));
