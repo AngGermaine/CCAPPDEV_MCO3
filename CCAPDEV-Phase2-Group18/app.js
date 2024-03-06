@@ -31,9 +31,9 @@ server.get('/', function(req,resp){
     });
 });
 
-server.get('/view_cafe', function(req,resp){
-    resp.render('view-cafe',{
-        title: 'View Cafe | Coffee Lens'
+server.get('/login', function(req,resp){
+    resp.render('login',{
+        title: 'Log In | Coffee Lens'
     });
 }); 
 
@@ -46,6 +46,31 @@ server.get('/create_acc', function(req,resp){
 server.get('/edit_profile', function(req,resp){
     resp.render('edit-profile',{
         title: 'Edit Profile | Coffee Lens'
+    });
+}); 
+
+
+server.get('/about', function(req,resp){
+    resp.render('about',{
+        title: 'About | Coffee Lens'
+    });
+}); 
+
+server.get('/view_cafe', function(req,resp){
+    resp.render('view-cafe',{
+        title: 'View Cafe | Coffee Lens'
+    });
+}); 
+
+server.get('/view_all', function(req,resp){
+    resp.render('view-all',{
+        title: 'All Cafes | Coffee Lens'
+    });
+}); 
+
+server.get('/view_profile', function(req,resp){
+    resp.render('view-profile',{
+        title: 'Profile | Coffee Lens'
     });
 }); 
 
@@ -73,17 +98,6 @@ server.get('/post_review', function(req,resp){
     });
 }); 
 
-server.get('/about', function(req,resp){
-    resp.render('about',{
-        title: 'About | Coffee Lens'
-    });
-}); 
-
-server.get('/view_all', function(req,resp){
-    resp.render('view-all',{
-        title: 'All Cafes | Coffee Lens'
-    });
-}); 
 
 const port = process.env.PORT | 9090;
 server.listen(port, function(){
