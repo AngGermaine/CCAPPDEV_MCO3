@@ -175,3 +175,58 @@
 </div>
 
 </div>
+
+<h1> TEST COMMENTS FROM DB:</h1>
+<div> 
+    {{#each comments-data}} 
+        <div> {{authorid}} 
+            {{ dateposted }}
+            {{ content }}
+            {{ upvote }}
+            {{ downvote }}
+        </div>
+    {{/each}}
+</div>
+
+<!-- not working 
+<h1> TEST CAFES FROM DB:</h1> --> 
+<div> 
+    {{#each cafe-data}} 
+        <div> {{cafeid}} 
+            {{ cafename }}
+            {{ ownerid }}
+            {{ logo }}
+            {{ rating }}
+        </div>
+    {{/each}}
+</div>
+
+<h1> TEST USERS FROM DB:</h1>
+<div> 
+    {{#each user-data}} 
+        <div> {{userid}} 
+            {{ username }}
+            {{ password }}
+            {{ profpic }}
+            {{ joindate }}
+            {{ isowner }}
+        </div>
+    {{/each}}
+</div>
+
+<h1> TEST REVIEWS FROM DB:</h1>
+<div> 
+    {{#each post-data}} 
+        <div> {{authorid}} 
+            {{ createdate }}
+            {{ updatedate }}
+            {{ dateposted }}
+            {{ upvote }}
+            {{ downvote }}
+            {{ title }}
+            {{ description }}
+            {{ image }}
+        </div>
+    {{/each}}
+</div>
+
