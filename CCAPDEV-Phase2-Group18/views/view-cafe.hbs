@@ -1,5 +1,5 @@
 {{>top-nav}}
-<!-- END OF TAP NAV BAR -->
+<!-- TOP NAV BAR -->
 
 <div class = "cafe-profile-main">
 <!-- CAFE INFORMATION -->
@@ -23,7 +23,8 @@
     </div>
 <!-- REVIEWS OF THE CAFE -->
 <!--Review 1-->
-    <div class = "cafe-profile-review-container">
+{{#each review}}
+ <div class = "cafe-profile-review-container">
         <div class = "review-container" id="review1">
             <div class = "view-cafe-default-img">
                 <img src = "assets/default-profile-icon.png"> 
@@ -32,38 +33,17 @@
                 <div class="username" id="username1">{{username}}</div>
                 <div class="review" id="review1">review1</div>
                 <div class="like_btn_container">
-                    <div class="like-post-rating">
+                    <div class="like-post-rating" id="likebtn-1">
                         <span class="like-btn material-icons"> thumb_up </span>
-                        <span class="like-count">{{like-count}}</span>
+                        <span class="like-count" id="like-count-1">{{like-count}}</span>
                     </div>
                     <div class="like-post-rating">
-                        <span class="like-btn material-icons"> thumb_down </span>
-                        <span class="like-count">{{dislike-count}}</span>
+                        <span class="like-btn material-icons" id="dislikebtn-1"> thumb_down </span>
+                        <span class="like-count" id="dislike-count-1">{{dislike-count}}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<!--Review 2-->
-    <div class = "cafe-profile-review-container">
-        <div class = "review-container" id="review2">
-            <div class = "view-cafe-default-img">
-                <img src = "assets/default-profile-icon.png"> 
-            </div>
-            <div class ="username-review">
-                <div class="username" id="username2">username2</div>
-                <div class="review" id="review2">review2</div>
-                <div class="like_btn_container">
-                    <div class="like-post-rating">
-                        <span class="like-btn material-icons"> thumb_up </span>
-                        <span class="like-count">0</span>
-                    </div>
-                    <div class="like-post-rating">
-                        <span class="like-btn material-icons"> thumb_down </span>
-                        <span class="like-count">0</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+{{/each}}
 </div>
