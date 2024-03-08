@@ -35,8 +35,8 @@
         let clickedElement = event.target;
         while (clickedElement) {
             if (clickedElement.classList.contains('cafe-card')) {
-                // Redirect to view-prelude.html
-                window.location.href = 'view-prelude.html';
+                const cafename = clickedElement.getAttribute('data-cafename');
+                window.location.href = 'view-' + cafename + '.html';
                 return;
             }
             clickedElement = clickedElement.parentElement;
