@@ -11,11 +11,13 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
 const handlebars = require('express-handlebars');
-server.set('view engine', 'hbs');
+
 server.engine('hbs', handlebars.engine({
     extname: 'hbs',
-    defaultLayout: 'index'
+    defaultLayout: 'index',
 }));
+
+server.set('view engine', 'hbs');
 
 server.use(express.static('public'));
 
@@ -51,10 +53,7 @@ const postSchema = new mongoose.Schema({
     title: {type: String},
     description: {type: String},
     image: {type: String},
-    posttype: {
-        type: String, 
-        enum: ['promo','review']
-    }
+    isPromo: {type: Boolean}
  },{ versionKey: false });
 
  const userSchema = new mongoose.Schema({
@@ -89,18 +88,18 @@ function errorFn(err){
 // for testing retrieval of data
 server.get('/', function(req,resp){
     const searchQuery = {};
-    cafeModel.find(searchQuery).lean().then(function(cafes){
-        commentModel.find(searchQuery).lean().then(function(comments){
-            userModel.find(searchQuery).lean().then(function(users){
-                postModel.find(searchQuery).lean().then(function(posts){
-                    resp.render('main',{
-                        layout            : 'index',
-                        title             : 'Home | Coffee Lens',
-                        'cafe-data'       : cafes,
-                        'comments-data'   : comments,
-                        'user-data'       : users, 
-                        'post-data'       : posts
-                        });
+    cafeModel.find(searchQuery).lean().exec().then(function(cafes){
+        commentModel.find(searchQuery).lean().exec().then(function(comments){
+            userModel.find(searchQuery).lean().exec().then(function(users){
+                postModel.find(searchQuery).lean().exec().then(function(posts){
+                    resp.render('main', {
+                        layout: 'index',
+                        title: 'Home | Coffee Lens',
+                        'cafe-data': cafes,
+                        'comments-data': comments,
+                        'user-data': users, 
+                        'post-data': posts
+                    });
                 }).catch(errorFn);  // postmodel fn
             }).catch(errorFn);  // usermodel fn
         }).catch(errorFn);      //commentmodel fn

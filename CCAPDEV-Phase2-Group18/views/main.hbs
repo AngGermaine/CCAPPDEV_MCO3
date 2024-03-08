@@ -92,26 +92,14 @@
 <!-- PROMOS -->
     <div class = "promos"> 
         <h1> Promos posted by establishment owners </h1>
-        <div class = "promo-list"> 
-            <p> P30.00 off at Prelude Cafe </p>
-            <a href="view-promo1.html"><button class = "view-promo"> View Details </button></a>
-        </div>
-        <div class = "promo-list"> 
-            <p> Buy 1 Take 1 at Mood Coffee </p>
-            <a href="view-promo2.html"><button class = "view-promo"> View Details </button></a>
-        </div>
-        <div class = "promo-list"> 
-            <p> P50.00 off at Coffee St. </p>
-            <button class = "view-promo"> View Details </button>
-        </div>
-        <div class = "promo-list"> 
-            <p> P50.00 off at Coffee St. </p>
-            <button class = "view-promo"> View Details </button>
-        </div>
-        <div class = "promo-list"> 
-            <p> P50.00 off at Coffee St. </p>
-            <button class = "view-promo"> View Details </button>
-        </div>
+        {{#each post-data}}
+            {{#if isPromo}}
+                <div class = "promo-list"> 
+                    <p>{{description}}</p>
+                    <a href="view-promo1.html"><button class = "view-promo"> View Details </button></a>
+                </div>
+            {{/if}}
+        {{/each}}
     </div>
     <div class="lines"><hr></div>
 </div>
@@ -169,7 +157,7 @@
             {{ title }}
             {{ description }}
             <img src ="{{ image }}">
-            {{ posttype }}
+            {{ isPromo }}
         </div>
     {{/each}}
 </div>
