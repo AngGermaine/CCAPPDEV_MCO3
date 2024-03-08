@@ -33,13 +33,13 @@ const commentSchema = new mongoose.Schema({
 },{ versionKey: false });
 
 const cafeSchema = new mongoose.Schema({
-   cafeid: { type: Number }, 
-   cafename: {type: String},
-   ownerid: { type: Number }, 
-   logo: {type: String},
-   rating: {type: Number},
-   cafedesc: {type: String}
-},{ versionKey: false });
+    cafeid: { type: Number }, 
+    cafename: {type: String},
+    ownerid: { type: Number }, 
+    logo: {type: String},
+    rating: {type: Number},
+    cafedesc: {type: String}
+ },{ versionKey: false });
 
 const postSchema = new mongoose.Schema({
     authorid: {type: Number},
@@ -63,7 +63,7 @@ const postSchema = new mongoose.Schema({
     password: { type: Number }, 
     profpic: {type: String},
     joindate: {type: String},
-    isowner: {type: Boolean}
+    isOwner: {type: Boolean}
  },{ versionKey: false });
 
 // models
