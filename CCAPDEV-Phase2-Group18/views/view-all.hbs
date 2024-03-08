@@ -2,15 +2,15 @@
 <div class="viewall-box">
     <h1>List of Cafes:</h1>
     <div class="cafe-container">
-        {{#each cafe}}
+        {{#each cafes}}
         <div class="cafe-card">
-            <img src="{{cafe-img}}" id="{{cafe-name}}">
+            <img src="{{logo}}" alt="{{cafename}}">
             <div class="intro">
                 <div class="cafe-name">
-                    <h1>{{cafe-name}}</h1>
+                    <h1>{{cafename}}</h1>
                 </div>
                 <div class="cafe-description">
-                    <p>{{cafe-description}}</p>
+                    <p>{{cafedesc}}</p>
                 </div>
             </div>
         </div>

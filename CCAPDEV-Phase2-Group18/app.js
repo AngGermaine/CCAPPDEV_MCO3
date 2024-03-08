@@ -137,11 +137,16 @@ server.get('/view_cafe', function(req,resp){
     });
 }); 
 
-server.get('/view_all', function(req,resp){
-    resp.render('view-all',{
-        title: 'All Cafes | Coffee Lens'
-    });
-}); 
+server.get('/view_all', function(req, resp){
+    const searchQuery = {};
+    cafeModel.find(searchQuery).lean().then(function(cafes){
+        resp.render('view-all', {
+            title: 'All Cafes | Coffee Lens',
+            cafes: cafes 
+        });
+    }).catch(errorFn);
+});
+
 
 server.get('/view_profile', function(req,resp){
     resp.render('view-profile',{
