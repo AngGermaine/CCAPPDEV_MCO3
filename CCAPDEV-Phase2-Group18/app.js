@@ -37,7 +37,8 @@ const cafeSchema = new mongoose.Schema({
    cafename: {type: String},
    ownerid: { type: Number }, 
    logo: {type: String},
-   rating: {type: Number}
+   rating: {type: Number},
+   cafedesc: {type: String}
 },{ versionKey: false });
 
 const postSchema = new mongoose.Schema({
@@ -49,7 +50,11 @@ const postSchema = new mongoose.Schema({
     downvote: {type: Number},
     title: {type: String},
     description: {type: String},
-    image: {type: String}
+    image: {type: String},
+    posttype: {
+        type: String, 
+        enum: ['promo','review']
+    }
  },{ versionKey: false });
 
  const userSchema = new mongoose.Schema({

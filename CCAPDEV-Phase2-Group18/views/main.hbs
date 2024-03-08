@@ -195,8 +195,9 @@
         <div> {{cafeid}} 
             {{ cafename }}
             {{ ownerid }}
-            {{ logo }}
+            <img src ="{{ logo }}">
             {{ rating }}
+            {{ cafedesc }}
         </div>
     {{/each}}
 </div>
@@ -207,14 +208,14 @@
         <div> {{userid}} 
             {{ username }}
             {{ password }}
-            {{ profpic }}
+            <img src ="{{ profpic }}">
             {{ joindate }}
             {{ isowner }}
         </div>
     {{/each}}
 </div>
 
-<h1> TEST REVIEWS FROM DB:</h1>
+<h1> TEST POSTS FROM DB:</h1>
 <div> 
     {{#each post-data}} 
         <div> {{authorid}} 
@@ -225,7 +226,8 @@
             {{ downvote }}
             {{ title }}
             {{ description }}
-            {{ image }}
+            <img src ="{{ image }}">
+            {{ posttype }}
         </div>
     {{/each}}
 </div>
