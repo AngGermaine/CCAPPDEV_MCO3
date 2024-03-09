@@ -22,6 +22,13 @@ const hbs = handlebars.create({
                 stars += '<span class="material-icons">star_rate</span>';
             }
             return stars;
+        },
+        formatDate: function(date) {
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const month = months[date.getMonth()];
+            const day = date.getDate();
+            const year = date.getFullYear();
+            return `${month} ${day}, ${year}`;
         }
     }
 });
@@ -231,10 +238,12 @@ server.get('/post_promo', function(req,resp){
 
 server.get('/post_review', function(req, resp){
     const searchQuery = {};
+    const currentDate = new Date();
     cafeModel.find(searchQuery).lean().then(function(cafes){
         resp.render('post-review', {
             title: 'Post A Review | Coffee Lens',
-            'cafe-data': cafes
+            'cafe-data': cafes,
+            currentDate: currentDate
         });
     }).catch(errorFn);
 });
