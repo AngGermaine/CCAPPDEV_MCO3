@@ -198,11 +198,15 @@ server.get('/post_promo', function(req,resp){
     });
 }); 
 
-server.get('/post_review', function(req,resp){
-    resp.render('post-review',{
-        title: 'Post A Review | Coffee Lens'
-    });
-}); 
+server.get('/post_review', function(req, resp){
+    const searchQuery = {};
+    cafeModel.find(searchQuery).lean().then(function(cafes){
+        resp.render('post-review', {
+            title: 'Post A Review | Coffee Lens',
+            'cafe-data': cafes
+        });
+    }).catch(errorFn);
+});
 
 
 const port = process.env.PORT | 9090;

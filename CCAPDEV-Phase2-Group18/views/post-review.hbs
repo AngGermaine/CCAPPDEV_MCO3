@@ -19,9 +19,9 @@
                     <div class="caret"></div>
                 </div>
                 <ul class="menu">
-                    <li>Cafe1</li>
-                    <li>Cafe2</li>
-                    <li>Cafe3</li>
+                    {{#each cafe-data}}
+                        <li>{{cafename}}</li>
+                    {{/each}}
                     <li class="active">-</li>
                 </ul>
             </div>
