@@ -12,11 +12,22 @@ server.use(express.urlencoded({ extended: true }));
 
 const handlebars = require('express-handlebars');
 
-server.engine('hbs', handlebars.engine({
+const hbs = handlebars.create({
     extname: 'hbs',
     defaultLayout: 'index',
-}));
+    helpers: {
+        generateStarIcons: function(rating){
+            let stars = '';
+            for (let i = 0; i < rating; i++) {
+                stars += '<span class="material-icons">star_rate</span>';
+            }
+            return stars;
+        }
+    }
+});
 
+// Set Handlebars engine in Express
+server.engine('hbs', hbs.engine);
 server.set('view engine', 'hbs');
 
 server.use(express.static('public'));
