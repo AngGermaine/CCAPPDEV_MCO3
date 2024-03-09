@@ -15,11 +15,23 @@
             <p> {{ cafename }} </p>
         </div>
         <div class="view-cafe-box">
-            <a href = "view-prelude.html"> <button class = "view-top-cafe"> View Cafe </button> </a>
+            <button class="view-top-cafe" data-cafename="{{ cafename }}" data-cafeid="{{ cafeid }}">View Cafe</button>
         </div>
     </div>
 {{/each}}
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const viewCafeButtons = document.querySelectorAll('.view-top-cafe');
+            
+            viewCafeButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    const cafename = button.getAttribute('data-cafename');
+                    const cafeid = button.getAttribute('data-cafeid'); 
+                    window.location.href = '/view_cafe?id=' + encodeURIComponent(cafeid);
+                });
+            });
+        });
+    </script>
 </div>
 
 <div class = "mainpage-half"> 

@@ -147,13 +147,26 @@ server.get('/view_cafe', function(req,resp){
     const searchQuery = {};
     cafeModel.findOne(cafe_searchQuery).lean().then(function(cafe){
         if (cafe) {
-            userModel.find(searchQuery).lean().then(function(users){
-                postModel.find(searchQuery).lean().then(function(posts){
+            postModel.find(searchQuery).lean().then(function(posts){
+                // Collect all unique author ids from the posts
+                const authorIds = [...new Set(posts.map(post => post.authorid))];
+                
+                // Retrieve user information for each author id
+                userModel.find({ userid: { $in: authorIds } }).lean().then(function(users){
+                    // Map user information to each post based on authorid
+                    const postsWithUserInfo = posts.map(post => {
+                        const author = users.find(user => user.userid === post.authorid);
+                        return {
+                            ...post,
+                            profpic: author ? author.profpic : null,
+                            username: author ? author.username : null
+                        };
+                    });
+
                     resp.render('view-cafe', {
                         title: 'View Cafe | Coffee Lens',
                         'cafe-data': cafe,
-                        'user-data': users, 
-                        'post-data': posts
+                        'post-data': postsWithUserInfo
                     });
                 }).catch(errorFn);
             }).catch(errorFn);
