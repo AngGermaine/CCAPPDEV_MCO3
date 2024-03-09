@@ -131,8 +131,8 @@ server.get('/about', function(req,resp){
 }); 
 
 server.get('/view_cafe', function(req,resp){
-    const cafeId = req.query.id;
-    const cafe_searchQuery = { cafeid: cafeId }; 
+    const cafeid = req.query.id;
+    const cafe_searchQuery = { cafeid: cafeid }; 
     const searchQuery = {};
     cafeModel.findOne(cafe_searchQuery).lean().then(function(cafe){
         if (cafe) {
