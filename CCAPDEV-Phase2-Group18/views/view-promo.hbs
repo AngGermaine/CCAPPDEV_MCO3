@@ -42,28 +42,28 @@
             </div> 
         </div>
         
-        <!-- <div class="comment-section">
-            
-            <div class = "reply"> 
+        <div class="comment-section">
+            {{#each comments-data}}
+            <div class="reply">
                 <div>
-                    <img src = "assets/cafe-owner/jake.jpg}}">
+                    <img src="{{authorData.profpic}}">
                 </div>
-                <div class="comment-info-box"> 
-                    <p> <a href = "view-profile-owner.html"> <b> @jakesim </b> </a> • Establishment Owner </p> 
-                    <p id="comment"> Thank you for trying out our cafe! Please come again :) </p>
+                <div class="comment-info-box">
+                    <p> <a href="view-profile-owner.html"> <b> {{authorData.username}} </b> </a> {{#if isOwner}}• Establishment Owner {{else}} {{/if}} </p>
+                    <p id="comment"> {{content}} </p>
                 </div>
                 <div class="like_btn_container">
                     <div class="like-post-rating">
                         <span class="like-btn material-icons"> thumb_up </span>
-                        <span class="like-count">0</span>
+                        <span class="like-count">{{upvote}}</span>
                     </div>
                     <div class="like-post-rating">
                         <span class="like-btn material-icons"> thumb_down </span>
-                        <span class="like-count">0</span>
+                        <span class="like-count">{{downvote}}</span>
                     </div>
                 </div>
             </div>
-        
+            {{/each}}
         </div>
         
 
@@ -73,6 +73,5 @@
             <button> Post </button>
         </div>
 
-        -->
     </div>
 </html>
