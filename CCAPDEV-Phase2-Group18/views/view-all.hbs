@@ -3,7 +3,7 @@
     <h1>List of Cafes:</h1>
     <div class="cafe-container">
         {{#each cafe-data}}
-        <div class="cafe-card" data-cafename="{{cafename}}">
+        <div class="cafe-card" data-cafename="{{cafename}}" data-cafeid="{{cafeid}}">
             <img src="{{logo}}">
             <div class="intro">
                 <div class="cafe-name">
@@ -35,7 +35,8 @@
         cafeCards.forEach(function (cafeCard) {
             cafeCard.addEventListener('click', function () {
                 const cafename = cafeCard.getAttribute('data-cafename');
-                window.location.href = '/view-cafe?name=' + encodeURIComponent(cafename);
+                const cafeid = cafeCard.getAttribute('data-cafeid'); 
+                window.location.href = '/view_cafe?name=' + encodeURIComponent(cafename) + '&id=' + encodeURIComponent(cafeid);
             });
         });
     });

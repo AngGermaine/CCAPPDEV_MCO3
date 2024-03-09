@@ -131,19 +131,24 @@ server.get('/about', function(req,resp){
 }); 
 
 server.get('/view_cafe', function(req,resp){
+    const cafeId = req.query.id;
+    const cafe_searchQuery = { cafeid: cafeId }; 
     const searchQuery = {};
-    cafeModel.find(searchQuery).lean().then(function(cafes){
-        userModel.find(searchQuery).lean().then(function(users){
-            postModel.find(searchQuery).lean().then(function(posts){
-                resp.render('view-cafe', {
-                    title: 'View Cafe | Coffee Lens' , 
-                    'cafe-data': cafes,
-                    'user-data': users, 
-                    'post-data': posts
-                                
-                });
-            }).catch(errorFn);  
-        }).catch(errorFn);      
+    cafeModel.findOne(cafe_searchQuery).lean().then(function(cafe){
+        if (cafe) {
+            userModel.find(searchQuery).lean().then(function(users){
+                postModel.find(searchQuery).lean().then(function(posts){
+                    resp.render('view-cafe', {
+                        title: 'View Cafe | Coffee Lens',
+                        'cafe-data': cafe,
+                        'user-data': users, 
+                        'post-data': posts
+                    });
+                }).catch(errorFn);
+            }).catch(errorFn);
+        } else {
+            resp.status(404).send('Cafe not found');
+        }
     }).catch(errorFn);
 }); 
 
