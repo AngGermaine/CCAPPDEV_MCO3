@@ -43,30 +43,31 @@
     </div>
 
 <!-- PROMOS -->
-    <div class = "promos"> 
-        <h1> Promos posted by establishment owners </h1>
-        {{#each post-data}}
-            {{#if isPromo}}
-                <div class = "promo-list"> 
-                    <p>{{description}}</p>
-                <button class="view-promo" data-authorid="{{ authorid }}">View Details</button>
-                </div>
-            {{/if}}
-        {{/each}}
+    <div class="promos"> 
+    <h1> Promos posted by establishment owners </h1>
+    {{#each post-data}}
+        {{#if isPromo}}
+            <div class="promo-list"> 
+                <p>{{description}}</p>
+                <button class="view-promo" data-postid="{{ _id }}">View Details</button>
+            </div>
+        {{/if}}
+    {{/each}}
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const viewPromoButtons = document.querySelectorAll('.view-promo');
-        
-        viewPromoButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                const authorid = button.getAttribute('data-authorid'); 
-                window.location.href = '/view_promo?authorid=' + encodeURIComponent(authorid);
+        document.addEventListener('DOMContentLoaded', function () {
+            const viewPromoButtons = document.querySelectorAll('.view-promo');
+            
+            viewPromoButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    const postId = button.getAttribute('data-postid'); 
+                    window.location.href = '/view_promo?postId=' + encodeURIComponent(postId);
+                });
             });
         });
-    });
-</script>
+    </script>
+
     <div class="lines"><hr></div>
 </div>
 

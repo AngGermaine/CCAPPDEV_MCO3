@@ -64,7 +64,8 @@ const postSchema = new mongoose.Schema({
     title: {type: String},
     description: {type: String},
     image: {type: String},
-    isPromo: {type: Boolean}
+    isPromo: {type: Boolean},
+    storeid: {type: Number}
  },{ versionKey: false });
 
  const userSchema = new mongoose.Schema({
@@ -183,6 +184,24 @@ server.get('/view_all', function(req, resp){
             title: 'All Cafes | Coffee Lens',
             'cafe-data': cafes 
         });
+    }).catch(errorFn);
+});
+
+server.get('/view_promo', function(req, resp){
+    const postId = req.query.postId;
+
+    postModel.findById(postId).lean().then(function(post) {
+        if (post) {
+            userModel.findOne({ userid: post.authorid }).lean().then(function(poster) {
+                resp.render('view-promo', {
+                    title: 'View Promo | Coffee Lens',
+                    'promo-data': post,
+                    'user-data' : poster
+                });
+            }).catch(errorFn);
+        } else {
+            resp.status(404).send('Promo not found');
+        }
     }).catch(errorFn);
 });
 

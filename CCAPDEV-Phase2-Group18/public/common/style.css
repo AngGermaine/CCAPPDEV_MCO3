@@ -1007,7 +1007,8 @@ form .login button:hover{
 .posting
 {
     background-color: white;
-    margin-top: 35px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     margin-left: 60vh;
     margin-right: 60vh;
     display: flex;
@@ -1070,6 +1071,7 @@ form .login button:hover{
 .post-content{
     align-self: flex-start;
     padding-left: 10px;
+    padding-right: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
     background-color: #7F5539;
@@ -1117,11 +1119,13 @@ form .login button:hover{
     border-bottom: 1px #573824 solid;
     padding: 10px;
     width: 100%; /* Ensure the width takes the full space */
-    box-sizing: border-box; /* Ensure padding is included in width calculation */    
+    box-sizing: border-box; /* Ensure padding is included in width calculation */  
+    position: relative;  
 }
 
 .reply > .like_btn_container{
-    width: 10%;
+    position: absolute; /* Position the like-btn-container */
+    right: 10px;
 }
 
 .reply #comment{
