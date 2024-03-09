@@ -111,6 +111,7 @@ server.get('/', function(req,resp){
         cafeModel.find(searchQuery).lean().then(function(cafes){
             userModel.find(searchQuery).lean().then(function(users){
                 postModel.find(searchQuery).lean().then(function(posts){
+                    cafes.sort((a, b) => b.rating - a.rating);
                     resp.render('main', {
                         layout: 'index',
                         title: 'Home | Coffee Lens',
@@ -186,6 +187,7 @@ server.get('/view_cafe', function(req,resp){
 server.get('/view_all', function(req, resp){
     const searchQuery = {};
     cafeModel.find(searchQuery).lean().then(function(cafes){
+        cafes.sort((a, b) => a.cafename.localeCompare(b.cafename));
         resp.render('view-all', {
             title: 'All Cafes | Coffee Lens',
             'cafe-data': cafes 
