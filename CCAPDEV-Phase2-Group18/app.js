@@ -131,9 +131,20 @@ server.get('/about', function(req,resp){
 }); 
 
 server.get('/view_cafe', function(req,resp){
-    resp.render('view-cafe',{
-        title: 'View Cafe | Coffee Lens'
-    });
+    const searchQuery = {};
+    cafeModel.find(searchQuery).lean().then(function(cafes){
+        userModel.find(searchQuery).lean().then(function(users){
+            postModel.find(searchQuery).lean().then(function(posts){
+                resp.render('view-cafe', {
+                    title: 'View Cafe | Coffee Lens' , 
+                    'cafe-data': cafes,
+                    'user-data': users, 
+                    'post-data': posts
+                                
+                });
+            }).catch(errorFn);  
+        }).catch(errorFn);      
+    }).catch(errorFn);
 }); 
 
 server.get('/view_all', function(req, resp){

@@ -3,8 +3,8 @@
     <h1>List of Cafes:</h1>
     <div class="cafe-container">
         {{#each cafe-data}}
-        <div class="cafe-card">
-            <img src="{{logo}}" alt="{{cafename}}">
+        <div class="cafe-card" data-cafename="{{cafename}}">
+            <img src="{{logo}}">
             <div class="intro">
                 <div class="cafe-name">
                     <h1>{{cafename}}</h1>
@@ -29,17 +29,14 @@
 
 </div>
 <script>
-    const cafeContainer = document.querySelector('.cafe-container');
-
-    cafeContainer.addEventListener('click', function(event) {
-        let clickedElement = event.target;
-        while (clickedElement) {
-            if (clickedElement.classList.contains('cafe-card')) {
-                const cafename = clickedElement.getAttribute('data-cafename');
-                window.location.href = 'view-' + cafename + '.html';
-                return;
-            }
-            clickedElement = clickedElement.parentElement;
-        }
+    document.addEventListener('DOMContentLoaded', function () {
+        const cafeCards = document.querySelectorAll('.cafe-card');
+        
+        cafeCards.forEach(function (cafeCard) {
+            cafeCard.addEventListener('click', function () {
+                const cafename = cafeCard.getAttribute('data-cafename');
+                window.location.href = '/view-cafe?name=' + encodeURIComponent(cafename);
+            });
+        });
     });
 </script>
