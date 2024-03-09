@@ -524,6 +524,11 @@ body
     padding-left: 10px;
     padding-right: 10px;
     cursor: pointer;
+    font-size: 20px;
+}
+
+.dropdown > .selected{
+    
 }
 
 .caret{

@@ -20,9 +20,8 @@
                 </div>
                 <ul class="menu">
                     {{#each cafe-data}}
-                        <li>{{cafename}}</li>
+                            <li class="cafe-item">{{cafename}}</li>
                     {{/each}}
-                    <li class="active">-</li>
                 </ul>
             </div>
         </div> 
@@ -69,3 +68,25 @@
     </div>
 </div>
 </form>
+
+<script>
+    // Get all cafe items
+    const cafeItems = document.querySelectorAll('.select-cafe .menu .cafe-item');
+
+    // Add click event listener to each cafe item
+    cafeItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Remove 'active' class from all cafe items
+            cafeItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add 'active' class to the clicked cafe item
+            this.classList.add('active');
+
+            // Update the selected cafe text
+            const selectedCafe = this.textContent;
+            document.querySelector('.select-cafe .selected').textContent = selectedCafe;
+        });
+    });
+</script>
