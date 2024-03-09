@@ -145,17 +145,16 @@ server.get('/about', function(req,resp){
 server.get('/view_cafe', function(req,resp){
     const cafeid = req.query.id;
     const cafe_searchQuery = { cafeid: cafeid }; 
-    const searchQuery = {};
+
     cafeModel.findOne(cafe_searchQuery).lean().then(function(cafe){
         if (cafe) {
-            postModel.find(searchQuery).lean().then(function(posts){
-                // Collect all unique author ids from the posts
-                const authorIds = [...new Set(posts.map(post => post.authorid))];
+            postModel.find({ isPromo: false }).lean().then(function(posts){
+                const filteredPosts = posts.filter(post => post.storeid === cafeid);
+
+                const authorIds = [...new Set(filteredPosts.map(post => post.authorid))];
                 
-                // Retrieve user information for each author id
                 userModel.find({ userid: { $in: authorIds } }).lean().then(function(users){
-                    // Map user information to each post based on authorid
-                    const postsWithUserInfo = posts.map(post => {
+                    const postsWithUserInfo = filteredPosts.map(post => {
                         const author = users.find(user => user.userid === post.authorid);
                         return {
                             ...post,
@@ -175,7 +174,7 @@ server.get('/view_cafe', function(req,resp){
             resp.status(404).send('Cafe not found');
         }
     }).catch(errorFn);
-}); 
+});
 
 server.get('/view_all', function(req, resp){
     const searchQuery = {};
