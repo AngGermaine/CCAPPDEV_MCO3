@@ -35,9 +35,9 @@ const commentSchema = new mongoose.Schema({
 },{ versionKey: false });
 
 const cafeSchema = new mongoose.Schema({
-    cafeid: { type: Number }, 
+    cafeid: {type: Number}, 
     cafename: {type: String},
-    ownerid: { type: Number }, 
+    ownerid: {type: Number}, 
     logo: {type: String},
     rating: {type: Number},
     cafedesc: {type: String}
@@ -59,7 +59,7 @@ const postSchema = new mongoose.Schema({
  const userSchema = new mongoose.Schema({
     userid: { type: Number }, 
     username: {type: String},
-    password: { type: Number }, 
+    password: { type: Number}, 
     profpic: {type: String},
     joindate: {type: String},
     isOwner: {type: Boolean}
@@ -67,7 +67,7 @@ const postSchema = new mongoose.Schema({
 
 // models
 const commentModel = mongoose.model('comment',commentSchema);
-const cafeModel = mongoose.model('cafe',cafeSchema);
+const cafeModel = mongoose.model('store',cafeSchema);
 const postModel = mongoose.model('post',postSchema);
 const userModel = mongoose.model('user',userSchema);
 
@@ -88,22 +88,22 @@ function errorFn(err){
 // for testing retrieval of data
 server.get('/', function(req,resp){
     const searchQuery = {};
-    cafeModel.find(searchQuery).lean().exec().then(function(cafes){
-        commentModel.find(searchQuery).lean().exec().then(function(comments){
-            userModel.find(searchQuery).lean().exec().then(function(users){
-                postModel.find(searchQuery).lean().exec().then(function(posts){
+    commentModel.find(searchQuery).lean().then(function(comments){
+        cafeModel.find(searchQuery).lean().then(function(cafes){
+            userModel.find(searchQuery).lean().then(function(users){
+                postModel.find(searchQuery).lean().then(function(posts){
                     resp.render('main', {
                         layout: 'index',
                         title: 'Home | Coffee Lens',
-                        'cafe-data': cafes,
                         'comments-data': comments,
+                        'cafe-data': cafes,
                         'user-data': users, 
                         'post-data': posts
                     });
                 }).catch(errorFn);  // postmodel fn
             }).catch(errorFn);  // usermodel fn
-        }).catch(errorFn);      //commentmodel fn
-    }).catch(errorFn); // cafemodel fn
+        }).catch(errorFn);      //cafemodel fn
+    }).catch(errorFn); // commentmodel fn
 });
 
 server.get('/login', function(req,resp){
@@ -141,7 +141,7 @@ server.get('/view_all', function(req, resp){
     cafeModel.find(searchQuery).lean().then(function(cafes){
         resp.render('view-all', {
             title: 'All Cafes | Coffee Lens',
-            cafes: cafes 
+            'cafe-data': cafes 
         });
     }).catch(errorFn);
 });

@@ -6,78 +6,19 @@
 <div class = "top-cafes"> 
     <h1> TOP RATED CAFES: </h1>
 
+{{#each cafe-data }}
     <div class = "top-cafe"> 
         <div> 
-            <img src="">
+            <img src="{{ logo }}">
         </div>
         <div> 
-            <p> Prelude Cafe </p>
+            <p> {{ cafename }} </p>
         </div>
         <div class="view-cafe-box">
             <a href = "view-prelude.html"> <button class = "view-top-cafe"> View Cafe </button> </a>
         </div>
     </div>
-
-    <div class = "top-cafe"> 
-        <div> 
-            <img src="">
-        </div>
-        <div> 
-            <p> Tomo Coffee  </p> 
-        </div>
-        <div class="view-cafe-box">
-            <button class = "view-top-cafe"> View Cafe </button>
-        </div>
-    </div>
-
-<div class = "top-cafe"> 
-    <div> 
-        <img src="">
-    </div>
-    <div> 
-        <p> Mood Coffee </p>
-    </div>
-    <div class="view-cafe-box">
-        <button class = "view-top-cafe"> View Cafe </button>
-    </div>
-</div>
-
-<div class = "top-cafe"> 
-    <div> 
-        <img src="">
-    </div>
-    <div> 
-        <p> Obscure Cafe </p>
-    </div>
-    <div class="view-cafe-box">
-        <button class = "view-top-cafe"> View Cafe </button>
-    </div>
-</div>
-
-<div class = "top-cafe"> 
-    <div> 
-        <img src="">
-    </div>
-    <div> 
-        <p> Tim Hortons </p>
-    </div>
-    <div class="view-cafe-box">
-        <button class = "view-top-cafe"> View Cafe </button>
-    </div>
-</div>
-
-<div class = "top-cafe"> 
-    <div> 
-        <img src="">
-    </div>
-    <div> 
-        <p> Coffee Bean </p>
-    </div>
-    <div class="view-cafe-box">
-        <button class = "view-top-cafe"> View Cafe </button>
-    </div>
-</div>
-
+{{/each}}
 
 </div>
 
@@ -117,7 +58,6 @@
         </div>
     {{/each}}
 </div>
-
 
 <h1> TEST CAFES FROM DB:</h1>
 <div> 
