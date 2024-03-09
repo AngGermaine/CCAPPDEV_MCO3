@@ -170,7 +170,14 @@ server.get('/view_cafe', function(req,resp){
                             username: author ? author.username : null
                         };
                     });
+                    // Calculate combined score (upvotes - downvotes) for each post
+                    postsWithUserInfo.forEach(post => {
+                        post.combinedScore = post.upvote - post.downvote;
+                    });
 
+                    // Sort posts based on combined score in descending order
+                    postsWithUserInfo.sort((a, b) => b.combinedScore - a.combinedScore);
+                    
                     resp.render('view-cafe', {
                         title: 'View Cafe | Coffee Lens',
                         'cafe-data': cafe,
