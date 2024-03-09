@@ -19,19 +19,19 @@
         </div>
     </div>
 {{/each}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const viewCafeButtons = document.querySelectorAll('.view-top-cafe');
-            
-            viewCafeButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    const cafename = button.getAttribute('data-cafename');
-                    const cafeid = button.getAttribute('data-cafeid'); 
-                    window.location.href = '/view_cafe?id=' + encodeURIComponent(cafeid);
-                });
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const viewCafeButtons = document.querySelectorAll('.view-top-cafe');
+        
+        viewCafeButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const cafename = button.getAttribute('data-cafename');
+                const cafeid = button.getAttribute('data-cafeid'); 
+                window.location.href = '/view_cafe?id=' + encodeURIComponent(cafeid);
             });
         });
-    </script>
+    });
+</script>
 </div>
 
 <div class = "mainpage-half"> 
@@ -49,11 +49,24 @@
             {{#if isPromo}}
                 <div class = "promo-list"> 
                     <p>{{description}}</p>
-                    <a href="view-promo1.html"><button class = "view-promo"> View Details </button></a>
+                <button class="view-promo" data-authorid="{{ authorid }}">View Details</button>
                 </div>
             {{/if}}
         {{/each}}
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const viewPromoButtons = document.querySelectorAll('.view-promo');
+        
+        viewPromoButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const authorid = button.getAttribute('data-authorid'); 
+                window.location.href = '/view_promo?authorid=' + encodeURIComponent(authorid);
+            });
+        });
+    });
+</script>
     <div class="lines"><hr></div>
 </div>
 

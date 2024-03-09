@@ -264,8 +264,7 @@ body
     color: inherit;
 }
 
-.promos
-{
+.promos {
     margin-left: 5px;
     padding-left: 3px;
     background-color: #7F5539;
@@ -276,8 +275,7 @@ body
     border-radius: 0.5em;
 }
 
-.promo-list
-{
+.promo-list {
     background-color: white;
     border-radius: 5px;
     height: 65px;
@@ -288,14 +286,17 @@ body
     justify-content: space-between;
 }
 
-.promo-list p{
+.promo-list p {
     margin: 0;
     font-size: 20px;
     font-weight: bold;
+    width: 80%; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
 }
 
-.view-promo
-{
+.view-promo {
     background-color: #7F5539;
     color: white;
     cursor: pointer;
@@ -304,12 +305,7 @@ body
     border-radius: 5px;
 }
 
-.view-promo button{
-    margin-left: auto;
-}
-
-.view-promo:hover
-{
+.view-promo:hover {
     background-color: #EDE0D4;
     color: #7F5539;
     cursor: pointer;
