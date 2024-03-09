@@ -5,18 +5,14 @@
 <!-- CAFE INFORMATION -->
     <div class = "cafe-info-container">
         <div class = "cafe-logo"> <!-- CAFE LOGO -->
-            <img src = "{{logo}}">
+            <img src = "{{cafe-data.logo}}">
         </div>
         <div class = "cafe-info">
-            <div class = "cafe-name">{{cafename}}</div>
+            <div class = "cafe-name">{{cafe-data.cafename}}</div>
                 <div class ="cafe-description-container">
-                    <div class ="description">{{cafedesc}}</div>
-                    <div class = "rating">Rating: 
-                        <span class="material-icons"> star_rate </span>
-                        <span class="material-icons"> star_rate </span>
-                        <span class="material-icons"> star_rate </span>
-                        <span class="material-icons"> star_rate </span>
-                        <span class="material-icons"> star_rate </span>
+                    <div class ="description">{{cafe-data.cafedesc}}</div>
+                        <div class="rating">Rating: 
+                        {{cafe-data.rating}}
                     </div>
                 </div>
         </div>
@@ -24,29 +20,29 @@
 <!-- REVIEWS OF THE CAFE -->
 <!--Review 1-->
 {{#each post-data}}
-{{#if isPromo}}
-{{else}}
- <div class = "cafe-profile-review-container">
-        <div class = "review-container" id="review1">
-            <div class = "view-cafe-default-img">
-                <img src = "assets/default-profile-icon.png"> 
-            </div>
-            <div class ="username-review">
-                <div class="username" id="username1">{{username}}</div>
-                <div class="review" id="review1">review1</div>
-                <div class="like_btn_container">
-                    <div class="like-post-rating" id="likebtn-1">
-                        <span class="like-btn material-icons"> thumb_up </span>
-                        <span class="like-count" id="like-count-1">{{upvote}}</span>
-                    </div>
-                    <div class="like-post-rating">
-                        <span class="like-btn material-icons" id="dislikebtn-1"> thumb_down </span>
-                        <span class="like-count" id="dislike-count-1">{{downvote}}</span>
+    {{#if isPromo}}
+    {{else}}
+    <div class = "cafe-profile-review-container">
+            <div class = "review-container" id="review1">
+                <div class = "view-cafe-default-img">
+                    <img src = "{{profpic}}"> 
+                </div>
+                <div class ="username-review">
+                    <div class="username" id="username1">{{username}}</div>
+                    <div class="review" id="review1">{{description}}</div>
+                    <div class="like_btn_container">
+                        <div class="like-post-rating" id="likebtn-1">
+                            <span class="like-btn material-icons"> thumb_up </span>
+                            <span class="like-count" id="like-count-1">{{upvote}}</span>
+                        </div>
+                        <div class="like-post-rating">
+                            <span class="like-btn material-icons" id="dislikebtn-1"> thumb_down </span>
+                            <span class="like-count" id="dislike-count-1">{{downvote}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-{{/if}}
+    {{/if}}
 {{/each}}
 </div>
