@@ -225,7 +225,7 @@ server.get('/view_all', function(req, resp){
     }).catch(errorFn);
 });
 
-server.get('/view_promo', function(req, resp){
+server.get('/view_post', function(req, resp){
     const postId = req.query.postId;
 
     postModel.findById(postId).lean().then(function(post) {
@@ -233,7 +233,7 @@ server.get('/view_promo', function(req, resp){
             userModel.findOne({ userid: post.authorid }).lean().then(function(poster) {
                 resp.render('view-promo', {
                     title: 'View Promo | Coffee Lens',
-                    'promo-data': post,
+                    'post-data': post,
                     'user-data' : poster
                 });
             }).catch(errorFn);
