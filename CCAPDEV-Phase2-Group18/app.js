@@ -95,6 +95,10 @@ function errorFn(err){
     console.error(err);
 }
 
+
+// current logged in user
+var loggedInUser = "";
+
 /* ACTUAL CODE FOR MAIN PAGE:
     server.get('/', function(req,resp){
         resp.render('main',{
@@ -130,6 +134,27 @@ server.get('/login', function(req,resp){
     resp.render('login',{
         title: 'Log In | Coffee Lens'
     });
+}); 
+
+server.post('/check_login', function(req,resp){
+
+    const searchQuery = { username: req.body.username, password: req.body.password };
+    
+    userModel.findOne(searchQuery).then(function(users){
+        console.log('Finding User');
+        if(users != undefinded && users._id != null) {
+            loggedInUser = users.username;
+            resp.render('check-login',{
+                title: 'Log In | Coffee Lens',
+                success: true,
+            });
+        }else{
+            resp.render('check-login',{
+                title: 'Log In | Coffee Lens',
+                success: false,
+            });
+        }
+    })
 }); 
 
 server.get('/create_acc', function(req,resp){
