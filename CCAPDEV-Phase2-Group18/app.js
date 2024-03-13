@@ -283,13 +283,13 @@ server.get('/view_profile', function(req,resp){
     
 }); 
 
-server.get('/edit_review', function(req,resp){
+server.get('/edit_post', function(req,resp){
     const postId = req.query.postId;
     postModel.findById(postId).lean().then(function(post){
         if(post){
             userModel.findOne({ userid: post.authorid }).lean().then(function(poster){
                 cafeModel.find({}).lean().then(function(cafes){
-                    resp.render('edit-review',{
+                    resp.render('edit-post',{
                         title: 'Edit Post | Coffee Lens',
                         'post-data': post,
                         'user-data': poster,
@@ -304,24 +304,6 @@ server.get('/edit_review', function(req,resp){
     
 }); 
 
-server.get('/edit_promo', function(req,resp){
-    const postId = req.query.postId;
-    postModel.findById(postId).lean().then(function(post){
-        if(post){
-            userModel.findOne({ userid: post.authorid }).lean().then(function(poster){
-                cafeModel.find({}).lean().then(function(cafes){
-                    resp.render('edit-promo',{
-                        title: 'Edit Promo | Coffee Lens',
-                        'post-data': post,
-                        'user-data': poster
-                    });
-                }).catch(errorFn);
-            }).catch(errorFn);
-        } else{
-            resp.status(404).send('Post not found');
-        }
-    }).catch(errorFn);
-}); 
 
 server.get('/post_promo', function(req, resp){
     const searchQuery = {};
