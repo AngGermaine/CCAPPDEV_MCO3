@@ -10,7 +10,7 @@
             </div>
             <div class = "poster-details"> 
                 <p> <a href = "view-profile-owner.html"> <b> {{user-data.username}} </b> </a> </p> 
-                <p> Posted: {{post-data.dateposted}} </p>
+                <p> Posted: {{promo-data.dateposted}} </p>
             </div>
             <div class ="edit-promo-container">
                 <div class="edit-promo-btn">
@@ -25,18 +25,18 @@
                 <img src = "{{promo-data.image}}">
             </div>
             <div class = "post-content"> 
-                <p> <b>{{post-data.title}}</b>
-                    <br> {{user-data.username}}: {{post-data.description}}
+                <p> <b>{{promo-data.title}}</b>
+                    <br> {{user-data.username}}: {{promo-data.description}}
                 </p>  
 
                 <div class="like_btn_container">
                     <div class="like-post-rating">
                         <span class="like-btn material-icons"> thumb_up </span>
-                        <span class="like-count">{{post-data.upvote}}</span>
+                        <span class="like-count">{{promo-data.upvote}}</span>
                     </div>
                     <div class="like-post-rating">
                         <span class="like-btn material-icons"> thumb_down </span>
-                        <span class="like-count">{{post-data.downvote}}</span>
+                        <span class="like-count">{{promo-data.downvote}}</span>
                     </div>
                 </div>
             </div> 
@@ -76,16 +76,18 @@ document.querySelectorAll(".posting").forEach(post => {
         });
     });
 });
-        </script>
+</script>
 
         <div class="comment-section">
             {{#each comments-data}}
+            
+            
             <div class="reply">
                 <div>
-                    <img src="{{authorData.profpic}}">
+                    <img src="{{profpic}}">
                 </div>
                 <div class="comment-info-box">
-                    <p> <a href="view-profile-owner.html"> <b> {{authorData.username}} </b> </a> {{#if isOwner}}• Establishment Owner {{else}} {{/if}} </p>
+                    <p> <a href="view-profile-owner.html"> <b> {{username}} </b> </a> {{#if isOwner}}• Establishment Owner {{else}} {{/if}} </p>
                     <p id="comment"> {{content}} </p>
                 </div>
                 <div class="like_btn_container">
@@ -99,7 +101,45 @@ document.querySelectorAll(".posting").forEach(post => {
                     </div>
                 </div>
             </div>
+            
+            
+<script>
+    document.querySelectorAll(".reply").forEach(comment => {
+        const commentId = comment.dataset.commentId;
+        const ratings = comment.querySelectorAll(".like-post-rating");
+        const likeRating = ratings[0];
+
+        ratings.forEach(rating => {
+            const likeButton = rating.querySelector(".like-btn");
+            const count = rating.querySelector(".like-count");
+
+            likeButton.addEventListener("click", async () => {
+                if (rating.classList.contains("like-post-rating-selected")) {
+                    return;
+                }
+
+                count.textContent = Number(count.textContent) + 1;
+
+                ratings.forEach(rating => {
+                    if (rating.classList.contains("like-post-rating-selected")) {
+                        const count = rating.querySelector(".like-count");
+
+                        count.textContent = Math.max(0, Number(count.textContent) - 1);
+                        rating.classList.remove("like-post-rating-selected");
+                    }
+                });
+
+                rating.classList.add("like-post-rating-selected");
+
+                const likeOrDislike = likeRating === rating ? "like" : "dislike";
+                const response = await fetch(`/comments/${commentId}/${likeOrDislike}`);
+                const body = await response.json();
+            });
+        });
+    });
+</script>
             {{/each}}
+            
         </div>
         
 

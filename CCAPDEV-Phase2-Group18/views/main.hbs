@@ -62,7 +62,7 @@
             viewPromoButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
                     const postId = button.getAttribute('data-postid'); 
-                    window.location.href = '/view_promo?postId=' + encodeURIComponent(postId);
+                    window.location.href = '/view_post?postId=' + encodeURIComponent(postId);
                 });
             });
         });

@@ -4,12 +4,12 @@
 <div class="user-profile-main">
     <div class="user-info-container">
         <div class="profile-img">
-            <img src = "{{profilepic}}"> 
+            <img src = "{{user-data.profpic}}"> 
         </div>
         <div class="user-info">
-            <div class="name">{{username}}</div>
-            <div class="username-profile">{{username}}</div>
-            <div class="join-date">Join Date: {{joinDate}}</div>
+            <div class="name">{{user-data.username}}</div>
+            <div class="username-profile">{{user-data.username}}</div>
+            <div class="join-date">Join Date: {{user-data.joinDate}}</div>
         </div>
         <div class ="edit-profile-container">
         <div class="edit-profile-btn" id ="edit-profile-btn">Edit Profile</div>
@@ -19,14 +19,29 @@
 
     <div class="posted-reviews-container">
         <div class="posted-reviews-label">POSTED REVIEWS:</div>
-{{#each post}}
+{{#each posts}}
+{{#if isPromo}}
+{{else}}
         <div class="user-review-container">
-            <div class="profile-post">post 1</div>
+            <div class="profile-post">{{description}}</div>
             <div class = "view-edit-container">
-                <div class="view-edit-btn">View Post</div>
+                <div class="view-edit-btn view-btn" data-postid="{{_id}}">View Post</div>
                 <div class="view-edit-btn">Edit Post</div>
             </div>
         </div>
+{{/if}}
 {{/each}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const viewPostButtons = document.querySelectorAll('.view-btn');
+            
+        viewPostButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const postId = button.getAttribute('data-postid'); 
+                window.location.href = '/view_post?postId=' + encodeURIComponent(postId);
+            });
+        });
+    });
+</script>
     </div>
 </div>
