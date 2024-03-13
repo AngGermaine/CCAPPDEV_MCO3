@@ -230,10 +230,6 @@ server.get('/view_all', function(req, resp){
     }).catch(errorFn);
 });
 
-// hbs.handlebars.registerHelper('eq', function(arg1, arg2, options) {
-//     return (arg1 === arg2) ? options.fn(this) : options.inverse(this);
-// });
-
 server.get('/view_post', function(req, resp){
     const postId = req.query.postId;
 
@@ -243,7 +239,6 @@ server.get('/view_post', function(req, resp){
                 commentModel.find({storeid: post.storeid}).lean().then(function(comments){
                     if(comments){
                         const authorIds = comments.map(comment => comment.authorid);
-                        console.log(authorIds);
                         userModel.find({userid: { $in: authorIds }}).lean().then(function(users){
                             const commentsWithUserInfo = comments.map(comment =>{
                                 const author = users.find(user => user.userid === comment.authorid);
@@ -254,7 +249,6 @@ server.get('/view_post', function(req, resp){
                                     isOwner: author ? author.isOwner : false
                                 };
                             });
-                            console.log(commentsWithUserInfo);
                             resp.render('view-post', {
                                 title: 'View Promo | Coffee Lens',
                                 'post-data': post,
@@ -290,15 +284,43 @@ server.get('/view_profile', function(req,resp){
 }); 
 
 server.get('/edit_review', function(req,resp){
-    resp.render('edit-review',{
-        title: 'Edit Review | Coffee Lens'
-    });
+    const postId = req.query.postId;
+    postModel.findById(postId).lean().then(function(post){
+        if(post){
+            userModel.findOne({ userid: post.authorid }).lean().then(function(poster){
+                cafeModel.find({}).lean().then(function(cafes){
+                    resp.render('edit-review',{
+                        title: 'Edit Post | Coffee Lens',
+                        'post-data': post,
+                        'user-data': poster,
+                        'cafe-list': cafes
+                    });
+                }).catch(errorFn);
+            }).catch(errorFn);
+        } else{
+            resp.status(404).send('Post not found');
+        }
+    }).catch(errorFn);
+    
 }); 
 
 server.get('/edit_promo', function(req,resp){
-    resp.render('edit-promo',{
-        title: 'Edit Promo Post | Coffee Lens'
-    });
+    const postId = req.query.postId;
+    postModel.findById(postId).lean().then(function(post){
+        if(post){
+            userModel.findOne({ userid: post.authorid }).lean().then(function(poster){
+                cafeModel.find({}).lean().then(function(cafes){
+                    resp.render('edit-promo',{
+                        title: 'Edit Promo | Coffee Lens',
+                        'post-data': post,
+                        'user-data': poster
+                    });
+                }).catch(errorFn);
+            }).catch(errorFn);
+        } else{
+            resp.status(404).send('Post not found');
+        }
+    }).catch(errorFn);
 }); 
 
 server.get('/post_promo', function(req, resp){
@@ -312,7 +334,6 @@ server.get('/post_promo', function(req, resp){
         });
     }).catch(errorFn);
 });
-
 
 server.get('/post_review', function(req, resp){
     const searchQuery = {};
