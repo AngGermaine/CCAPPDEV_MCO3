@@ -61,9 +61,17 @@
                                 <div class="caret"></div>
                             </div>
                             <ul class="menu">
-                                {{#each cafe-list}}
-                                <li class="cafe-item">{{cafename}}</li>
-                                {{/each}}
+                                {{#if user-data.isOwner}}
+                                    {{#each cafe-list}}
+                                        {{#eq ../user-data.userid ownerid}}
+                                            <li class="cafe-item">{{cafename}}</li>
+                                        {{/eq}}
+                                    {{/each}}
+                                {{else}}
+                                    {{#each cafe-list}}
+                                    <li class="cafe-item">{{cafename}}</li>
+                                    {{/each}}
+                                {{/if}}
                             </ul>
                         </div>
                     </div>
