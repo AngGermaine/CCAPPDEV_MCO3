@@ -155,7 +155,7 @@ server.post('/check_login', function(req,resp){
             console.log('Finding User');
             loggedInUser = user.username;
             loggedInUserPfp = user.profpic;
-            loggedInUserId = user.userId;
+            loggedInUserId = user.userid;
             resp.render('check-login',{
                 title: 'Log In | Coffee Lens',
                 success: true
