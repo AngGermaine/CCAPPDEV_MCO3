@@ -475,20 +475,19 @@ body
 .postbox-main{
     background-color: #7F5539;
     margin-top: 37px;
-    margin-left: 10vh;
-    margin-right: 10vh;
+    margin-left: 20vh;
+    margin-right: 20vh;
+    padding: 10px;
+    border-radius: 0.5em;
 }
 
 
 .infobox{
     display: flex;
     justify-content: space-evenly;
-    padding-top: 10px;
-    padding-left: 35px;
-    padding-right: 35px;
 }
 
-.profile-detail, .date-posted, .select-cafe, .star-rating, .promo-validity{
+.profile-detail, .date-posted, .select-cafe, .star-rating, .title-box{
     display: flex;
     align-items: center;
     flex: 1;
@@ -499,7 +498,7 @@ body
     padding-left: 54px;
 }
 
-.date-posted, .star-rating, .promo-validity{
+.date-posted, .star-rating, .title-box{
     padding-left: 35em;
 }
 
@@ -538,9 +537,6 @@ body
     font-size: 20px;
 }
 
-.dropdown > .selected{
-    
-}
 
 .caret{
     width: 0;
@@ -606,9 +602,9 @@ body
 }
 
 .star-widget label{
-    font-size: 40px;
+    font-size: 35px;
     color: grey;
-    padding: 10px;
+    padding: 3px;
     float: right;
 }
 
@@ -632,42 +628,54 @@ input:checked ~ label{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding-bottom: 60px;
+    padding-bottom: 20px;
     position: relative;
 }
+
+.title-input {
+    width: 60%; 
+    margin-bottom: 10px; 
+    padding: 10px; 
+    border: 2px solid #EDE0D4; 
+    border-radius: 5px; 
+    font-size: 20px; 
+    text-align: center;
+}
+
 
 .file-upload {
     background-color: #EDE0D4;
     border-radius: 5em;
     padding: 4px;
     color: white;
-    position: absolute;
-    bottom: 15px;
-    right: 30px;
+    
 }
 
 
 .file-upload input {
     display: block;
     color: #573824;
-    
     margin-left: 10px; 
 }
 
-form .textarea{
-    height: 40vh;
-    width: 96%;
+.textarea{
+    height: 30vh;
+    width: 60%;
+    padding-bottom: 15px;
     overflow: hidden;
 }
 
-form .textarea textarea{
+.textarea textarea{
     height: 100%;
     width: 100%;
     outline: none;
+    padding: 10px;
     border: 2px #EDE0D4 solid;
     background: white;
-    font-size: 17px;
+    font-size: 18px;
     color: black;
+    resize: none;
+    border-radius: 5px; 
 }
 
 form .btns{
