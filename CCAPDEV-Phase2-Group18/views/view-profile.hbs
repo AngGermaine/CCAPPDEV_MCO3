@@ -69,7 +69,7 @@
         viewPostButtons.forEach(function (button) {
             button.addEventListener('click', function () {
                 const postId = button.getAttribute('data-postid'); 
-                window.location.href = '/edit_review?postId=' + encodeURIComponent(postId);
+                window.location.href = '/edit_post?postId=' + encodeURIComponent(postId);
             });
         });
     });

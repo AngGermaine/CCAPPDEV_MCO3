@@ -8,7 +8,7 @@
                 <img class="poster" src="{{user-data.profpic}}">
             </div>
             <div class="poster-details">
-                <p><a href = "view-profile-owner.html"><b>{{user-data.username}}</b></a></p>
+                <p><b>{{user-data.username}}</b></p>
                 <p>Posted: {{post-data.createdate}}</p>
                 
             </div>
@@ -26,47 +26,90 @@
         </div>
     </div>
 
-    <!-- Edit Review -->
-    <div class = "edit-rev-details">
-        <h1> Edit Review:</h1>
-        {{#if isPromo}}
-
-        {{else}}
-            <div class = "rating">Rating: 
-                <span class="material-icons"> star_rate </span>
-                <span class="material-icons"> star_rate </span>
-                <span class="material-icons"> star_rate </span>
-                <span class="material-icons"> star_rate </span>
+    <!-- Edit post -->
+    <form id="editReviewForm" action="/submit" method="post">
+        <div class="edit-rev-details">
+            {{#if post-data.isPromo}}
+            <h1> Edit Promo:</h1>
+            {{else}}
+            <h1> Edit Review:</h1>
+            <h3> Edit Rating: </h3>
+            <div class="star-rating">
+                <div class="star-container">
+                    <div class="star-widget">
+                        <input type="radio" name="rate" id="rate-5">
+                        <label for="rate-5" class="fas fa-star"></label>
+                        <input type="radio" name="rate" id="rate-4">
+                        <label for="rate-4" class="fas fa-star"></label>
+                        <input type="radio" name="rate" id="rate-3">
+                        <label for="rate-3" class="fas fa-star"></label>
+                        <input type="radio" name="rate" id="rate-2">
+                        <label for="rate-2" class="fas fa-star"></label>
+                        <input type="radio" name="rate" id="rate-1">
+                        <label for="rate-1" class="fas fa-star"></label>
+                    </div>
+                </div>
             </div>
-
-        {{/if}}
-        <h3> Cafe: </h3>
-        <div class="dropdown" tabindex="0">  
-            <div class="select">
-                <span class="selected">-</span>
-                <div class="caret"></div>
+            {{/if}}
+            <div class="edit-details-row">
+                <div class="edit-detail-item">
+                    <h3> Edit Cafe: </h3>
+                    <div class="select-cafe">
+                        <div class="dropdown" tabindex="0">
+                            <div class="select">
+                                <span class="selected">-</span>
+                                <div class="caret"></div>
+                            </div>
+                            <ul class="menu">
+                                {{#each cafe-list}}
+                                <li class="cafe-item">{{cafename}}</li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="edit-detail-item">
+                    <h3> Edit Title: </h3>
+                    <input type="text" placeholder="Change title here..." class="title-input">
+                </div>
+                <div class="edit-detail-item">
+                    <h3> Edit Description: </h3> 
+                    <textarea cols="30" placeholder="Change your description here..."></textarea>
+                </div>
+                <div class="edit-detail-item">
+                    <h3>Edit image:</h3>
+                    <div class="pfp-upload">
+                        <input type="file" id="myFile" name="filename">
+                    </div>
+                </div>
             </div>
-            <ul class="menu">
-                {{#each cafe-list}}
-                <li>{{cafename}}</li>
-                {{/each}}
-                <li class="active">-</li>
-            </ul>
+            <div class="edit-changes-btn">
+                <button type="submit">Confirm Changes</button>
+            </div>
         </div>
-        <h3> Caption: </h3> <textarea rows="4" cols="50">Put your edits here...</textarea>
+    </form>
 
-        <h3>Edit image:</h3>
-        <div class="pfp-upload">
-            <input type="file" id="myFile" name="filename">
-        </div>
-
-        <br> 
-        <div class="edit-changes-btn">
-            <button formaction="submit">Confirm Changes</button>
-        </div>
-    </div>
 
 </div>
-
 </body>
-</html>
+<script>
+    // Get all cafe items
+    const cafeItems = document.querySelectorAll('.select-cafe .menu .cafe-item');
+
+    // Add click event listener to each cafe item
+    cafeItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Remove 'active' class from all cafe items
+            cafeItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add 'active' class to the clicked cafe item
+            this.classList.add('active');
+
+            // Update the selected cafe text
+            const selectedCafe = this.textContent;
+            document.querySelector('.select-cafe .selected').textContent = selectedCafe;
+        });
+    });
+</script>

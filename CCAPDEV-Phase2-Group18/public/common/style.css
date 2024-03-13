@@ -1293,9 +1293,6 @@ form .login button:hover{
 }
 
 /*Edit Review*/
-.edit-changes-btn{
-    margin-top:10px;
-}
 
 .edit-profile-container > .back button{
     background-color: white;
@@ -1307,8 +1304,8 @@ form .login button:hover{
     color: white;
 }
 
-.edit-rev-container,
-.edit-promo-container
+.edit-promo-container,
+.edit-rev-container
 {
     display:flex;
     flex-grow:1;
@@ -1316,13 +1313,14 @@ form .login button:hover{
     justify-content:right;
 }
 
+
 .edit-rev-btn{
     display: flex;
     justify-content: right;
 }
 
-.edit-rev-btn a,
-.edit-promo-btn a{
+.edit-promo-btn a,
+.edit-rev-btn a{
     background-color: #EDE0D4;
     display:flex;
     align-items:center;
@@ -1334,16 +1332,15 @@ form .login button:hover{
     cursor:default;
 }
 
-.edit-rev-btn a:hover,
-.edit-promo-btn a:hover{
+.edit-promo-btn a:hover,
+.edit-rev-btn a:hover{
     margin-left: 15px;
     margin-right: 15px;
     color: #573824;
     cursor:pointer;
 }
 
-.edit-review,
-.edit-promo 
+.edit-review
 {
     display: flex;
     margin-left:5%;
@@ -1362,48 +1359,118 @@ form .login button:hover{
     border:4px #573824 solid;
  }
 
- .edit-rev-details,
- .edit-promo-details
+
+#editReviewForm {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+
+ .edit-rev-details
  {
     background-color: #7F5539;
     color: white; 
     padding: 10px;
-    display: flex; 
+    display: inline; 
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-start;
-    flex-wrap: wrap;
     border: 4px #573824 solid;
-    width:50%;
+    width:100%;
+    flex-grow: 1; 
  }
 
- .edit-rev-details > .dropdown,
- .edit-promo-details > .dropdown
+.edit-rev-details > .star-rating{
+    padding: 0;
+    width: auto;
+    height: auto;
+}
+
+.edit-rev-details > .star-rating,
+.edit-rev-details > .star-rating > .star-container {
+    padding: 0;
+    margin: 0;
+}
+
+
+.edit-detail-item > .select-cafe{
+    padding: 0;
+    height: auto;
+}
+
+ .edit-detail-item > .select-cafe > .dropdown
  {
-    margin-left: 0;
+    margin: 0;
  }
 
- .edit-rev-details > h1,
- .edit-promo-details > h1
+ .edit-rev-details > h1
  {
-    margin-bottom: 5px;
+    margin-bottom: 20px;
  }
 
-.edit-promo > .posting{
-    margin-top: 35px;
-    margin-left:5vh;
-    margin-right:115vh;
-    display: flex; 
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
+ .edit-details-row {
     flex-wrap: wrap;
- }
+    display: flex;
+    flex-direction: column;
+}
 
- .edit-rev-details > textarea,
- .edit-promo-details > textarea
- {
+.edit-detail-item {
+    flex-grow: 1;
+    margin: 5px;
+}
+
+.edit-rev-details > h3{
+    margin: 5px;
+}
+
+.edit-detail-item > h3 , .edit-rev-details > h3{
+    margin-bottom: 5px;
+}
+
+.edit-detail-item > textarea {
+    height: 30vh; 
+    resize: none; 
+}
+
+.edit-detail-item > input[type="text"],
+.edit-detail-item > textarea,
+.edit-detail-item > .pfp-upload {
+    width: 100%;
+}
+
+
+.edit-detail-item > .title-input{
+    text-align: start;
+    font-size: 19px;
+}
+
+.edit-detail-item > textarea{
+    outline: none;
+    padding: 10px;
+    border: 2px #EDE0D4 solid;
+    background: white;
+    font-size: 17px;
+    color: black;
+    resize: none;
+    border-radius: 5px;
+    height: 35vh;
+    width: 100%;
     overflow: hidden;
-    width: 98%;
-    height: 30vh;
- }
+}
+
+.edit-detail-item > .pfp-upload{
+    padding-left: 0;
+}
+
+.edit-detail-item > .pfp-upload > #myFile{
+    padding-left: 10px;
+}
+
+.edit-changes-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
