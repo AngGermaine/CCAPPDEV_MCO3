@@ -83,7 +83,7 @@ const postSchema = new mongoose.Schema({
  const userSchema = new mongoose.Schema({
     userid: { type: Number }, 
     username: {type: String},
-    password: { type: Number}, 
+    password: { type: String}, 
     profpic: {type: String},
     joindate: {type: String},
     isOwner: {type: Boolean}
@@ -139,24 +139,25 @@ server.get('/login', function(req,resp){
     resp.render('login',{
         title: 'Log In | Coffee Lens'
     });
-}); 
+});
 
 server.post('/check_login', function(req,resp){
     const searchQuery = { username: req.body.username, password: req.body.password };
-    userModel.findOne(searchQuery).then(function(users){
-        console.log('Finding User');
-        if(users != undefined && users.userid != null) {
-            loggedInUser = users.username;
+    userModel.findOne(searchQuery).then(function(user){
+        if(user){
+            console.log('Finding User');
+            let loggedInUser = user.username;
             resp.render('check-login',{
                 title: 'Log In | Coffee Lens',
                 success: true
             });
-        }else{
+        } else{
             resp.render('check-login',{
                 title: 'Log In | Coffee Lens',
                 success: false
             });
         }
+        
     }).catch(errorFn);
 }); 
 

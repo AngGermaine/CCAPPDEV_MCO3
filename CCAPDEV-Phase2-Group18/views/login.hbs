@@ -1,33 +1,53 @@
- <!-- Logo -->
+<!-- Logo -->
 <div class="login-page"> 
     <!-- FOR THE LOGO -->
-    <div class = "login-logo"> 
-        <h1> <i class="fa-solid fa-mug-hot logo"></i> <i>COFFEE LENS</i></h1>
+    <div class="login-logo"> 
+        <h1><i class="fa-solid fa-mug-hot logo"></i><i>COFFEE LENS</i></h1>
     </div> <!-- END OF LOGO-->
 
-    
     <div class="login-box"> <!-- log in box-->
-        <form action="#"> 
+        <form id="loginForm" action="/check_login" method="post">
 
             <div class="inputs"> <!-- username/password-->
-                <label for="username">Username: &nbsp; </label>
+                <label for="username">Username:</label>
                 <input type="text" id="username" name="username"><br><br>
-                <label for="password">Password: &ensp; </label>
+                <label for="password">Password:</label>
                 <input type="password" id="password" name="password" minlength="8"><br><br>
             </div>
 
             <div class="btns"> <!-- login button -->
                 <div class="login">
-                    <button type="submit" formaction="check_login"> Log In </button>                         
-                </div>                      
+                    <button type="submit">Log In</button>
+                </div>
             </div>
 
-            <div class="btns"> <!-- login button -->
+            <div class="btns"> <!-- create account button -->
                 <div class="create-account">
-                    <button formaction="create_acc"> create account </button>   
-                </div>                      
-            </div>         
+                    <button formaction="create_acc">Create Account</button>
+                </div>
+            </div>
         </form>
     </div>  
+    <script>
+        $(document).ready(function() {
+            $('#loginForm').submit(function(e) {
+                e.preventDefault(); // Prevent the form from submitting normally
+                
+                var username = $('#username').val();
+                var password = $('#password').val();
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/check_login',
+                    data: { username: username, password: password },
+                    success: function(response) {
+                        $('#loginResult').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
 </div> 
-
