@@ -14,7 +14,13 @@
             </div>
             <div class="btns"> 
                 <div class="login">
-                    <button formaction="/"> Home Page </button>                         
+                    <button type="button" id="backHome"> Home Page </button> 
+                    <script>
+                        document.getElementById('backHome').addEventListener('click', function(event) {
+                        event.preventDefault();
+                        window.location.href = '/';
+                        });
+                    </script>                        
                 </div>                      
             </div>
             
@@ -24,7 +30,13 @@
             </div>
             <div class="btns"> 
                 <div class="login">
-                    <button formaction="login"> Back to Login Page </button>                         
+                    <button type="button" id="backLogin"> Back to Login Page </button>    
+                    <script>
+                        document.getElementById('backLogin').addEventListener('click', function(event) {
+                        event.preventDefault();
+                        window.location.href = '/login';
+                        });
+                    </script>                      
                 </div>                      
             </div>
             {{/if}}
