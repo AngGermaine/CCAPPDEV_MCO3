@@ -1501,3 +1501,7 @@ form .login button:hover{
     justify-content: center;
     margin-top: 10px;
 }
+
+.edit-posting > .post-info{
+    align-items: stretch;
+}
