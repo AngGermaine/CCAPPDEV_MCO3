@@ -255,8 +255,9 @@ server.get('/view_post', function(req, resp){
     postModel.findById(postId).lean().then(function(post) {
         if (post) {
             userModel.findOne({ userid: post.authorid }).lean().then(function(poster) {
-                commentModel.find({postid: post.postId}).lean().then(function(comments){
+                commentModel.find({postid: post.postid}).lean().then(function(comments){
                     if(comments){
+                        console.log(comments);
                         const authorIds = comments.map(comment => comment.authorid);
                         userModel.find({userid: { $in: authorIds }}).lean().then(function(users){
                             const commentsWithUserInfo = comments.map(comment =>{
