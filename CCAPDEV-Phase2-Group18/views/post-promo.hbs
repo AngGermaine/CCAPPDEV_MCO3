@@ -8,7 +8,7 @@
             @jakesim
         </div>
         <div class="date-posted">
-            Date: 15/02/2024
+            Date: {{formatDate currentDate}}
         </div>
     </div> 
     <div class="infobox">
@@ -20,10 +20,9 @@
                     <div class="caret"></div>
                 </div>
                 <ul class="menu">
-                    <li>Cafe1</li>
-                    <li>Cafe2</li>
-                    <li>Cafe3</li>
-                    <li class="active">-</li>
+                    {{#each cafe-data}}
+                            <li class="cafe-item">{{cafename}}</li>
+                    {{/each}}
                 </ul>
             </div>
         </div> 
@@ -46,7 +45,7 @@
         <script>
             document.getElementById('backButton').addEventListener('click', function(event) {
                 event.preventDefault();
-                window.location.href = 'index.html';
+                window.location.href = '/';
             });
         </script>
         
@@ -56,3 +55,25 @@
     </div>
 </div>
 </form>
+
+<script>
+    // Get all cafe items
+    const cafeItems = document.querySelectorAll('.select-cafe .menu .cafe-item');
+
+    // Add click event listener to each cafe item
+    cafeItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Remove 'active' class from all cafe items
+            cafeItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add 'active' class to the clicked cafe item
+            this.classList.add('active');
+
+            // Update the selected cafe text
+            const selectedCafe = this.textContent;
+            document.querySelector('.select-cafe .selected').textContent = selectedCafe;
+        });
+    });
+</script>

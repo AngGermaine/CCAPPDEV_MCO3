@@ -257,7 +257,7 @@ server.get('/view_post', function(req, resp){
                             console.log(commentsWithUserInfo);
                             resp.render('view-post', {
                                 title: 'View Promo | Coffee Lens',
-                                'promo-data': post,
+                                'post-data': post,
                                 'user-data' : poster,
                                 'comments-data': commentsWithUserInfo,
                             });
@@ -301,11 +301,18 @@ server.get('/edit_promo', function(req,resp){
     });
 }); 
 
-server.get('/post_promo', function(req,resp){
-    resp.render('post-promo',{
-        title: 'Post A Promo | Coffee Lens'
-    });
-}); 
+server.get('/post_promo', function(req, resp){
+    const searchQuery = {};
+    const currentDate = new Date();
+    cafeModel.find(searchQuery).lean().then(function(cafes){
+        resp.render('post-promo', {
+            title: 'Post A Promo | Coffee Lens',
+            'cafe-data': cafes,
+            currentDate: currentDate
+        });
+    }).catch(errorFn);
+});
+
 
 server.get('/post_review', function(req, resp){
     const searchQuery = {};
