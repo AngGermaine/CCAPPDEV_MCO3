@@ -157,7 +157,7 @@ server.post('/check_login', function(req,resp){
                 success: false
             });
         }
-    })
+    }).catch(errorFn);
 }); 
 
 server.get('/create_acc', function(req,resp){
