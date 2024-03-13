@@ -104,6 +104,7 @@ function errorFn(err){
 // current logged in user
 var loggedInUser = "xxx";
 var loggedInUserPfp = "https://i.pinimg.com/736x/96/c6/5d/96c65d40ec3d11eb24b73e0e33b568f7.jpg";
+var loggedInUserId = 1001;
 
 /* ACTUAL CODE FOR MAIN PAGE:
     server.get('/', function(req,resp){
@@ -154,6 +155,7 @@ server.post('/check_login', function(req,resp){
             console.log('Finding User');
             loggedInUser = user.username;
             loggedInUserPfp = user.profpic;
+            loggedInUserId = user.userId;
             resp.render('check-login',{
                 title: 'Log In | Coffee Lens',
                 success: true
@@ -282,7 +284,10 @@ server.get('/view_post', function(req, resp){
 
 
 server.get('/view_profile', function(req,resp){
-    const userId = req.query.userId;
+    let userId = req.query.userId;
+    if(userId == null){
+        userId = loggedInUserId;
+    }
     userModel.findOne({userid: userId}).lean().then(function(profile){
         postModel.find({authorid: userId}).lean().then(function(posts){
             resp.render('view-profile',{
