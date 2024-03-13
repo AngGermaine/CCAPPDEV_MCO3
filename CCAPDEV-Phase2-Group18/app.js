@@ -102,7 +102,7 @@ function errorFn(err){
 
 
 // current logged in user
-var loggedInUser = "xxx";
+var loggedInUser = "cinnamoroll";
 var loggedInUserPfp = "https://i.pinimg.com/736x/96/c6/5d/96c65d40ec3d11eb24b73e0e33b568f7.jpg";
 var loggedInUserId = 1001;
 
