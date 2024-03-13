@@ -1125,16 +1125,21 @@ form .login button:hover{
     border-top: 2px #573824 solid;
     display: flex;
     justify-content: space-between;
+    flex-direction: column; 
 }
 
 .post-content > p{
-    margin: 0px;
+    margin-top: 3px;
+    margin-bottom: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
     font-size: 20px;
+    flex-grow: 1;
 }
 
 .post-content > .like_btn_container{
-    align-items: center;
-    flex-shrink: 0;
+    padding-top: 10px;
+    justify-content: start;
 }
 
 .thumbs-up-down-icons > img{
