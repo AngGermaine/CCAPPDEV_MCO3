@@ -13,9 +13,11 @@
                 <p> Posted: {{post-data.dateposted}} </p>
             </div>
             <div class ="edit-promo-container">
+                {{#if isLoggedIn}}
                 <div class="edit-promo-btn" data-postid="{{post-data._id}}">
                     <a href="/edit_post?postId={{post-data._id}}">Edit Post</a>
                 </div>
+                {{/if}}
             </div>
         </div>
 

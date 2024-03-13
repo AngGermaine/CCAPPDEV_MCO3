@@ -10,9 +10,12 @@
             <div class="username-profile">{{user-data.username}}</div>
             <div class="join-date">Join Date: {{user-data.joindate}}</div>
         </div>
+        {{#if isLoggedIn}}
         <div class ="edit-profile-container">
+            
         <div class="edit-profile-btn" data-userid="{{user-data.userid}}">Edit Profile</div>
         </div>
+{{/if}}
     </div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -41,7 +44,9 @@
             </div>
             <div class = "view-edit-container">
                 <div class="view-edit-btn view-btn" data-postid="{{_id}}">View Post</div>
+                {{#if ../isLoggedIn}}
                 <div class="view-edit-btn edit-btn" data-postid="{{_id}}">Edit Post</div>
+                {{/if}}
             </div>
         </div>
 {{else}}
@@ -55,7 +60,9 @@
             </div>
             <div class = "view-edit-container">
                 <div class="view-edit-btn view-btn" data-postid="{{_id}}">View Post</div>
+                {{#if ../isLoggedIn}}
                 <div class="view-edit-btn edit-btn" data-postid="{{_id}}">Edit Post</div>
+                {{/if}}
             </div>
         </div>
 {{/if}}

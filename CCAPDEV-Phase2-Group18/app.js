@@ -117,7 +117,7 @@ var loggedInUserId = 1001;
 
 // for testing retrieval of data
 server.get('/', function(req,resp){
-    console.log("logged in user: "+loggedInUser); //to check the currently logged in user 
+    //console.log("logged in user: "+loggedInUser); //to check the currently logged in user 
     const searchQuery = {};
     const searchQueryLoggedInuser = { username: loggedInUser };
     commentModel.find(searchQuery).lean().then(function(comments){
@@ -268,13 +268,21 @@ server.get('/view_post', function(req, resp){
                                     isOwner: author ? author.isOwner : false
                                 };
                             });
+                            var isLoggedIn;
+                            if(post.authorid===loggedInUserId){
+                                isLoggedIn = true;
+                            } else{
+                                isLoggedIn = false;
+                            }
                             resp.render('view-post', {
                                 title: 'View Promo | Coffee Lens',
                                 'post-data': post,
                                 'user-data' : poster,
                                 'comments-data': commentsWithUserInfo,
-                                userPfp: loggedInUserPfp
+                                userPfp: loggedInUserPfp,
+                                'isLoggedIn': isLoggedIn
                             });
+
                         }).catch(errorFn);
                     } else {
                         resp.status(404).send('Comments not found');
@@ -290,17 +298,23 @@ server.get('/view_post', function(req, resp){
 
 server.get('/view_profile', function(req,resp){
     let userId = req.query.userId;
-    if(userId == null){
-        userId = loggedInUserId;
-    }
+
     userModel.findOne({userid: userId}).lean().then(function(profile){
         postModel.find({authorid: userId}).lean().then(function(posts){
+            var isLoggedIn
+            if(loggedInUserId === profile.userid){
+                isLoggedIn = true;
+            } else{
+                isLoggedIn = false;
+            }
             resp.render('view-profile',{
                 title: 'Profile | Coffee Lens',
                 'posts': posts,
                 'user-data': profile,
-                userPfp: loggedInUserPfp
+                userPfp: loggedInUserPfp,
+                'isLoggedIn': isLoggedIn
             });
+            
         }).catch(errorFn);
     }).catch(errorFn);
 
