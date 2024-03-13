@@ -53,7 +53,7 @@ const commentSchema = new mongoose.Schema({
     content: {type: String},
     authorid: {type: Number}, 
     dateposted: {type: String},
-    storeid: {type: Number}
+    postid: {type: Number}
 },{ versionKey: false });
 
 const cafeSchema = new mongoose.Schema({
@@ -243,7 +243,7 @@ server.get('/view_post', function(req, resp){
     postModel.findById(postId).lean().then(function(post) {
         if (post) {
             userModel.findOne({ userid: post.authorid }).lean().then(function(poster) {
-                commentModel.find({storeid: post.storeid}).lean().then(function(comments){
+                commentModel.find({postid: post.postId}).lean().then(function(comments){
                     if(comments){
                         const authorIds = comments.map(comment => comment.authorid);
                         userModel.find({userid: { $in: authorIds }}).lean().then(function(users){
