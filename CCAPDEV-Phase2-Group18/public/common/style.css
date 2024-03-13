@@ -421,10 +421,14 @@ body
     color:#EDE0D4;
 }
 
-.review:hover{
+.review:hover,
+.username:hover{
     color:#dbc1ac;
-    font-weight:bold;
+    /*font-weight:bold;*/
+    cursor: pointer;
 }
+
+
 /*Like and Dislike Buttons*/
 .like_btn_container{
     display: flex;
@@ -803,6 +807,9 @@ form .post button:hover, .back button:hover{
     width:65%;
     color: black;
     padding: 25px 25px;
+}
+.profile-post:hover{
+    cursor: pointer;
 }
 
 .view-edit-container{
