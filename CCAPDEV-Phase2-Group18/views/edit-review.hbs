@@ -5,11 +5,11 @@
     <div class="edit-posting">
         <div class="poster-info">
             <div>
-                <img class="poster" src="assets/user-icons/cinnamoroll.jpg">
+                <img class="poster" src="{{user-data.profpic}}">
             </div>
             <div class="poster-details">
-                <p><a href = "view-profile-owner.html"><b>@cinnamoroll</b></a></p>
-                <p>Posted: Feb. 12, 2024</p>
+                <p><a href = "view-profile-owner.html"><b>{{user-data.username}}</b></a></p>
+                <p>Posted: {{post-data.createdate}}</p>
                 <div class = "rating">Rating: 
                     <span class="material-icons"> star_rate </span>
                     <span class="material-icons"> star_rate </span>
@@ -21,18 +21,18 @@
 
         <div class="post-info">
             <div class="post-pic">
-                <img src="assets/rev1.jpg">
+                <img src="{{post-data.image}}">
             </div>
             <div class="post-content">
-                <p>@cinnamoroll: Went here with my friends yesterday. I tried their iced spanish latte. 5/10 yung coffee pero okay lang 10/10 naman yung owner. Super pogi</p>
+                <p>{{user-data.username}}: {{post-data.description}}</p>
                 <div class="like_btn_container">
                     <div class="like-post-rating">
                         <span class="like-btn material-icons"> thumb_up </span>
-                        <span class="like-count">0</span>
+                        <span class="like-count">{{post-data.upvote}}</span>
                     </div>
                     <div class="like-post-rating">
                         <span class="like-btn material-icons"> thumb_down </span>
-                        <span class="like-count">0</span>
+                        <span class="like-count">{{post-data.downvote}}</span>
                     </div>
                 </div>
             </div>
@@ -50,9 +50,9 @@
                 <div class="caret"></div>
             </div>
             <ul class="menu">
-                <li>Cafe1</li>
-                <li>Cafe2</li>
-                <li>Cafe3</li>
+                {{#each cafe-list}}
+                <li>{{cafename}}</li>
+                {{/each}}
                 <li class="active">-</li>
             </ul>
         </div>

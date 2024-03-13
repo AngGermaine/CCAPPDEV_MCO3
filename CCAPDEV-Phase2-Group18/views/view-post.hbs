@@ -2,7 +2,7 @@
 <!-- TOP NAV BAR -->
 
 
-    <!-- PROMO POST 1-->
+    <!-- PROMO POST-->
     <div class = "posting"> 
         <div class = "poster-info">
             <div> 
@@ -13,12 +13,23 @@
                 <p> Posted: {{post-data.dateposted}} </p>
             </div>
             <div class ="edit-promo-container">
-                <div class="edit-promo-btn">
-                    <a href="edit-promo.html"> Edit Post </a>
+                <div class="edit-promo-btn" data-postid="{{post-data._id}}">
+                    <a>Edit Post</a>
                 </div>
             </div>
         </div>
-        
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const viewPostButtons = document.querySelectorAll('.edit-promo-btn');
+            
+        viewPostButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const postId = button.getAttribute('data-postid'); 
+                window.location.href = '/edit_promo?postId=' + encodeURIComponent(postId);
+            });
+        });
+    });
+</script>
     
         <div class="post-info"> 
             <div class = "post-pic"> 
@@ -80,6 +91,7 @@ document.querySelectorAll(".posting").forEach(post => {
 
         <div class="comment-section">
             {{#each comments-data}}
+            
             
             <div class="reply">
                 <div>
