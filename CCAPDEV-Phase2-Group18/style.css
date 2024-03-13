@@ -427,7 +427,12 @@ body
 
 .review:hover{
     color:#dbc1ac;
-    font-weight:bold;
+    /*font-weight:bold;*/
+    cursor: pointer;
+}
+
+.username:hover{
+    cursor: pointer
 }
 /*Like and Dislike Buttons*/
 .like_btn_container{

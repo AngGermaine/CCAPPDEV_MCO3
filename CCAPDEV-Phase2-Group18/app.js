@@ -11,7 +11,6 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
 const handlebars = require('express-handlebars');
-
 const hbs = handlebars.create({
     extname: 'hbs',
     defaultLayout: 'index',
@@ -29,6 +28,10 @@ const hbs = handlebars.create({
             const day = date.getDate();
             const year = date.getFullYear();
             return `${month} ${day}, ${year}`;
+        },
+
+        eq: function(arg1, arg2, options) {
+            return arg1 === arg2 ? options.fn(this) : options.inverse(this);
         }
     }
 });
@@ -49,7 +52,8 @@ const commentSchema = new mongoose.Schema({
     downvote: {type: Number},
     content: {type: String},
     authorid: {type: Number}, 
-    dateposted: {type: String}
+    dateposted: {type: String},
+    storeid: {type: Number}
 },{ versionKey: false });
 
 const cafeSchema = new mongoose.Schema({
@@ -72,7 +76,8 @@ const postSchema = new mongoose.Schema({
     description: {type: String},
     image: {type: String},
     isPromo: {type: Boolean},
-    storeid: {type: Number}
+    storeid: {type: Number},
+    postid: {type: Number}
  },{ versionKey: false });
 
  const userSchema = new mongoose.Schema({
@@ -225,17 +230,42 @@ server.get('/view_all', function(req, resp){
     }).catch(errorFn);
 });
 
+// hbs.handlebars.registerHelper('eq', function(arg1, arg2, options) {
+//     return (arg1 === arg2) ? options.fn(this) : options.inverse(this);
+// });
+
 server.get('/view_post', function(req, resp){
     const postId = req.query.postId;
 
     postModel.findById(postId).lean().then(function(post) {
         if (post) {
             userModel.findOne({ userid: post.authorid }).lean().then(function(poster) {
-                resp.render('view-promo', {
-                    title: 'View Promo | Coffee Lens',
-                    'post-data': post,
-                    'user-data' : poster
-                });
+                commentModel.find({storeid: post.storeid}).lean().then(function(comments){
+                    if(comments){
+                        const authorIds = comments.map(comment => comment.authorid);
+                        console.log(authorIds);
+                        userModel.find({userid: { $in: authorIds }}).lean().then(function(users){
+                            const commentsWithUserInfo = comments.map(comment =>{
+                                const author = users.find(user => user.userid === comment.authorid);
+                                return{
+                                    ...comment,
+                                    profpic: author ? author.profpic : null,
+                                    username: author ? author.username : null,
+                                    isOwner: author ? author.isOwner : false
+                                };
+                            });
+                            console.log(commentsWithUserInfo);
+                            resp.render('view-post', {
+                                title: 'View Promo | Coffee Lens',
+                                'promo-data': post,
+                                'user-data' : poster,
+                                'comments-data': commentsWithUserInfo,
+                            });
+                        }).catch(errorFn);
+                    } else {
+                        resp.status(404).send('Comments not found');
+                    }
+                }).catch(errorFn);
             }).catch(errorFn);
         } else {
             resp.status(404).send('Promo not found');
@@ -245,9 +275,18 @@ server.get('/view_post', function(req, resp){
 
 
 server.get('/view_profile', function(req,resp){
-    resp.render('view-profile',{
-        title: 'Profile | Coffee Lens'
-    });
+    const userId = req.query.userId;
+    userModel.findOne({userid: userId}).lean().then(function(profile){
+        postModel.find({authorid: userId}).lean().then(function(posts){
+            resp.render('view-profile',{
+                title: 'Profile | Coffee Lens',
+                'posts': posts,
+                'user-data': profile
+            });
+        }).catch(errorFn);
+    }).catch(errorFn);
+
+    
 }); 
 
 server.get('/edit_review', function(req,resp){
