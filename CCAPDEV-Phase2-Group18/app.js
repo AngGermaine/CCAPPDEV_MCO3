@@ -168,9 +168,14 @@ server.get('/create_acc', function(req,resp){
 }); 
 
 server.get('/edit_profile', function(req,resp){
-    resp.render('edit-profile',{
-        title: 'Edit Profile | Coffee Lens'
-    });
+    const userId = req.query.userId;
+    userModel.findOne({userid: userId}).lean().then(function(user){
+        console.log(user);
+        resp.render('edit-profile',{
+            title: 'Edit Profile | Coffee Lens',
+            'user-data': user
+        });
+    }).catch(errorFn);
 }); 
 
 server.get('/about', function(req,resp){

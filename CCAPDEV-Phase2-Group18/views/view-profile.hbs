@@ -11,10 +11,21 @@
             <div class="join-date">Join Date: {{user-data.joindate}}</div>
         </div>
         <div class ="edit-profile-container">
-        <div class="edit-profile-btn" id ="edit-profile-btn">Edit Profile</div>
+        <div class="edit-profile-btn" data-userid="{{user-data.userid}}">Edit Profile</div>
         </div>
     </div>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const editProfileBtn = document.querySelectorAll('.edit-profile-btn');
+        editProfileBtn.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const userId = button.getAttribute('data-userid'); 
+                console.log(userId);
+                window.location.href = '/edit_profile?userId=' + encodeURIComponent(userId);
+            });
+        });
+    });
+</script>
 
     <div class="posted-reviews-container">
         <div class="posted-reviews-label">{{#if user-data.isOwner}}POSTED PROMOS:{{else}}POSTED REVIEWS:{{/if}}</div>
