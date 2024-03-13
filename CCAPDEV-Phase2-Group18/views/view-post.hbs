@@ -80,7 +80,6 @@ document.querySelectorAll(".posting").forEach(post => {
 
         <div class="comment-section">
             {{#each comments-data}}
-            
             <div class="reply">
                 <div>
                     <img src="{{profpic}}">
@@ -100,7 +99,7 @@ document.querySelectorAll(".posting").forEach(post => {
                     </div>
                 </div>
             </div>
-            
+            {{/each}}
             
 <script>
     document.querySelectorAll(".reply").forEach(comment => {
@@ -137,7 +136,7 @@ document.querySelectorAll(".posting").forEach(post => {
         });
     });
 </script>
-            {{/each}}
+            
             
         </div>
         

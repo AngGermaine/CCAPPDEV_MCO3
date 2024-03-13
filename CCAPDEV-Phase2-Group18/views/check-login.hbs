@@ -9,11 +9,10 @@
         
             
             {{#if success}}
-            <div class="inputs"> 
-                <h1>Successfully Logged In </h1>
-            </div>
-            <div class="btns"> 
-                <div class="login">
+            <div class="login-status"> 
+                <h2>Successfully Logged In </h2>
+        
+                
                     <button type="button" id="backHome"> Home Page </button> 
                     <script>
                         document.getElementById('backHome').addEventListener('click', function(event) {
@@ -21,23 +20,25 @@
                         window.location.href = '/';
                         });
                     </script>                        
-                </div>                      
+                                    
             </div>
             
             {{else}}
-            <div class="inputs"> 
-                <h1>Incorrect Username and/or Password </h1>
-            </div>
-            <div class="btns"> 
-                <div class="login">
-                    <button type="button" id="backLogin"> Back to Login Page </button>    
+            <div class="login-status"> 
+                <h3>Incorrect Username and/or Password </h3>
+            
+            
+                
+                    <button type="button" id="backLogin"> Back </button>    
                     <script>
                         document.getElementById('backLogin').addEventListener('click', function(event) {
                         event.preventDefault();
                         window.location.href = '/login';
                         });
-                    </script>                      
-                </div>                      
+                    </script>  
+                
+                                        
+                                    
             </div>
             {{/if}}
 

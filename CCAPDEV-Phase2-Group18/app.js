@@ -102,7 +102,7 @@ function errorFn(err){
 
 
 // current logged in user
-var loggedInUser = "";
+var loggedInUser = "xxx";
 
 /* ACTUAL CODE FOR MAIN PAGE:
     server.get('/', function(req,resp){
@@ -115,6 +115,7 @@ var loggedInUser = "";
 
 // for testing retrieval of data
 server.get('/', function(req,resp){
+    console.log("logged in user: "+loggedInUser); //to check the currently logged in user 
     const searchQuery = {};
     commentModel.find(searchQuery).lean().then(function(comments){
         cafeModel.find(searchQuery).lean().then(function(cafes){
@@ -146,7 +147,7 @@ server.post('/check_login', function(req,resp){
     userModel.findOne(searchQuery).then(function(user){
         if(user){
             console.log('Finding User');
-            let loggedInUser = user.username;
+            loggedInUser = user.username;
             resp.render('check-login',{
                 title: 'Log In | Coffee Lens',
                 success: true

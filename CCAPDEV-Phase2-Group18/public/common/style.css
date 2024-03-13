@@ -1055,6 +1055,33 @@ form .login button:hover{
     width: auto;
 } 
 
+.login-box > .login-status{
+    padding-top: 20%;
+    justify-content: center;
+    justify-self: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #EDE0D4;
+}
+
+.login-box > .login-status > button{
+    background-color: #967259;
+    height: 50px;
+    width: 150px;
+    border: 2px;
+    border-radius: 6em;
+    color: white;
+    font-size: 20px;
+    font-weight: 500px;
+    cursor: pointer;
+    justify-self: center;
+}
+
+.login-box > .login-status > button:hover{
+    background-color: #573824;
+}
+
+
+
 /* Viewing full post review */ 
 /* Promos posted by establishment owner */
 .posting
