@@ -77,7 +77,8 @@ const postSchema = new mongoose.Schema({
     image: {type: String},
     isPromo: {type: Boolean},
     storeid: {type: Number},
-    postid: {type: Number}
+    postid: {type: Number},
+    rating: {type: Number}
  },{ versionKey: false });
 
  const userSchema = new mongoose.Schema({
@@ -106,15 +107,6 @@ var loggedInUser = "cinnamoroll";
 var loggedInUserPfp = "https://i.pinimg.com/736x/96/c6/5d/96c65d40ec3d11eb24b73e0e33b568f7.jpg";
 var loggedInUserId = 1001;
 
-/* ACTUAL CODE FOR MAIN PAGE:
-    server.get('/', function(req,resp){
-        resp.render('main',{
-            layout: 'index',
-            title: 'Home | Coffee Lens'
-        });
-    }); 
-*/
-
 // for testing retrieval of data
 server.get('/', function(req,resp){
     //console.log("logged in user: "+loggedInUser); //to check the currently logged in user 
@@ -133,7 +125,8 @@ server.get('/', function(req,resp){
                         'cafe-data': cafes,
                         'user-data': users, 
                         'post-data': posts,
-                        userPfp: loggedInUserPfp
+                        userPfp: loggedInUserPfp,
+                        loggedInUserId: loggedInUserId
                     });
                     
                 }).catch(errorFn);  // postmodel fn
@@ -183,7 +176,8 @@ server.get('/edit_profile', function(req,resp){
         resp.render('edit-profile',{
             title: 'Edit Profile | Coffee Lens',
             'user-data': user,
-            'userPfp': loggedInUserPfp
+            'userPfp': loggedInUserPfp,
+            loggedInUserId: loggedInUserId
         });
     }).catch(errorFn);
 }); 
@@ -191,7 +185,8 @@ server.get('/edit_profile', function(req,resp){
 server.get('/about', function(req,resp){
     resp.render('about',{
         title: 'About | Coffee Lens',
-        userPfp: loggedInUserPfp
+        userPfp: loggedInUserPfp,
+        loggedInUserId: loggedInUserId
     });
 }); 
 
@@ -227,7 +222,8 @@ server.get('/view_cafe', function(req,resp){
                         title: 'View Cafe | Coffee Lens',
                         'cafe-data': cafe,
                         'post-data': postsWithUserInfo,
-                        userPfp: loggedInUserPfp
+                        userPfp: loggedInUserPfp,
+                        loggedInUserId: loggedInUserId
                     });
                 }).catch(errorFn);
             }).catch(errorFn);
@@ -244,7 +240,8 @@ server.get('/view_all', function(req, resp){
         resp.render('view-all', {
             title: 'All Cafes | Coffee Lens',
             'cafe-data': cafes,
-            userPfp: loggedInUserPfp 
+            userPfp: loggedInUserPfp,
+            loggedInUserId: loggedInUserId
         });
     }).catch(errorFn);
 });
@@ -280,7 +277,8 @@ server.get('/view_post', function(req, resp){
                                 'user-data' : poster,
                                 'comments-data': commentsWithUserInfo,
                                 userPfp: loggedInUserPfp,
-                                'isLoggedIn': isLoggedIn
+                                'isLoggedIn': isLoggedIn,
+                                loggedInUserId: loggedInUserId
                             });
 
                         }).catch(errorFn);
@@ -312,7 +310,8 @@ server.get('/view_profile', function(req,resp){
                 'posts': posts,
                 'user-data': profile,
                 userPfp: loggedInUserPfp,
-                'isLoggedIn': isLoggedIn
+                'isLoggedIn': isLoggedIn,
+                loggedInUserId: loggedInUserId
             });
             
         }).catch(errorFn);
@@ -332,7 +331,8 @@ server.get('/edit_post', function(req,resp){
                         'post-data': post,
                         'user-data': poster,
                         'cafe-list': cafes,
-                        userPfp: loggedInUserPfp
+                        userPfp: loggedInUserPfp,
+                        loggedInUserId: loggedInUserId
                     });
                 }).catch(errorFn);
             }).catch(errorFn);
@@ -352,7 +352,8 @@ server.get('/post_promo', function(req, resp){
             title: 'Post A Promo | Coffee Lens',
             'cafe-data': cafes,
             currentDate: currentDate,
-            userPfp: loggedInUserPfp
+            userPfp: loggedInUserPfp,
+            loggedInUserId: loggedInUserId
         });
     }).catch(errorFn);
 });
@@ -365,7 +366,9 @@ server.get('/post_review', function(req, resp){
             title: 'Post A Review | Coffee Lens',
             'cafe-data': cafes,
             currentDate: currentDate,
-            userPfp: loggedInUserPfp
+            userPfp: loggedInUserPfp,
+            user: loggedInUser,
+            loggedInUserId: loggedInUserId
         });
     }).catch(errorFn);
 });
