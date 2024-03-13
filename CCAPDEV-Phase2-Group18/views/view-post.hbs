@@ -2,7 +2,7 @@
 <!-- TOP NAV BAR -->
 
 
-    <!-- PROMO POST-->
+    <!--POST-->
     <div class = "posting"> 
         <div class = "poster-info">
             <div> 
@@ -14,22 +14,11 @@
             </div>
             <div class ="edit-promo-container">
                 <div class="edit-promo-btn" data-postid="{{post-data._id}}">
-                    <a>Edit Post</a>
+                    <a href="/edit_post?postId={{post-data._id}}">Edit Post</a>
                 </div>
             </div>
         </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const viewPostButtons = document.querySelectorAll('.edit-promo-btn');
-            
-        viewPostButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                const postId = button.getAttribute('data-postid'); 
-                window.location.href = '/edit_promo?postId=' + encodeURIComponent(postId);
-            });
-        });
-    });
-</script>
+
     
         <div class="post-info"> 
             <div class = "post-pic"> 
