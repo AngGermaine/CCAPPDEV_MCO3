@@ -9,7 +9,7 @@
                 <img class = "poster" src = "{{user-data.profpic}}">
             </div>
             <div class = "poster-details"> 
-                <p> <a href="/view_profile?userId={{user-data.userid}}"> <b> {{user-data.username}} </b> </a> </p> 
+                <p> <a href="/view_profile?userId={{user-data.userid}}"> <b> {{user-data.username}} </b> </a> {{#if user-data.isOwner}}• Establishment Owner {{else}} {{/if}}</p> 
                 <p> Posted: {{post-data.dateposted}} </p>
             </div>
             <div class ="edit-promo-container">
@@ -91,7 +91,6 @@ document.querySelectorAll(".posting").forEach(post => {
 
         <div class="comment-section">
             {{#each comments-data}}
-            
             
             <div class="reply">
                 <div>

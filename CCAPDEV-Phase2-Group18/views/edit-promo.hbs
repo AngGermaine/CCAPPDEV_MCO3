@@ -6,7 +6,7 @@
                 <img class = "poster" src = "{{user-data.profpic}}">
             </div>
             <div class = "poster-details"> 
-                <p> <a href = "view-profile-owner.html"> <b> {{user-data.username}}</b> </a> • Establishment Owner </p> 
+                <p> <b> {{user-data.username}}</b> </a> {{#if user-data.isOwner}}• Establishment Owner {{else}} {{/if}}</p> 
                 <p> Posted: {{post-data.createdate}} </p>
             </div>
         </div>
@@ -17,20 +17,9 @@
                 <img src = "{{post-data.image}}">
             </div>
             <div class = "post-content"> 
-                <p> {{user-data.username}}: {{post-data.description}}
-                    <br> <b>Promo Validity: </b>February 14, 2024 - February 15, 2024. 
+                <p> <b>{{post-data.title}}</b>
+                    <br> {{user-data.username}}: {{post-data.description}}
                 </p>  
-
-                <div class="like_btn_container">
-                    <div class="like-post-rating">
-                        <span class="like-btn material-icons"> thumb_up </span>
-                        <span class="like-count">{{post-data.upvote}}</span>
-                    </div>
-                    <div class="like-post-rating">
-                        <span class="like-btn material-icons"> thumb_down </span>
-                        <span class="like-count">{{post-data.downvote}}</span>
-                    </div>
-                </div>
             </div> 
         </div>
     </div>
