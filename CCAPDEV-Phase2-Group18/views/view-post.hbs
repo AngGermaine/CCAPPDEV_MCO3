@@ -26,7 +26,7 @@
             </div>
             <div class = "post-content"> 
                 <p> <b>{{post-data.title}}</b>
-                    <br> {{user-data.username}}: {{post-data.description}}
+                    <br>{{post-data.description}}
                 </p>  
 
                 <div class="like_btn_container">
@@ -85,7 +85,7 @@ document.querySelectorAll(".posting").forEach(post => {
                     <img src="{{profpic}}">
                 </div>
                 <div class="comment-info-box">
-                    <p> <a href="view-profile-owner.html"> <b> {{username}} </b> </a> {{#if isOwner}}• Establishment Owner {{else}} {{/if}} </p>
+                    <p> <a href="/view_profile?userId={{authorid}}"> <b> {{username}} </b> </a> {{#if isOwner}}• Establishment Owner {{else}} {{/if}} </p>
                     <p id="comment"> {{content}} </p>
                 </div>
                 <div class="like_btn_container">
