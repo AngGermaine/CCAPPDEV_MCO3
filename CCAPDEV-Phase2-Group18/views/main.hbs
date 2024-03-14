@@ -77,58 +77,5 @@
 
 </div>
 
-<h1> TEST COMMENTS FROM DB:</h1>
-<div> 
-    {{#each comments-data}} 
-        <div> {{authorid}} 
-            {{ dateposted }}
-            {{ content }}
-            {{ upvote }}
-            {{ downvote }}
-        </div>
-    {{/each}}
-</div>
 
-<h1> TEST CAFES FROM DB:</h1>
-<div> 
-    {{#each cafe-data}} 
-        <div> {{cafeid}} 
-            {{ cafename }}
-            {{ ownerid }}
-            <img src ="{{ logo }}">
-            {{ rating }}
-            {{ cafedesc }}
-        </div>
-    {{/each}}
-</div>
-
-<h1> TEST USERS FROM DB:</h1>
-<div> 
-    {{#each user-data}} 
-        <div> {{userid}} 
-            {{ username }}
-            {{ password }}
-            <img src ="{{ profpic }}">
-            {{ joindate }}
-            {{ isOwner }}
-        </div>
-    {{/each}}
-</div>
-
-<h1> TEST POSTS FROM DB:</h1>
-<div> 
-    {{#each post-data}} 
-        <div> {{authorid}} 
-            {{ createdate }}
-            {{ updatedate }}
-            {{ dateposted }}
-            {{ upvote }}
-            {{ downvote }}
-            {{ title }}
-            {{ description }}
-            <img src ="{{ image }}">
-            {{ isPromo }}
-        </div>
-    {{/each}}
-</div>
 
