@@ -379,7 +379,11 @@ server.get('/post_review', function(req, resp){
     }).catch(errorFn);
 });
 
-
+server.get('/create_cafe', function(req,resp){
+    resp.render('create-cafe', {
+        title: 'Create Cafe | Coffee Lens'
+    });
+});
 const port = process.env.PORT | 9090;
 server.listen(port, function(){
     console.log('Listening at port '+port);
