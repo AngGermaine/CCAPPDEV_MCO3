@@ -217,13 +217,19 @@ server.get('/view_cafe', function(req,resp){
 
                     // Sort posts based on combined score in descending order
                     postsWithUserInfo.sort((a, b) => b.combinedScore - a.combinedScore);
-                    
+                    var isLoggedIn;
+                    if(cafe.ownerid===loggedInUserId){
+                        isLoggedIn = true;
+                    } else{
+                        isLoggedIn = false;
+                    }
                     resp.render('view-cafe', {
                         title: 'View Cafe | Coffee Lens',
                         'cafe-data': cafe,
                         'post-data': postsWithUserInfo,
                         userPfp: loggedInUserPfp,
-                        loggedInUserId: loggedInUserId
+                        loggedInUserId: loggedInUserId,
+                        'isLoggedIn': isLoggedIn
                     });
                 }).catch(errorFn);
             }).catch(errorFn);
