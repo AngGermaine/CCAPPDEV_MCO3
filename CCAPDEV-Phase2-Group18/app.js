@@ -386,6 +386,13 @@ server.get('/create_cafe', function(req,resp){
 });
 
 
+server.get('/edit_cafe', function(req,resp){
+    resp.render('edit-cafe', {
+        title: 'Edit Profile | Coffee Lens'
+    });
+});
+
+
 const port = process.env.PORT | 9090;
 server.listen(port, function(){
     console.log('Listening at port '+port);
