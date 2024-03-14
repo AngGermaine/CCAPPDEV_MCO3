@@ -23,7 +23,13 @@
 
             <div class="btns"> <!-- create account button -->
                 <div class="create-account">
-                    <button formaction="create_acc">Create Account</button>
+                    <button type="button" id="createAcc">Create Account</button>
+                    <script>
+                        document.getElementById('createAcc').addEventListener('click', function(event) {
+                        event.preventDefault();
+                        window.location.href = '/create_acc';
+                        });
+                    </script>   
                 </div>
             </div>
         </form>

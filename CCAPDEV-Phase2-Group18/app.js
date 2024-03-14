@@ -165,7 +165,7 @@ server.post('/check_login', function(req,resp){
 
 server.get('/create_acc', function(req,resp){
     resp.render('create-acc',{
-        title: 'Log In | Coffee Lens'
+        title: 'Register | Coffee Lens'
     });
 }); 
 
@@ -384,6 +384,8 @@ server.get('/create_cafe', function(req,resp){
         title: 'Create Cafe | Coffee Lens'
     });
 });
+
+
 const port = process.env.PORT | 9090;
 server.listen(port, function(){
     console.log('Listening at port '+port);

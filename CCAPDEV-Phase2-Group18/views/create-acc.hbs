@@ -24,7 +24,13 @@
     <div class="btns"> <!-- login button -->
         <div class="login">
             
-            <button formaction="/"> Create Account </button>
+            <button type="button" id="backHome"> Create Account </button>
+            <script>
+                        document.getElementById('backHome').addEventListener('click', function(event) {
+                        event.preventDefault();
+                        window.location.href = '/';
+                        });
+                    </script> 
             
         </div>                      
     </div>
