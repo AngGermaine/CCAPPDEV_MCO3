@@ -15,7 +15,23 @@
                             {{{generateStarIcons cafe-data.rating}}}
                         </div>
                 </div>
+                {{#if isLoggedIn}}
+                    <div class="edit-cafe-container">
+                        <div class="edit-cafe-btn" data-cafeid="{{cafe-data.cafeid}}"></div>
+                    </div>
+                {{/if}}
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const editProfileBtn = document.querySelectorAll('.edit-cafe-btn');
+                editProfileBtn.forEach(function (button) {
+                    button.addEventListener('click', function () {
+                        const cafeId = button.getAttribute('data-cafeid'); 
+                        window.location.href = '/edit_cafe?cafeId=' + encodeURIComponent(cafeId);
+                    });
+                });
+            });
+        </script>
     </div>
     <div class = "cafe-profile-review-container">
 <!-- REVIEWS OF THE CAFE -->
