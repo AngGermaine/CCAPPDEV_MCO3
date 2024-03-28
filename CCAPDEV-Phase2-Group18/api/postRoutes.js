@@ -114,10 +114,4 @@ router.get('/post_review', function(req, resp){
     }).catch(errorFn);
 });
 
-// adding a review
-router.post("/post_review", async function (req, res) {
-    const { cafename, rating, description, image} = req.body;
-    await post.create({ cafe: cafename, rating: rating, desc: description, image: image});
-    res.redirect("/");
-});
 module.exports = router;
