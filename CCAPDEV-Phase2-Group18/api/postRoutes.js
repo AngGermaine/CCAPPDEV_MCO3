@@ -1,6 +1,7 @@
 const post = require("../schemas/postSchema");
 const user = require("../schemas/userSchema");
 const cafe =  require("../schemas/cafeSchema");
+const comment =  require("../schemas/commentSchema");
 const express = require("express");
 const router = express.Router();
 
@@ -19,8 +20,8 @@ router.get('/view_post', function(req, resp){
 
     post.findById(postId).lean().then(function(post) {
         if (post) {
-            userModel.findOne({ userid: post.authorid }).lean().then(function(poster) {
-                commentModel.find({postid: post.postid}).lean().then(function(comments){
+            user.findOne({ userid: post.authorid }).lean().then(function(poster) {
+                comment.find({postid: post.postid}).lean().then(function(comments){
                     if(comments){
                         const authorIds = comments.map(comment => comment.authorid);
                         user.find({userid: { $in: authorIds }}).lean().then(function(users){
@@ -113,4 +114,10 @@ router.get('/post_review', function(req, resp){
     }).catch(errorFn);
 });
 
+// adding a review
+router.post("/post_review", async function (req, res) {
+    const { cafename, rating, description, image} = req.body;
+    await post.create({ cafe: cafename, rating: rating, desc: description, image: image});
+    res.redirect("/");
+});
 module.exports = router;

@@ -7,7 +7,7 @@ function errorFn(err){
     console.error(err);
 }
 
-server.get('/login', function(req,resp){
+router.get('/login', function(req,resp){
     resp.render('login',{
         title: 'Log In | Coffee Lens'
     });
@@ -22,7 +22,7 @@ router.post('/check_login', function(req,resp){
     const searchQuery = { username: req.body.username, password: req.body.password };
     user.findOne(searchQuery).then(function(user){
         if(user){
-            console.log('Finding User');
+            //console.log('Finding User');
             loggedInUser = user.username;
             loggedInUserPfp = user.profpic;
             loggedInUserId = user.userid;
