@@ -97,6 +97,12 @@
         </div>
     </form>
 
+    <!-- deleting post 
+    <form id ="deletePostForm" action = "/api/postRoutes/:postId" method = "DELETE">
+        <div class="edit-changes-btn">
+            <button id = "deletePost" data-post-id = "{{ post-data.postid }}"> Delete Post </button>
+        </div>
+    </form> -->
 
 </div>
 </body>
@@ -120,4 +126,18 @@
             document.querySelector('.select-cafe .selected').textContent = selectedCafe;
         });
     });
+
+    /* deleting post
+    const deletePost = document.getElementById('deletePost');
+
+    deletePost.onclick = async function() {
+        const postId = deletePost.dataset.postId;
+        const response = await fetch(`/api/postRoutes/${postId}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            window.location.href = '/'; // Redirect to homepage
+        } 
+    }; */
 </script>

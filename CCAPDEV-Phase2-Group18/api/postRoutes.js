@@ -114,4 +114,17 @@ router.get('/post_review', function(req, resp){
     }).catch(errorFn);
 });
 
+/* deleting post
+router.delete('/api/postRoutes/:postId', async (req, res) => {
+    const postId = req.params.postId;
+    try {
+        const deletedPost = await post.findByIdAndDelete(postId);
+        if (!deletedPost) {
+            return res.status(404).send('Post not found');
+        }
+    } catch (errorFn) {
+        res.status(500).send('Error deleting post');
+    }
+}); */
+
 module.exports = router;
