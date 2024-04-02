@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
     authorid: {type: Number},
-    createdate: {type: String},
-    updatedate: {type: String},
-    dateposted: {type: String},
-    upvote: { type: Number }, 
-    downvote: {type: Number},
+    createdate: {type: Date, default: Date.now},
+    updatedate: {type: Date, default: Date.now},
+    dateposted: {type: Date, default: Date.now},
+    upvote: { type: Number, default: 0}, 
+    downvote: {type: Number, default: 0},
     title: {type: String},
     description: {type: String},
     image: {type: String},

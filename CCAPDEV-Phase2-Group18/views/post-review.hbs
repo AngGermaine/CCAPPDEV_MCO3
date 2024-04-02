@@ -1,5 +1,5 @@
 {{>top-nav}}
-<form action="#">
+<form action="/post_review" method = "POST">
 <div class="postbox-main">
     <div class="infobox">
         <div class="profile-detail"> <!-- Profile Icon-->
@@ -20,7 +20,7 @@
                 </div>
                 <ul class="menu">
                     {{#each cafe-data}}
-                            <li class="cafe-item">{{cafename}}</li>
+                            <li class="cafe-item">{{cafename}}</li> 
                     {{/each}}
                 </ul>
             </div>
@@ -45,9 +45,9 @@
         </div>
     </div>
     <div class="inputbox">
-        <input type="text" placeholder="Title" class="title-input">
+        <input type="text" name = "title" placeholder="Title" class="title-input">
         <div class="textarea">
-            <textarea cols="30" placeholder="Please describe your experience!"></textarea>
+            <textarea cols="30" name = "review_content" placeholder="Please describe your experience!"></textarea>
         </div>
         <div class="file-upload">
             <input type="file" id="myFile" name="filename">
@@ -91,4 +91,17 @@
             document.querySelector('.select-cafe .selected').textContent = selectedCafe;
         });
     });
+
+    /* adding review 
+    const postReview = document.getElementById('post');
+
+    postReview.onclick = async function() {
+        const response = await fetch('/post_review', {
+            method: 'POST'
+        });
+
+        if (response.ok) {
+            window.location.href = '/'; // Redirect to homepage
+        } 
+    }; */
 </script>

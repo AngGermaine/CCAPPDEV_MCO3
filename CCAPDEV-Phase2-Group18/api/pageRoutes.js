@@ -52,4 +52,14 @@ router.get('/about', function(req,resp){
     });
 }); 
 
+router.get('/search', function(req,resp){
+
+    resp.render('search',{
+        title: 'Search Results | Coffee Lens',
+        userPfp: loggedInUserPfp,
+        loggedInUserId: loggedInUserId
+    });
+}); 
+
+
 module.exports = router;

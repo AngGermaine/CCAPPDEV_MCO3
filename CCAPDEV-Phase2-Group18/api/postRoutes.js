@@ -2,8 +2,12 @@ const post = require("../schemas/postSchema");
 const user = require("../schemas/userSchema");
 const cafe =  require("../schemas/cafeSchema");
 const comment =  require("../schemas/commentSchema");
+const archive = require("../schemas/archiveSchema");
 const express = require("express");
 const router = express.Router();
+
+const databaseName = "mco";
+const collectionName = "posts";
 
 // current logged in user
 var loggedInUser = "cinnamoroll";
@@ -114,17 +118,46 @@ router.get('/post_review', function(req, resp){
     }).catch(errorFn);
 });
 
+// adding review
+router.post('/post_review', async function(req, resp){
+    const postInstance = post({
+      upvote: 0,
+      downvote: 0,
+      title:   req.body.title,
+      description: req.body.review_content,
+      image: req.body.filename,
+      isPromo: false,
+      storeid: req.body.cafename, 
+      postid: req.body.postid,
+      rating: 5
+    });
+    // will save the added entries
+    postInstance.save().then(function(login) {
+      resp.redirect('/?success=true');
+    }).catch(errorFn);
+}); 
+
+
 /* deleting post
-router.delete('/api/postRoutes/:postId', async (req, res) => {
+
+router.get("/delete/:postId", async function (req, res) {
     const postId = req.params.postId;
-    try {
-        const deletedPost = await post.findByIdAndDelete(postId);
-        if (!deletedPost) {
-            return res.status(404).send('Post not found');
-        }
-    } catch (errorFn) {
-        res.status(500).send('Error deleting post');
-    }
-}); */
+    const post = await Post.findByIdAndDelete(postId);
+    await archive.create({
+      createdate: post.createdate,
+      updatedate:  post.updatedate,
+      dateposted:  post.dateposted,
+      upvote: post.upvote,
+      downvote: post.downvote,
+      title:   post.title,
+      description:post.description,
+      image: post.filename,
+      isPromo: false,
+      storeid: post.cafename, 
+      postid: post.postid,
+      rating: post.rate
+    });
+    res.redirect("/");
+  }); */
 
 module.exports = router;
