@@ -6,7 +6,8 @@ const commentSchema = new mongoose.Schema({
     content: {type: String},
     authorid: {type: Number}, 
     dateposted: {type: String},
-    postid: {type: Number}
+    postid: {type: Number},
+    likedby: [Number]
 },{ versionKey: false });
 
 const commentModel = mongoose.model('comment',commentSchema);
