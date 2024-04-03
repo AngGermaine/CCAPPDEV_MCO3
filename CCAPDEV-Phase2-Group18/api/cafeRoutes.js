@@ -47,6 +47,14 @@ router.get('/view_cafe', function(req,resp){
                         post.combinedScore = post.upvote - post.downvote;
                     });
 
+                    postsWithUserInfo.sort((a, b) => {
+                        if (a.rating !== b.rating) {
+                            return b.rating - a.rating; // Sort by rating
+                        } else {
+                            return b.combinedScore - a.combinedScore; // Sort by combined score
+                        }
+                    });
+
                     // Calculate average rating of posts
                     const averageRating = calculateAverageRating(postsWithUserInfo);
 
