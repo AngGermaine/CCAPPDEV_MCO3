@@ -48,11 +48,11 @@
                     <div class="username" data-userid="{{authorid}}">{{username}}</div>
                     <div class="review" data-postid="{{ _id }}">{{description}}</div>
                     <div class="like_btn_container">
-                        <div class="like-post-rating" id="likebtn">
+                        <div class="like-post-rating {{#if (hasLikedUser ../loggedInUserId likedby)}}like-post-rating-selected{{/if}}" id="likebtn">
                             <span class="like-btn material-icons"> thumb_up </span>
                             <span class="like-count" id="like-count">{{upvote}}</span>
                         </div>
-                        <div class="like-post-rating">
+                        <div class="like-post-rating {{#if (hasLikedUser ../loggedInUserId dislikedby)}}like-post-rating-selected{{/if}}">
                             <span class="like-btn material-icons" id="dislikebtn"> thumb_down </span>
                             <span class="like-count" id="dislike-count">{{downvote}}</span>
                         </div>
