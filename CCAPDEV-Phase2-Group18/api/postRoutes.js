@@ -89,6 +89,14 @@ router.get('/edit_post', function(req,resp){
     
 }); 
 
+function formatDate(date) {
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month} ${day}, ${year}`;
+}
+
 router.get('/post_promo', function(req, resp){
     const searchQuery = {};
     const currentDate = new Date();
@@ -106,11 +114,12 @@ router.get('/post_promo', function(req, resp){
 router.get('/post_review', function(req, resp){
     const searchQuery = {};
     const currentDate = new Date();
+    const formattedDate = formatDate(currentDate);
     cafe.find(searchQuery).lean().then(function(cafes){
         resp.render('post-review', {
             title: 'Post A Review | Coffee Lens',
             'cafe-data': cafes,
-            currentDate: currentDate,
+            currentDate: formattedDate,
             userPfp: loggedInUserPfp,
             user: loggedInUser,
             loggedInUserId: loggedInUserId
@@ -120,22 +129,48 @@ router.get('/post_review', function(req, resp){
 
 // adding review
 router.post('/post_review', async function(req, resp){
-    const postInstance = post({
-      upvote: 0,
-      downvote: 0,
-      title:   req.body.title,
-      description: req.body.review_content,
-      image: req.body.filename,
-      isPromo: false,
-      storeid: req.body.cafename, 
-      postid: req.body.postid,
-      rating: 5
+    const previousPost = await post.findOne().sort({postid: -1}).exec();
+    let previousPostId;
+    if (previousPost) {
+        previousPostId = previousPost.postid + 1;
+    } else {
+        previousPostId = 3000;
+    }
+
+    let image;
+    if (req.body.filename.startsWith('http')) {
+        image = req.body.filename; 
+    } else {
+        // If it's a file, read and convert to base64
+    }
+
+    const currentDate = new Date(req.body.currentDate).toISOString();
+    const rating = parseInt(req.body.rate);
+    const storeid = req.body.cafeid.toString();
+
+    const postInstance = new post({
+        authorid: req.body.authorid,
+        upvote: 0,
+        downvote: 0,
+        title: req.body.title,
+        description: req.body.review_content,
+        image: image,
+        isPromo: false,
+        storeid: storeid,
+        postid: previousPostId,
+        rating: rating,
+        createdate: req.body.currentDate,
+        updatedate: req.body.currentDate,
+        dateposted: req.body.currentDate
     });
-    // will save the added entries
-    postInstance.save().then(function(login) {
+    
+
+
+    postInstance.save().then(function() {
       resp.redirect('/?success=true');
     }).catch(errorFn);
-}); 
+});
+
 
 
 /* deleting post
@@ -159,5 +194,31 @@ router.get("/delete/:postId", async function (req, res) {
     });
     res.redirect("/");
   }); */
+
+
+  router.post('/like_comment', async function(req, resp){
+    const commentId = req.body.commentId;
+    const userId = req.body.userId;
+
+    try {
+        const commentToUpdate = await comment.findById(commentId);
+        if (commentToUpdate) {
+            // Check if the user has already liked the comment
+            if (!commentToUpdate.likedby.includes(userId)) {
+                commentToUpdate.likedby.push(userId);
+                commentToUpdate.upvote = Number(commentToUpdate.upvote) +1;
+                await commentToUpdate.save();
+                resp.status(200).send('Comment liked successfully.');
+                console.log(comment);
+            } else {
+                resp.status(400).send('User has already liked this comment.');
+            }
+        } else {
+            resp.status(404).send('Comment not found.');
+        }
+    } catch (error) {
+        resp.status(500).send('Internal server error.');
+    }
+});
 
 module.exports = router;

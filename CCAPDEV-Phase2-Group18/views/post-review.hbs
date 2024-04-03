@@ -5,9 +5,11 @@
         <div class="profile-detail"> <!-- Profile Icon-->
             <img src = "{{userPfp}}"> 
             {{user}}
+            <input type="hidden" name="authorid" value="{{loggedInUserId}}">
         </div>
         <div class="date-posted">
-            Date: {{formatDate currentDate}}
+            Date: {{currentDate}}
+            <input type="hidden" name="currentDate" value="{{currentDate}}">
         </div>
     </div> 
     <div class="infobox">
@@ -20,9 +22,11 @@
                 </div>
                 <ul class="menu">
                     {{#each cafe-data}}
-                            <li class="cafe-item">{{cafename}}</li> 
+                            <li class="cafe-item" data-storeid="{{cafeid}}">{{cafename}}</li> 
                     {{/each}}
                 </ul>
+                <input type="hidden" name="cafeid" id="selectedCafeId">
+
             </div>
         </div>
          
@@ -30,15 +34,15 @@
             Rating:
             <div class="star-container">
                 <div class="star-widget">
-                    <input type="radio" name="rate" id="rate-5">
+                    <input type="radio" name="rate" id="rate-5" value="5">
                     <label for="rate-5" class="fas fa-star"></label>
-                    <input type="radio" name="rate" id="rate-4">
+                    <input type="radio" name="rate" id="rate-4" value="4">
                     <label for="rate-4" class="fas fa-star"></label>
-                    <input type="radio" name="rate" id="rate-3">
+                    <input type="radio" name="rate" id="rate-3" value="3">
                     <label for="rate-3" class="fas fa-star"></label>
-                    <input type="radio" name="rate" id="rate-2">
+                    <input type="radio" name="rate" id="rate-2" value="2">
                     <label for="rate-2" class="fas fa-star"></label>
-                    <input type="radio" name="rate" id="rate-1">
+                    <input type="radio" name="rate" id="rate-1" value="1">
                     <label for="rate-1" class="fas fa-star"></label>
                 </div>
             </div>
@@ -86,22 +90,15 @@
             // Add 'active' class to the clicked cafe item
             this.classList.add('active');
 
-            // Update the selected cafe text
             const selectedCafe = this.textContent;
             document.querySelector('.select-cafe .selected').textContent = selectedCafe;
+        
+            const cafeid = this.dataset.storeid;
+            document.getElementById('selectedCafeId').value = cafeid;
+
+            console.log("Selected Store ID:", cafeid);   
+
         });
     });
 
-    /* adding review 
-    const postReview = document.getElementById('post');
-
-    postReview.onclick = async function() {
-        const response = await fetch('/post_review', {
-            method: 'POST'
-        });
-
-        if (response.ok) {
-            window.location.href = '/'; // Redirect to homepage
-        } 
-    }; */
 </script>

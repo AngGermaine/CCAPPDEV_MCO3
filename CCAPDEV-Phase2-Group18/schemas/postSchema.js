@@ -11,7 +11,7 @@ const postSchema = new mongoose.Schema({
     description: {type: String},
     image: {type: String},
     isPromo: {type: Boolean},
-    storeid: {type: Number},
+    storeid: {type: String},
     postid: {type: Number},
     rating: {type: Number}
  },{ versionKey: false });
