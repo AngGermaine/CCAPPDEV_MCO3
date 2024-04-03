@@ -18,5 +18,5 @@ const archiveSchema = new mongoose.Schema({
     rating: {type: Number}
  },{ versionKey: false });
 
-const archiveModel = mongoose.model('archive',archiveSchema);
-module.exports = mongoose.models.archive || archive; 
+const archiveModel = mongoose.model('archive',archiveSchema,'archives');
+module.exports = archiveModel; 

@@ -9,5 +9,5 @@ const cafeSchema = new mongoose.Schema({
     cafedesc: {type: String}
  },{ versionKey: false });
 
- const cafeModel = mongoose.model('store',cafeSchema);
- module.exports = mongoose.models.store || store; 
+ const cafeModel = mongoose.model('store',cafeSchema, 'stores');
+ module.exports = cafeModel; 

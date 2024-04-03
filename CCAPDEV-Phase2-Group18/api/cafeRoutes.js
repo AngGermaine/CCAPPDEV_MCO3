@@ -1,4 +1,4 @@
-const cafe = require("../schemas/cafeSchema");
+const cafeModel = require("../schemas/cafeSchema");
 const post = require("../schemas/postSchema");
 const user = require("../schemas/userSchema");
 const express = require("express");
@@ -14,13 +14,21 @@ function errorFn(err){
     console.error(err);
 }
 
+function calculateAverageRating(posts) {
+    let totalRating = 0;
+    posts.forEach(post => {
+        totalRating += post.rating;
+    });
+    return totalRating / posts.length;
+}
+
 router.get('/view_cafe', function(req,resp){
     const cafeid = req.query.id;
     const cafe_searchQuery = { cafeid: cafeid }; 
 
-    cafe.findOne(cafe_searchQuery).lean().then(function(cafe){
+    cafeModel.findOne(cafe_searchQuery).lean().then(function(cafe){
         if (cafe) {
-            post.find({ isPromo: false }).lean().then(function(posts){
+            post.find({ isPromo: false, storeid: cafeid }).lean().then(function(posts){
                 const filteredPosts = posts.filter(post => post.storeid === cafeid);
 
                 const authorIds = [...new Set(filteredPosts.map(post => post.authorid))];
@@ -39,22 +47,37 @@ router.get('/view_cafe', function(req,resp){
                         post.combinedScore = post.upvote - post.downvote;
                     });
 
-                    // Sort posts based on combined score in descending order
-                    postsWithUserInfo.sort((a, b) => b.combinedScore - a.combinedScore);
-                    var isLoggedIn;
-                    if(cafe.ownerid===loggedInUserId){
-                        isLoggedIn = true;
-                    } else{
-                        isLoggedIn = false;
-                    }
-                    resp.render('view-cafe', {
-                        title: 'View Cafe | Coffee Lens',
-                        'cafe-data': cafe,
-                        'post-data': postsWithUserInfo,
-                        userPfp: loggedInUserPfp,
-                        loggedInUserId: loggedInUserId,
-                        'isLoggedIn': isLoggedIn
+                    postsWithUserInfo.sort((a, b) => {
+                        if (a.rating !== b.rating) {
+                            return b.rating - a.rating; // Sort by rating
+                        } else {
+                            return b.combinedScore - a.combinedScore; // Sort by combined score
+                        }
                     });
+
+                    // Calculate average rating of posts
+                    const averageRating = calculateAverageRating(postsWithUserInfo);
+
+                    // Update the rating field of the cafe document
+                    cafe.rating = averageRating;
+
+                    // Save the updated cafe document
+                    cafeModel.updateOne(cafe_searchQuery, { $set: { rating: averageRating } }).then(() => {
+                        var isLoggedIn;
+                        if(cafe.ownerid===loggedInUserId){
+                            isLoggedIn = true;
+                        } else{
+                            isLoggedIn = false;
+                        }
+                        resp.render('view-cafe', {
+                            title: 'View Cafe | Coffee Lens',
+                            'cafe-data': cafe,
+                            'post-data': postsWithUserInfo,
+                            userPfp: loggedInUserPfp,
+                            loggedInUserId: loggedInUserId,
+                            'isLoggedIn': isLoggedIn
+                        });
+                    }).catch(errorFn);
                 }).catch(errorFn);
             }).catch(errorFn);
         } else {
@@ -63,9 +86,10 @@ router.get('/view_cafe', function(req,resp){
     }).catch(errorFn);
 });
 
+
 router.get('/view_all', function(req, resp){
     const searchQuery = {};
-    cafe.find(searchQuery).lean().then(function(cafes){
+    cafeModel.find(searchQuery).lean().then(function(cafes){
         cafes.sort((a, b) => a.cafename.localeCompare(b.cafename));
         resp.render('view-all', {
             title: 'All Cafes | Coffee Lens',

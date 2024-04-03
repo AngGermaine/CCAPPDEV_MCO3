@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
     authorid: {type: Number},
-    createdate: {type: Date, default: Date.now},
-    updatedate: {type: Date, default: Date.now},
-    dateposted: {type: Date, default: Date.now},
+    createdate: {type: String},
+    updatedate: {type: String},
+    dateposted: {type: String},
     upvote: { type: Number, default: 0}, 
     downvote: {type: Number, default: 0},
     title: {type: String},
@@ -16,5 +16,5 @@ const postSchema = new mongoose.Schema({
     rating: {type: Number}
  },{ versionKey: false });
 
-const postModel = mongoose.model('post',postSchema);
-module.exports = mongoose.models.post || post; 
+const postModel = mongoose.model('post',postSchema, 'posts');
+module.exports = postModel; 

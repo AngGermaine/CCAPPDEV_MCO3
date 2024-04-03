@@ -144,7 +144,6 @@ router.post('/post_review', async function(req, resp){
         // If it's a file, read and convert to base64
     }
 
-    const currentDate = new Date(req.body.currentDate).toISOString();
     const rating = parseInt(req.body.rate);
     const storeid = req.body.cafeid.toString();
 
@@ -163,8 +162,6 @@ router.post('/post_review', async function(req, resp){
         updatedate: req.body.currentDate,
         dateposted: req.body.currentDate
     });
-    
-
 
     postInstance.save().then(function() {
       resp.redirect('/?success=true');
