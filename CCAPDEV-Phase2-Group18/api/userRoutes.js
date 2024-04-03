@@ -14,14 +14,50 @@ function errorFn(err){
     console.error(err);
 }
 
+function formatDate(date) {
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month} ${day}, ${year}`;
+}
+
 router.get('/create_acc', function(req,resp){
     resp.render('create-acc',{
         title: 'Register | Coffee Lens'
     });
-}); 
+});
+
+router.post('/create_acc', async function(req,resp){
+    const previousUser = await user.findOne().sort({userid: -1}).exec();
+    let previousUserId;
+    if (previousUser) {
+        previousUserId = previousUser.userid + 1;
+    } else {
+        previousUserId = 1000;
+    }
+
+    const {email, username, password, confirmPassword, accountType} = req.body;
+    const isOwner = accountType === 'owner';
+    const currentDate = new Date();
+    const formattedDate = formatDate(currentDate);
+    const newUser = new user({
+        userid: previousUserId,
+        username: username,
+        password: password,
+        joindate: formattedDate,
+        isOwner: isOwner,
+        profpic: null
+    });
+    
+    newUser.save().then(function(){
+        resp.redirect('/login');
+        console.log('Registered Successfully');
+    });
+});
 
 router.get('/edit_profile', function(req,resp){
-    const userId = req.query.userId;
+    const userId = loggedInUserId;
     user.findOne({userid: userId}).lean().then(function(user){
         console.log(user);
         resp.render('edit-profile',{
@@ -32,6 +68,20 @@ router.get('/edit_profile', function(req,resp){
         });
     }).catch(errorFn);
 }); 
+
+router.post('/edit_profile', function(req, resp){
+    const{username, password, filename} = req.body;
+    user.findOneAndUpdate({userid: loggedInUserId}, 
+        {
+            username: username,
+            password: password,
+            profpic: filename
+        }, {new: true}).then(function(updatedProfile){
+            console.log('Updated Profile Successfully');
+            resp.redirect('/');
+        }
+    );
+});
 
 router.get('/view_profile', function(req,resp){
     let userId = req.query.userId;
