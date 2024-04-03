@@ -5,7 +5,14 @@ const cafeSchema = new mongoose.Schema({
     cafename: {type: String},
     ownerid: {type: Number}, 
     logo: {type: String},
-    rating: {type: Number},
+    rating: {
+        type: Number,
+        default: 0,
+        set: function(value) {
+            // If the value is "NaN" or not a number, set it to 0
+            return isNaN(value) ? 0 : value;
+        }
+    },
     cafedesc: {type: String}
  },{ versionKey: false });
 

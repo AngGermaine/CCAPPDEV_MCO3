@@ -68,52 +68,40 @@
                 </div>
             </div>
             <div class="edit-changes-btn">
-                <button type="submit">Confirm Changes</button>
+                <button type="submit" id="editButton">Confirm Changes</button>
+                OR
+                <button type="button" id="deleteButton" >Delete Post</button>
             </div>
         </div>
     </form>
 
-    <!-- deleting post 
-    <form id ="deletePostForm" action = "/api/postRoutes/:postId" method = "DELETE">
-        <div class="edit-changes-btn">
-            <button id = "deletePost" data-post-id = "{{ post-data.postid }}"> Delete Post </button>
-        </div>
-    </form> -->
 
 </div>
 </body>
+
 <script>
-    // Get all cafe items
-    const cafeItems = document.querySelectorAll('.select-cafe .menu .cafe-item');
-
-    // Add click event listener to each cafe item
-    cafeItems.forEach(item => {
-        item.addEventListener('click', function() {
-            // Remove 'active' class from all cafe items
-            cafeItems.forEach(item => {
-                item.classList.remove('active');
-            });
-
-            // Add 'active' class to the clicked cafe item
-            this.classList.add('active');
-
-            // Update the selected cafe text
-            const selectedCafe = this.textContent;
-            document.querySelector('.select-cafe .selected').textContent = selectedCafe;
-        });
+    document.getElementById('editButton').addEventListener('click', function() {
+        // Submit the form for updating the post
+        document.getElementById('editReviewForm').submit();
     });
 
-    /* deleting post
-    const deletePost = document.getElementById('deletePost');
-
-    deletePost.onclick = async function() {
-        const postId = deletePost.dataset.postId;
-        const response = await fetch(`/api/postRoutes/${postId}`, {
-            method: 'DELETE'
+    document.getElementById('deleteButton').addEventListener('click', function() {
+        // Redirect to the delete route when the delete button is clicked
+        const postId = '{{post-data._id}}'; // Get the post ID from your template
+        fetch('/delete/' + postId, {
+            method: 'GET'
+        })
+        .then(response => {
+            if (response.ok) {
+                // Post deleted successfully, redirect or perform any other action
+                window.location.href = '/'; // Redirect to homepage
+            } else {
+                // Handle error
+                console.error('Error deleting post');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
-
-        if (response.ok) {
-            window.location.href = '/'; // Redirect to homepage
-        } 
-    }; */
+    });
 </script>

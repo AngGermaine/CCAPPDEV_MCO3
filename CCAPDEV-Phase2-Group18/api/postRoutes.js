@@ -61,7 +61,7 @@ router.get('/view_post', function(req, resp){
                 }).catch(errorFn);
             }).catch(errorFn);
         } else {
-            resp.status(404).send('Promo not found');
+            resp.status(404).send('Post not found');
         }
     }).catch(errorFn);
 });
@@ -168,27 +168,36 @@ router.post('/post_review', async function(req, resp){
     }).catch(errorFn);
 });
 
-/* deleting post
-
 router.get("/delete/:postId", async function (req, res) {
     const postId = req.params.postId;
-    const post = await Post.findByIdAndDelete(postId);
-    await archive.create({
-      createdate: post.createdate,
-      updatedate:  post.updatedate,
-      dateposted:  post.dateposted,
-      upvote: post.upvote,
-      downvote: post.downvote,
-      title:   post.title,
-      description:post.description,
-      image: post.filename,
-      isPromo: false,
-      storeid: post.cafename, 
-      postid: post.postid,
-      rating: post.rate
-    });
-    res.redirect("/");
-  }); */
+    
+    try {
+        const deletedPost = await post.findByIdAndDelete(postId);
+        if (deletedPost) {
+            await archive.create({
+                createdate: deletedPost.createdate,
+                updatedate: deletedPost.updatedate,
+                dateposted: deletedPost.dateposted,
+                upvote: deletedPost.upvote,
+                downvote: deletedPost.downvote,
+                title: deletedPost.title,
+                description: deletedPost.description,
+                image: deletedPost.image,
+                isPromo: deletedPost.isPromo,
+                storeid: deletedPost.storeid,
+                postid: deletedPost.postid,
+                rating: deletedPost.rating
+            });
+            res.redirect("/");
+        } else {
+            res.status(404).send('Post not found');
+        }
+    } catch (error) {
+        console.error('Error deleting post:', error);
+        res.status(500).send('Error deleting post');
+    }
+});
+
 
 
 router.post('/like_comment', function(req, resp){

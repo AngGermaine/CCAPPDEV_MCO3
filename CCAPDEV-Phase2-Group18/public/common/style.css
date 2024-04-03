@@ -1510,3 +1510,9 @@ form .login button:hover{
 .edit-posting > .post-info{
     align-items: stretch;
 }
+
+.edit-changes-btn button {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
