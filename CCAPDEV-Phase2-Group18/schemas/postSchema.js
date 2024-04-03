@@ -16,5 +16,5 @@ const postSchema = new mongoose.Schema({
     rating: {type: Number}
  },{ versionKey: false });
 
-const postModel = mongoose.model('post',postSchema);
-module.exports = mongoose.models.post || post; 
+const postModel = mongoose.model('post',postSchema, 'posts');
+module.exports = postModel; 

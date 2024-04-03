@@ -9,5 +9,5 @@ const userSchema = new mongoose.Schema({
     isOwner: {type: Boolean}
  },{ versionKey: false });
 
- const userModel = mongoose.model('user',userSchema);
- module.exports = mongoose.models.user || user; 
+ const userModel = mongoose.model('user',userSchema, 'users');
+ module.exports = userModel; 

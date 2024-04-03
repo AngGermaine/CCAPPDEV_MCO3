@@ -162,8 +162,6 @@ router.post('/post_review', async function(req, resp){
         updatedate: req.body.currentDate,
         dateposted: req.body.currentDate
     });
-    
-
 
     postInstance.save().then(function() {
       resp.redirect('/?success=true');

@@ -10,5 +10,5 @@ const commentSchema = new mongoose.Schema({
     likedby: [Number]
 },{ versionKey: false });
 
-const commentModel = mongoose.model('comment',commentSchema);
-module.exports = mongoose.models.comment || comment; 
+const commentModel = mongoose.model('comment',commentSchema, 'comments');
+module.exports = commentModel; 
