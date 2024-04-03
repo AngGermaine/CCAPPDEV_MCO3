@@ -204,7 +204,8 @@ router.post('/like_comment', function(req, resp){
     const commentId = req.body.commentId;
     const likeOrDislike = req.body.likeOrDislike;
     const userId = loggedInUserId;
-    comment.findByIdAndUpdate(commentId).lean().then(function(commentToUpdate){
+    var commentInstance;
+    comment.findById(commentId).lean().then(function(commentToUpdate){
         console.log(commentToUpdate);
         console.log(commentId);
         console.log(likeOrDislike);
@@ -219,10 +220,8 @@ router.post('/like_comment', function(req, resp){
                 }
                 commentToUpdate.likedby.push(userId);
                 commentToUpdate.upvote = Number(commentToUpdate.upvote) +1;
-                commentToUpdate.save().then(function(){
-                    resp.send({status: success});
-                });
-                resp.send({status: success});
+                
+                
             }
         } else if (likeOrDislike==='dislike'){
             if(!isDisliked){
@@ -232,15 +231,16 @@ router.post('/like_comment', function(req, resp){
                     commentToUpdate.upvote = commentToUpdate.upvote-1;
                 } 
                 commentToUpdate.dislikedby.push(userId);
-                commentToUpdate.downvote = Number(commentToUpdate.upvote) +1;
-                commentToUpdate.save().then(function(){
-                    resp.send({status: success});
-                });
-                resp.send({status: success});
+                commentToUpdate.downvote = Number(commentToUpdate.downvote) +1;
+                
             }
         }
-        commentToUpdate.save();
-        resp.send(response);
+        commentInstance = new comment(commentToUpdate);
+        comment.findByIdAndUpdate(commentId,commentToUpdate, {new:true}).then(function(updatedComment){
+            console.log('Updated Successfully');
+            console.log(updatedComment);
+            resp.send({status: 'success'});
+        });
     }).catch(errorFn);
 });
 
