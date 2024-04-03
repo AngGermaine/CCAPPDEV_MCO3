@@ -1516,3 +1516,13 @@ form .login button:hover{
     margin-left: 10px;
 }
 
+.search-result
+{
+    width:100%;
+    display:flex;
+    background-color:#7F5539;
+    color:white;
+    padding: 20px 31px;
+    margin-bottom: 31px;
+    align-items: center;
+}

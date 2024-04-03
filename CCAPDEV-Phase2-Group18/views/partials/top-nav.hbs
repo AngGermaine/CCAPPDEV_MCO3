@@ -8,9 +8,12 @@
 <!-- FOR THE TOP NAV BAR -->
 <div class = "nav"> 
   <div class = "top-search-bar">
-    <input class = "search" type = "text" placeholder="Search"> 
-    <button class = "search-bttn"> <a href = "search" style="text-decoration: none; color: inherit;"> Search </a> </button>
+    <form action = "/search" method = "GET"> 
+      <input class = "search" type = "text" name = "query" placeholder="Search"> 
+      <button type = "submit" class = "search-bttn"> <a href = "search" style="text-decoration: none; color: inherit;"> Search </a> </button>
+    </form>
   </div>
+
 <div class = "links">
   <a href ="/"> Home </a> 
   <a href ="about"> About </a> 

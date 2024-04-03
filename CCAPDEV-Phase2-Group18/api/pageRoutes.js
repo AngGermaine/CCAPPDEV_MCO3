@@ -34,8 +34,6 @@ function calculateAverageRating(posts) {
     }
 }
 
-
-
 // for testing retrieval of data
 router.get('/', function(req, resp) {
     const searchQuery = {};
@@ -80,14 +78,24 @@ router.get('/about', function(req,resp){
     });
 }); 
 
-router.get('/search', function(req,resp){
+router.get('/search', async (req, resp) => {
+    try {
+        const searchQuery = req.query.query;
+        // console.log('Search Query:', searchQuery); for checking if nakukuha nya ung input ng search bar
+        
+        if (!searchQuery) {
+            // If search query is empty, render the search page without querying MongoDB
+            return resp.render('search', { results: [] });
+        }
 
-    resp.render('search',{
-        title: 'Search Results | Coffee Lens',
-        userPfp: loggedInUserPfp,
-        loggedInUserId: loggedInUserId
-    });
+        const results = await cafe.find({ cafename: { $regex: new RegExp(searchQuery, 'i') } }); 
+        resp.render('search', { results });
+    } catch (error) {
+        console.error(error);
+        resp.status(500).send('Internal Server Error');
+    }
 }); 
+
 
 
 module.exports = router;

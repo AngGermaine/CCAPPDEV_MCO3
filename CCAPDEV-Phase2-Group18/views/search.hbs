@@ -1,3 +1,9 @@
 {{>top-nav}}
 
-<!-- place here div for the search results --> 
+<h1> Search Results </h1>
+
+<div class = "search-result"> 
+    {{#each results }}
+        <li> {{this}} </li>
+    {{/each }}
+<div> 
