@@ -302,7 +302,7 @@ router.post('/like_post',function(req,resp){
                     postToUpdate.likedby.splice(likeIndex,1);
                     postToUpdate.upvote = postToUpdate.upvote-1;
                 }
-                postToUpdate.likedby.push(userId);
+                postToUpdate.dislikedby.push(userId);
                 postToUpdate.downvote = Number(postToUpdate.downvote) +1;
             }
         }
