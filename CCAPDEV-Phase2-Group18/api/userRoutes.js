@@ -57,7 +57,7 @@ router.post('/create_acc', async function(req,resp){
 });
 
 router.get('/edit_profile', function(req,resp){
-    const userId = req.query.userId;
+    const userId = loggedInUserId;
     user.findOne({userid: userId}).lean().then(function(user){
         console.log(user);
         resp.render('edit-profile',{
@@ -68,6 +68,20 @@ router.get('/edit_profile', function(req,resp){
         });
     }).catch(errorFn);
 }); 
+
+router.post('/edit_profile', function(req, resp){
+    const{username, password, filename} = req.body;
+    user.findOneAndUpdate({userid: loggedInUserId}, 
+        {
+            username: username,
+            password: password,
+            profpic: filename
+        }, {new: true}).then(function(updatedProfile){
+            console.log('Updated Profile Successfully');
+            resp.redirect('/');
+        }
+    );
+});
 
 router.get('/view_profile', function(req,resp){
     let userId = req.query.userId;
