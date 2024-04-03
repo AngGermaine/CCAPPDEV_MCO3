@@ -1,10 +1,12 @@
 /*Install Command:
     npm init
-    npm i express express-handlebars body-parser mongoose
+    npm i express express-handlebars body-parser mongoose passport passport-local express-session
 */
 
 const express = require('express');
 const server = express();
+const passport = require("passport");
+const local = require("./strategies/local");
 
 const bodyParser = require('body-parser')
 server.use(express.json()); 
@@ -55,6 +57,12 @@ const cafeRoute = require("./api/cafeRoutes.js");
 const pageRoute = require("./api/pageRoutes.js");
 const postRoute = require("./api/postRoutes.js");
 const userRoute = require("./api/userRoutes.js");
+
+
+//passport initialization for auth and session
+server.use(passport.initialize());
+server.use(passport.session());
+
 
 server.use(loginRoute); 
 server.use(cafeRoute); 

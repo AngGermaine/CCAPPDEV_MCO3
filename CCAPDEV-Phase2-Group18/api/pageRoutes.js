@@ -4,6 +4,7 @@ const cafe = require("../schemas/cafeSchema");
 const post = require("../schemas/postSchema");
 
 const express = require("express");
+const passport = require("passport");
 const router = express.Router();
 
 // current logged in user

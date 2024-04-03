@@ -2,6 +2,7 @@ const cafeModel = require("../schemas/cafeSchema");
 const post = require("../schemas/postSchema");
 const user = require("../schemas/userSchema");
 const express = require("express");
+const passport = require("passport");
 const router = express.Router();
 
 // current logged in user

@@ -1,6 +1,7 @@
 const user = require("../schemas/userSchema");
 const post = require("../schemas/postSchema");
 
+const passport = require("passport");
 const express = require("express");
 const router = express.Router();
 
