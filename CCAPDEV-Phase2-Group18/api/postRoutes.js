@@ -195,7 +195,7 @@ router.post('/like_comment', function(req, resp){
     const commentId = req.body.commentId;
     const likeOrDislike = req.body.likeOrDislike;
     const userId = loggedInUserId;
-    comment.findById(commentId).lean().then(function(commentToUpdate){
+    comment.findByIdAndUpdate(commentId).lean().then(function(commentToUpdate){
         console.log(commentToUpdate);
         console.log(commentId);
         console.log(likeOrDislike);
