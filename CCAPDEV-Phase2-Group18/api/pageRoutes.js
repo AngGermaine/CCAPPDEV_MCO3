@@ -16,31 +16,59 @@ function errorFn(err){
     console.error(err);
 }
 
+function calculateAverageRating(posts) {
+    let totalRating = 0;
+    console.log('Number of posts:', posts.length);
+    posts.forEach(post => {
+        console.log('Rating of post:', post.rating);
+        totalRating += post.rating;
+    });
+    console.log('Total rating:', totalRating);
+
+    const averageRating = totalRating / posts.length;
+
+    if (isNaN(averageRating)) {
+        return 0;
+    } else {
+        return averageRating;
+    }
+}
+
+
+
 // for testing retrieval of data
-router.get('/', function(req,resp){
-    //console.log("logged in user: "+loggedInUser); //to check the currently logged in user 
+router.get('/', function(req, resp) {
     const searchQuery = {};
     const searchQueryLoggedInuser = { username: loggedInUser };
-    comment.find(searchQuery).lean().then(function(comments){
-        cafe.find(searchQuery).lean().then(function(cafes){
-            user.find(searchQuery).lean().then(function(users){
-                post.find(searchQuery).lean().then(function(posts){
-                    
+    comment.find(searchQuery).lean().then(function(comments) {
+        cafe.find(searchQuery).lean().then(function(cafes) {
+            user.find(searchQuery).lean().then(function(users) {
+                post.find(searchQuery).lean().then(async function(posts) {
+                    for (let i = 0; i < cafes.length; i++) {
+                        const cafePosts = posts.filter(post => post.storeid === cafes[i].cafeid.toString() && !post.isPromo);
+                        const averageRating = calculateAverageRating(cafePosts);
+                        cafes[i].rating = averageRating;
+
+                        const updateResult = await cafe.updateOne({ cafeid: cafes[i].cafeid }, { rating: averageRating }).exec();
+                    }
+
+                    // Sort cafes by descending order of rating
                     cafes.sort((a, b) => b.rating - a.rating);
+
                     resp.render('main', {
                         layout: 'index',
                         title: 'Home | Coffee Lens',
                         'comments-data': comments,
                         'cafe-data': cafes,
-                        'user-data': users, 
+                        'user-data': users,
                         'post-data': posts,
                         userPfp: loggedInUserPfp,
                         loggedInUserId: loggedInUserId
                     });
-                    
-                }).catch(errorFn);  // postmodel fn
-            }).catch(errorFn);  // usermodel fn
-        }).catch(errorFn);      //cafemodel fn
+
+                }).catch(errorFn); // postmodel fn
+            }).catch(errorFn); // usermodel fn
+        }).catch(errorFn); //cafemodel fn
     }).catch(errorFn); // commentmodel fn
 });
 
