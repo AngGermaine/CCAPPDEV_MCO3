@@ -144,7 +144,6 @@ router.post('/post_review', async function(req, resp){
         // If it's a file, read and convert to base64
     }
 
-    const currentDate = new Date(req.body.currentDate).toISOString();
     const rating = parseInt(req.body.rate);
     const storeid = req.body.cafeid.toString();
 
