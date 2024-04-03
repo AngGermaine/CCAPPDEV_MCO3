@@ -193,16 +193,45 @@ router.get("/delete/:postId", async function (req, res) {
 
 router.post('/like_comment', function(req, resp){
     const commentId = req.body.commentId;
-    const userId = req.body.userId;
-    comment.findOne(commentId).lean().then(function(commentToUpdate){
-        if (!commentToUpdate.likedby.includes(userId)) {
-            commentToUpdate.likedby.push(userId);
-            commentToUpdate.upvote = Number(commentToUpdate.upvote) +1;
-            commentToUpdate.save();
-            console.log(comment);
-        } else {
-            resp.status(400).send('User has already liked this comment.');
+    const likeOrDislike = req.body.likeOrDislike;
+    const userId = loggedInUserId;
+    comment.findById(commentId).lean().then(function(commentToUpdate){
+        console.log(commentToUpdate);
+        console.log(commentId);
+        console.log(likeOrDislike);
+        var isLiked = commentToUpdate.likedby.includes(userId);
+        var isDisliked = commentToUpdate.dislikedby.includes(userId);
+        if (likeOrDislike==='like'){
+            if(!isLiked){
+                if(isDisliked){
+                    var dislikeIndex = commentToUpdate.dislikedby.indexOf(userId);
+                    commentToUpdate.dislikedby.splice(dislikeIndex,1);
+                    commentToUpdate.downvote = commentToUpdate.downvote-1;
+                }
+                commentToUpdate.likedby.push(userId);
+                commentToUpdate.upvote = Number(commentToUpdate.upvote) +1;
+                commentToUpdate.save().then(function(){
+                    resp.send({status: success});
+                });
+                resp.send({status: success});
+            }
+        } else if (likeOrDislike==='dislike'){
+            if(!isDisliked){
+                if(isLiked){
+                    var likeIndex = commentToUpdate.dislikedby.indexOf(userId);
+                    commentToUpdate.likedby.splice(likeIndex,1);
+                    commentToUpdate.upvote = commentToUpdate.upvote-1;
+                } 
+                commentToUpdate.dislikedby.push(userId);
+                commentToUpdate.downvote = Number(commentToUpdate.upvote) +1;
+                commentToUpdate.save().then(function(){
+                    resp.send({status: success});
+                });
+                resp.send({status: success});
+            }
         }
+        commentToUpdate.save();
+        resp.send(response);
     }).catch(errorFn);
 });
 

@@ -49,7 +49,7 @@
 
         <div class="comment-section">
             {{#each comments-data}}
-            <div class="reply">
+            <div class="reply" data-commentid="{{_id}}">
                 <div>
                     <img src="{{profpic}}">
                 </div>
@@ -68,9 +68,10 @@
                     </div>
                 </div>
             </div>
+
             {{/each}}
-            
 <script src="/common/likeComment.js"></script>
+
             
             
         </div>

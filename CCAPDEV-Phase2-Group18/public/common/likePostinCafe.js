@@ -1,12 +1,12 @@
 $(document).ready(function(){
     document.querySelectorAll(".review-container").forEach(review => {
         const postId = review.getAttribute("post-id");
-        const likeRating = review.querySelector(".like-post-rating");
+        
 
         review.querySelectorAll(".like-post-rating").forEach(rating => {
             const likeButton = rating.querySelector(".like-btn");
             const count = rating.querySelector(".like-count");
-
+            const likeRating = review.querySelector(".like-post-rating");
             likeButton.addEventListener("click", async () => {
                 likePost(postId, likeRating, rating, count);
                 //const response = await fetch(`/posts/${postId}/${likeOrDislike}`);
