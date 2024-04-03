@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    const curUserId = getCurrentUserId();
+    
     $(".reply").each(function(){
         const commentId = $(this).data("commentId");
         const ratings = $(this).find(".like-post-rating");

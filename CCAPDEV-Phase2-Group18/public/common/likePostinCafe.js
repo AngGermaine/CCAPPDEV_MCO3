@@ -37,5 +37,3 @@ async function likePost(postId, likeRating, rating, count) {
     const likeOrDislike = likeRating === rating ? "like" : "dislike";
     
 }
-
-

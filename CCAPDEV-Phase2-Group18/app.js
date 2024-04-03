@@ -32,6 +32,9 @@ const hbs = handlebars.create({
 
         eq: function(arg1, arg2, options) {
             return arg1 === arg2 ? options.fn(this) : options.inverse(this);
+        },
+        hasLikedUser: function(userId, likedByArray){
+            return likedByArray.includes(userId);
         }
     }
 });

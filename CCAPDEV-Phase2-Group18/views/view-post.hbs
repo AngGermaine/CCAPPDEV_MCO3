@@ -58,7 +58,7 @@
                     <p id="comment"> {{content}} </p>
                 </div>
                 <div class="like_btn_container">
-                    <div class="like-post-rating">
+                    <div class="like-post-rating {{#if (hasLikedUser../loggedInUserId likedby)}}like-post-rating-selected{{/if}}">
                         <span class="like-btn material-icons"> thumb_up </span>
                         <span class="like-count">{{upvote}}</span>
                     </div>
