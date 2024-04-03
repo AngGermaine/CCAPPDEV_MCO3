@@ -1,9 +1,8 @@
 <div class="login-page"> 
-
     <div class="login-box"> <!-- log in box-->
-
-    <form action="#"> 
-
+    
+    <form action="/create_acc" method="POST"> 
+    
     <div class="inputs"> <!-- username/password-->
         <label for="email">Email: &nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;</label>
         <input type="text" id="email" name="email"><br><br>
@@ -12,7 +11,7 @@
         <label for="password">Password: &emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;</label>
         <input type="password" id="password" name="password" minlength="8"><br><br>
         <label for="password">Re-enter Password: </label>
-        <input type="password" id="password" name="password" minlength="8"><br><br>
+        <input type="password" id="confirmPassword" name="confirmPassword" minlength="8"><br><br>
         <a> Are you an Establishment Owner? </a>
         <label for="owner"> Yes </label>
         <input type="radio" id="owner" name="account-type" value="owner">
@@ -24,16 +23,12 @@
     <div class="btns"> <!-- login button -->
         <div class="login">
             
-            <button type="button" id="backHome"> Create Account </button>
+            <button type="submit" id="backHome"> Create Account </button>
             <script>
-                        document.getElementById('backHome').addEventListener('click', function(event) {
-                        event.preventDefault();
-                        window.location.href = '/';
-                        });
-                    </script> 
+            </script> 
             
         </div>                      
     </div>
     </form>
     </div>
-</div> 
+</div>
