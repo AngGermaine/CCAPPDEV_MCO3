@@ -68,6 +68,8 @@ router.get('/view_post', function(req, resp){
 
 router.get('/edit_post', function(req,resp){
     const postId = req.query.postId;
+    const currentDate = new Date();
+    const formattedDate = formatDate(currentDate);
     post.findById(postId).lean().then(function(post){
         if(post){
             user.findOne({ userid: post.authorid }).lean().then(function(poster){
@@ -77,6 +79,7 @@ router.get('/edit_post', function(req,resp){
                         'post-data': post,
                         'user-data': poster,
                         'cafe-list': cafes,
+                        currentDate: formattedDate,
                         userPfp: loggedInUserPfp,
                         loggedInUserId: loggedInUserId
                     });
@@ -89,6 +92,32 @@ router.get('/edit_post', function(req,resp){
     
 }); 
 
+router.post('/edit_post', async (req, res) => {
+    const postId = req.body.postId; 
+    const updatedTitle = req.body.title; 
+    const updatedDescription = req.body.description; 
+    const updatedImage = req.body.filename; 
+    const rating = parseInt(req.body.rate);
+
+    try {
+        const updatedPost = await post.findByIdAndUpdate(postId, {
+            title: updatedTitle,
+            description: updatedDescription,
+            image: updatedImage,
+            rating: rating,
+            updateDate: req.body.currentDate,
+        }, { new: true }); 
+
+        if (updatedPost) {
+            res.redirect(`/view_post?postId=${postId}`);
+        } else {
+            res.status(404).send('Post not found');
+        }
+    } catch (error) {
+        res.status(500).send('Error updating post');
+    }
+});
+
 function formatDate(date) {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const month = months[date.getMonth()];
@@ -100,11 +129,12 @@ function formatDate(date) {
 router.get('/post_promo', function(req, resp){
     const searchQuery = {};
     const currentDate = new Date();
+    const formattedDate = formatDate(currentDate);
     cafe.find(searchQuery).lean().then(function(cafes){
         resp.render('post-promo', {
             title: 'Post A Promo | Coffee Lens',
             'cafe-data': cafes,
-            currentDate: currentDate,
+            currentDate: formattedDate,
             userPfp: loggedInUserPfp,
             loggedInUserId: loggedInUserId
         });

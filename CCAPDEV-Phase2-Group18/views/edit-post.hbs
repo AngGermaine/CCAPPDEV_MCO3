@@ -27,7 +27,9 @@
     </div>
 
     <!-- Edit post -->
-    <form id="editReviewForm" action="/submit" method="post">
+    <form id="editReviewForm" action="/edit_post" method="post">
+        <input type="hidden" name="postId" value="{{post-data._id}}">
+        <input type="hidden" name="currentDate" value="{{currentDate}}">
         <div class="edit-rev-details">
             {{#if post-data.isPromo}}
             <h1> Edit Promo:</h1>
@@ -37,15 +39,15 @@
             <div class="star-rating">
                 <div class="star-container">
                     <div class="star-widget">
-                        <input type="radio" name="rate" id="rate-5">
+                        <input type="radio" name="rate" id="rate-5" value="5">
                         <label for="rate-5" class="fas fa-star"></label>
-                        <input type="radio" name="rate" id="rate-4">
+                        <input type="radio" name="rate" id="rate-4" value="4">
                         <label for="rate-4" class="fas fa-star"></label>
-                        <input type="radio" name="rate" id="rate-3">
+                        <input type="radio" name="rate" id="rate-3" value="3">
                         <label for="rate-3" class="fas fa-star"></label>
-                        <input type="radio" name="rate" id="rate-2">
+                        <input type="radio" name="rate" id="rate-2" value="2">
                         <label for="rate-2" class="fas fa-star"></label>
-                        <input type="radio" name="rate" id="rate-1">
+                        <input type="radio" name="rate" id="rate-1" value="1">
                         <label for="rate-1" class="fas fa-star"></label>
                     </div>
                 </div>
@@ -53,12 +55,12 @@
             {{/if}}
             <div class="edit-details-row">
                 <div class="edit-detail-item">
-                    <h3> Edit Title: </h3>
-                    <input type="text" placeholder="Change title here..." class="title-input">
+                    <h3>Edit Title:</h3>
+                    <input type="text" placeholder="Change title here..." class="title-input" name="title">
                 </div>
                 <div class="edit-detail-item">
-                    <h3> Edit Description: </h3> 
-                    <textarea cols="30" placeholder="Change your description here..."></textarea>
+                    <h3>Edit Description:</h3>
+                    <textarea cols="30" placeholder="Change your description here..." name="description"></textarea>
                 </div>
                 <div class="edit-detail-item">
                     <h3>Edit image:</h3>
