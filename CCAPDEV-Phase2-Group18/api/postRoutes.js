@@ -172,6 +172,30 @@ router.post('/post_review', async function(req, resp){
 });
 
 
+router.post('/like_comment', async function(req, resp){
+    const commentId = req.body.commentId;
+    const userId = req.body.userId;
+
+    try {
+        const commentToUpdate = await comment.findById(commentId);
+        if (commentToUpdate) {
+            // Check if the user has already liked the comment
+            if (!commentToUpdate.likedby.includes(userId)) {
+                commentToUpdate.likedby.push(userId);
+                commentToUpdate.upvote = Number(commentToUpdate.upvote) +1;
+                await commentToUpdate.save();
+                resp.status(200).send('Comment liked successfully.');
+                console.log(comment);
+            } else {
+                resp.status(400).send('User has already liked this comment.');
+            }
+        } else {
+            resp.status(404).send('Comment not found.');
+        }
+    } catch (error) {
+        resp.status(500).send('Internal server error.');
+    }
+});
 
 /* deleting post
 

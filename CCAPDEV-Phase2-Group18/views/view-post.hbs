@@ -3,6 +3,7 @@
 
 
     <!--POST-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <div class = "posting"> 
         <div class = "poster-info">
             <div> 
@@ -44,41 +45,7 @@
             </div> 
         </div>
 
-<script>
-document.querySelectorAll(".posting").forEach(post => {
-    const postId = post.dataset.postId;
-    const ratings = post.querySelectorAll(".like-post-rating");
-    const likeRating = ratings[0];
-
-    ratings.forEach(rating => {
-        const likeButton = rating.querySelector(".like-btn");
-        const count = rating.querySelector(".like-count");
-
-        likeButton.addEventListener("click", async () => {
-            if (rating.classList.contains("like-post-rating-selected")) {
-                return;
-            }
-
-            count.textContent = Number(count.textContent) + 1;
-
-            ratings.forEach(rating => {
-                if (rating.classList.contains("like-post-rating-selected")) {
-                    const count = rating.querySelector(".like-count");
-
-                    count.textContent = Math.max(0, Number(count.textContent) - 1);
-                    rating.classList.remove("like-post-rating-selected");
-                }
-            });
-
-            rating.classList.add("like-post-rating-selected");
-
-            const likeOrDislike = likeRating === rating ? "like" : "dislike";
-            const response = await fetch(`/posts/${postId}/${likeOrDislike}`);
-            const body = await response.json();
-        });
-    });
-});
-</script>
+<script src="/common/likePost.js"></script>
 
         <div class="comment-section">
             {{#each comments-data}}
@@ -103,41 +70,7 @@ document.querySelectorAll(".posting").forEach(post => {
             </div>
             {{/each}}
             
-<script>
-    document.querySelectorAll(".reply").forEach(comment => {
-        const commentId = comment.dataset.commentId;
-        const ratings = comment.querySelectorAll(".like-post-rating");
-        const likeRating = ratings[0];
-
-        ratings.forEach(rating => {
-            const likeButton = rating.querySelector(".like-btn");
-            const count = rating.querySelector(".like-count");
-
-            likeButton.addEventListener("click", async () => {
-                if (rating.classList.contains("like-post-rating-selected")) {
-                    return;
-                }
-
-                count.textContent = Number(count.textContent) + 1;
-
-                ratings.forEach(rating => {
-                    if (rating.classList.contains("like-post-rating-selected")) {
-                        const count = rating.querySelector(".like-count");
-
-                        count.textContent = Math.max(0, Number(count.textContent) - 1);
-                        rating.classList.remove("like-post-rating-selected");
-                    }
-                });
-
-                rating.classList.add("like-post-rating-selected");
-
-                const likeOrDislike = likeRating === rating ? "like" : "dislike";
-                const response = await fetch(`/comments/${commentId}/${likeOrDislike}`);
-                const body = await response.json();
-            });
-        });
-    });
-</script>
+<script src="/common/likeComment.js"></script>
             
             
         </div>

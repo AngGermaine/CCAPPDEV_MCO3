@@ -1,6 +1,6 @@
 {{>top-nav}}
 <!-- TOP NAV BAR -->
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div class = "cafe-profile-main">
 <!-- CAFE INFORMATION -->
     <div class = "cafe-info-container">
@@ -83,44 +83,10 @@
             });
         });
     });
-
-    //For like and dislike
-    document.querySelectorAll(".review-container").forEach(review => {
-        const postId = review.getAttribute("post-id");
-        const likeRating = review.querySelector(".like-post-rating");
-
-        review.querySelectorAll(".like-post-rating").forEach(rating => {
-            const likeButton = rating.querySelector(".like-btn");
-            const count = rating.querySelector(".like-count");
-
-            likeButton.addEventListener("click", async () => {
-                if (rating.classList.contains("like-post-rating-selected")) {
-                    return;
-                }
-
-                count.textContent = Number(count.textContent) + 1;
-
-                review.querySelectorAll(".like-post-rating").forEach(rating => {
-                    if (rating.classList.contains("like-post-rating-selected")) {
-                        const count = rating.querySelector(".like-count");
-
-                        count.textContent = Math.max(0, Number(count.textContent) - 1);
-                        rating.classList.remove("like-post-rating-selected");
-                    }
-                });
-
-                rating.classList.add("like-post-rating-selected");
-
-                const likeOrDislike = likeRating === rating ? "like" : "dislike";
-                const response = await fetch(`/posts/${postId}/${likeOrDislike}`);
-                const body = await response.json();
-            });
-        });
-    });
 </script>
-
     {{/if}}
 {{/each}}
+<script src="/common/likePostinCafe.js"></script>
     </div>
 
 </div>
