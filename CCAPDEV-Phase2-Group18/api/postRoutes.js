@@ -190,7 +190,9 @@ router.post('/post_review', async function(req, resp){
         rating: rating,
         createdate: req.body.currentDate,
         updatedate: req.body.currentDate,
-        dateposted: req.body.currentDate
+        dateposted: req.body.currentDate,
+        likedby:[0],
+        dislikedby:[0]
     });
 
     postInstance.save().then(function() {
@@ -216,7 +218,9 @@ router.get("/delete/:postId", async function (req, res) {
                 isPromo: deletedPost.isPromo,
                 storeid: deletedPost.storeid,
                 postid: deletedPost.postid,
-                rating: deletedPost.rating
+                rating: deletedPost.rating,
+                likedby: deletedPost.likedby,
+                dislikedby: deletedPost.dislikedby
             });
             res.redirect("/");
         } else {
@@ -234,7 +238,7 @@ router.post('/like_comment', function(req, resp){
     const commentId = req.body.commentId;
     const likeOrDislike = req.body.likeOrDislike;
     const userId = loggedInUserId;
-    var commentInstance;
+    
     comment.findById(commentId).lean().then(function(commentToUpdate){
         console.log(commentToUpdate);
         console.log(commentId);
@@ -250,8 +254,6 @@ router.post('/like_comment', function(req, resp){
                 }
                 commentToUpdate.likedby.push(userId);
                 commentToUpdate.upvote = Number(commentToUpdate.upvote) +1;
-                
-                
             }
         } else if (likeOrDislike==='dislike'){
             if(!isDisliked){
@@ -262,13 +264,51 @@ router.post('/like_comment', function(req, resp){
                 } 
                 commentToUpdate.dislikedby.push(userId);
                 commentToUpdate.downvote = Number(commentToUpdate.downvote) +1;
-                
             }
         }
-        commentInstance = new comment(commentToUpdate);
         comment.findByIdAndUpdate(commentId,commentToUpdate, {new:true}).then(function(updatedComment){
             console.log('Updated Successfully');
             console.log(updatedComment);
+            resp.send({status: 'success'});
+        });
+    }).catch(errorFn);
+});
+
+router.post('/like_post',function(req,resp){
+    const postId = req.body.postId;
+    const likeOrDislike = req.body.likeOrDislike;
+    var postInstance;
+    const userId = loggedInUserId;
+    post.findById(postId).lean().then(function(postToUpdate){
+        console.log(postToUpdate);
+        console.log(postId);
+        console.log(likeOrDislike);
+        var isLiked = postToUpdate.likedby.includes(userId);
+        var isDisliked = postToUpdate.dislikedby.includes(userId);
+        if(likeOrDislike ==='like'){
+            if(!isLiked){
+                if(isDisliked){
+                    var dislikeIndex = postToUpdate.dislikedby.indexOf(userId);
+                    postToUpdate.dislikedby.splice(dislikeIndex,1);
+                    postToUpdate.downvote = postToUpdate.downvote-1;
+                }
+                postToUpdate.likedby.push(userId);
+                postToUpdate.upvote = Number(postToUpdate.upvote) +1;
+            }
+        } else if (likeOrDislike === 'dislike'){
+            if(!isDisliked){
+                if(isLiked){
+                    var likeIndex = postToUpdate.likedby.indexOf(userId);
+                    postToUpdate.likedby.splice(likeIndex,1);
+                    postToUpdate.upvote = postToUpdate.upvote-1;
+                }
+                postToUpdate.likedby.push(userId);
+                postToUpdate.downvote = Number(postToUpdate.downvote) +1;
+            }
+        }
+        post.findByIdAndUpdate(postId,postToUpdate, {new:true}).then(function(updatedPost){
+            console.log('Updated Successfully');
+            console.log(updatedPost);
             resp.send({status: 'success'});
         });
     }).catch(errorFn);

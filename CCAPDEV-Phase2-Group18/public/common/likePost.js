@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $(".post-info").each(function(){
-        const postId = $(this).data("postId");
+        const postId = $(this).data("postid");
         const ratings = $(this).find(".like-post-rating");
         const likeRating = ratings.eq(0);
 
@@ -9,6 +9,8 @@ $(document).ready(function(){
             const count = $(this).find(".like-count");
 
             likeButton.on("click", async function(){
+                const likeOrDislike = $(this).parent().is(likeRating) ? "like" : "dislike";
+
                 if ($(this).parent().hasClass("like-post-rating-selected")) {
                     return;
                 }
@@ -26,9 +28,11 @@ $(document).ready(function(){
 
                 $(this).parent().addClass("like-post-rating-selected");
 
-                const likeOrDislike = $(this).parent().is(likeRating) ? "like" : "dislike";
-                //const response = await fetch(`/posts/${postId}/${likeOrDislike}`);
-                //const body = await response.json();
+                $.post('/like_post', {likeOrDislike: likeOrDislike, postId: postId},
+                    function(data,status){
+                        if(data.status==='success'){
+                        }
+                    });
             });
         });
     });

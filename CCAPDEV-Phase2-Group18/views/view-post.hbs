@@ -23,7 +23,7 @@
         </div>
 
     
-        <div class="post-info"> 
+        <div class="post-info" data-postid="{{post-data._id}}"> 
             <div class = "post-pic"> 
                 <img src = "{{post-data.image}}">
             </div>
@@ -33,11 +33,11 @@
                 </p>  
 
                 <div class="like_btn_container">
-                    <div class="like-post-rating">
+                    <div class="like-post-rating {{#if (hasLikedUser ../loggedInUserId post-data.likedby)}}like-post-rating-selected{{/if}}">
                         <span class="like-btn material-icons"> thumb_up </span>
                         <span class="like-count">{{post-data.upvote}}</span>
                     </div>
-                    <div class="like-post-rating">
+                    <div class="like-post-rating {{#if (hasLikedUser ../loggedInUserId post-data.dislikedby)}}like-post-rating-selected{{/if}}">
                         <span class="like-btn material-icons"> thumb_down </span>
                         <span class="like-count">{{post-data.downvote}}</span>
                     </div>

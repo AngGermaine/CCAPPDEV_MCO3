@@ -13,7 +13,9 @@ const postSchema = new mongoose.Schema({
     isPromo: {type: Boolean},
     storeid: {type: String},
     postid: {type: Number},
-    rating: {type: Number}
+    rating: {type: Number},
+    likedby: [{type: Number}],
+    dislikedby: [{type: Number}]
  },{ versionKey: false });
 
 const postModel = mongoose.model('post',postSchema, 'posts');

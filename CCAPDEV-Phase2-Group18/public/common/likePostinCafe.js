@@ -1,39 +1,39 @@
 $(document).ready(function(){
-    document.querySelectorAll(".review-container").forEach(review => {
-        const postId = review.getAttribute("post-id");
-        
+    $(".review-container").each(function(){
+        const postId = $(this).data("postid");
+        const ratings = $(this).find(".like-post-rating");
+        const likeRating = ratings.eq(0);
 
-        review.querySelectorAll(".like-post-rating").forEach(rating => {
-            const likeButton = rating.querySelector(".like-btn");
-            const count = rating.querySelector(".like-count");
-            const likeRating = review.querySelector(".like-post-rating");
-            likeButton.addEventListener("click", async () => {
-                likePost(postId, likeRating, rating, count);
-                //const response = await fetch(`/posts/${postId}/${likeOrDislike}`);
-                //const body = await response.json();
+        ratings.each(function(){
+            const likeButton = $(this).find(".like-btn");
+            const count = $(this).find(".like-count");
+
+            likeButton.on("click", async function(){
+                const likeOrDislike = $(this).parent().is(likeRating) ? "like" : "dislike";
+
+                if ($(this).parent().hasClass("like-post-rating-selected")) {
+                    return;
+                }
+
+                count.text(Number(count.text()) + 1);
+
+                ratings.each(function(){
+                    if ($(this).hasClass("like-post-rating-selected")) {
+                        const count = $(this).find(".like-count");
+
+                        count.text(Math.max(0, Number(count.text()) - 1));
+                        $(this).removeClass("like-post-rating-selected");
+                    }
+                });
+
+                $(this).parent().addClass("like-post-rating-selected");
+
+                $.post('/like_post', {likeOrDislike: likeOrDislike, postId: postId},
+                    function(data,status){
+                        if(data.status==='success'){
+                        }
+                    });
             });
         });
     });
 });
-
-async function likePost(postId, likeRating, rating, count) {
-    if (rating.classList.contains("like-post-rating-selected")) {
-        return;
-    }
-
-    count.textContent = Number(count.textContent) + 1;
-
-    document.querySelectorAll(".like-post-rating").forEach(rating => {
-        if (rating.classList.contains("like-post-rating-selected")) {
-            const count = rating.querySelector(".like-count");
-
-            count.textContent = Math.max(0, Number(count.textContent) - 1);
-            rating.classList.remove("like-post-rating-selected");
-        }
-    });
-
-    rating.classList.add("like-post-rating-selected");
-
-    const likeOrDislike = likeRating === rating ? "like" : "dislike";
-    
-}
