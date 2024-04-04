@@ -1577,12 +1577,20 @@ form .login button:hover{
     display: flex;
     justify-content: center; 
     align-items: center; 
-    height: 90vh; 
+    height: 60vh; 
 }
 
 .edit-add-cafe-box {
     width: 60vh;
     background-color: #573824;
+    text-align: center; /* Center align text */
+}
+
+.edit-add-cafe-box > h1{
+    background-color: #dbc1ac;
+    color: #573824;
+    padding: 10px;
+    margin-bottom: 0;
 }
 
 .edit-add-cafe-box .inputbox{
