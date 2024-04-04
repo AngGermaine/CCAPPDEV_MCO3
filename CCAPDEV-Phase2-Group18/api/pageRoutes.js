@@ -66,8 +66,8 @@ router.get('/', function(req, resp) {
                         'cafe-data': cafes,
                         'user-data': users,
                         'post-data': posts,
-                        userPfp: loggedInUserPfp,
-                        loggedInUserId: loggedInUserId
+                        userPfp: req.session.loggedInUserPfp,
+                        loggedInUserId: req.session.loggedInUserId
                     });
 
                 }).catch(errorFn); // postmodel fn
@@ -79,8 +79,8 @@ router.get('/', function(req, resp) {
 router.get('/about', function(req,resp){
     resp.render('about',{
         title: 'About | Coffee Lens',
-        userPfp: loggedInUserPfp,
-        loggedInUserId: loggedInUserId
+        userPfp: req.session.loggedInUserPfp,
+        loggedInUserId: req.session.loggedInUserId
     });
 }); 
 

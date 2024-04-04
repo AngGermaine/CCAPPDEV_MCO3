@@ -65,7 +65,7 @@ router.get('/view_cafe', function(req,resp){
                     // Save the updated cafe document
                     cafeModel.updateOne(cafe_searchQuery, { $set: { rating: averageRating } }).then(() => {
                         var isLoggedIn;
-                        if(cafe.ownerid===loggedInUserId){
+                        if(cafe.ownerid===req.session.loggedInUserId){
                             isLoggedIn = true;
                         } else{
                             isLoggedIn = false;
@@ -74,8 +74,8 @@ router.get('/view_cafe', function(req,resp){
                             title: 'View Cafe | Coffee Lens',
                             'cafe-data': cafe,
                             'post-data': postsWithUserInfo,
-                            userPfp: loggedInUserPfp,
-                            loggedInUserId: loggedInUserId,
+                            userPfp: req.session.loggedInUserPfp,
+                            loggedInUserId: req.session.loggedInUserId,
                             'isLoggedIn': isLoggedIn
                         });
                     }).catch(errorFn);
@@ -95,8 +95,8 @@ router.get('/view_all', function(req, resp){
         resp.render('view-all', {
             title: 'All Cafes | Coffee Lens',
             'cafe-data': cafes,
-            userPfp: loggedInUserPfp,
-            loggedInUserId: loggedInUserId
+            userPfp: req.session.loggedInUserPfp,
+            loggedInUserId: req.session.loggedInUserId
         });
     }).catch(errorFn);
 });

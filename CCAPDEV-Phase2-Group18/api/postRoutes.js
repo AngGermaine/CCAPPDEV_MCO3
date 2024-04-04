@@ -51,9 +51,9 @@ router.get('/view_post', function(req, resp){
                                 'post-data': post,
                                 'user-data' : poster,
                                 'comments-data': commentsWithUserInfo,
-                                userPfp: loggedInUserPfp,
+                                userPfp: req.session.loggedInUserPfp,
                                 'isLoggedIn': isLoggedIn,
-                                loggedInUserId: loggedInUserId
+                                loggedInUserId: req.session.loggedInUserId
                             });
 
                         }).catch(errorFn);
@@ -82,8 +82,8 @@ router.get('/edit_post', function(req,resp){
                         'user-data': poster,
                         'cafe-list': cafes,
                         currentDate: formattedDate,
-                        userPfp: loggedInUserPfp,
-                        loggedInUserId: loggedInUserId
+                        userPfp: req.session.loggedInUserPfp,
+                        loggedInUserId: req.session.loggedInUserId
                     });
                 }).catch(errorFn);
             }).catch(errorFn);
@@ -137,8 +137,8 @@ router.get('/post_promo', function(req, resp){
             title: 'Post A Promo | Coffee Lens',
             'cafe-data': cafes,
             currentDate: formattedDate,
-            userPfp: loggedInUserPfp,
-            loggedInUserId: loggedInUserId
+            userPfp: req.session.loggedInUserPfp,
+            loggedInUserId: req.session.loggedInUserId
         });
     }).catch(errorFn);
 });
@@ -152,9 +152,9 @@ router.get('/post_review', function(req, resp){
             title: 'Post A Review | Coffee Lens',
             'cafe-data': cafes,
             currentDate: formattedDate,
-            userPfp: loggedInUserPfp,
-            user: loggedInUser,
-            loggedInUserId: loggedInUserId
+            userPfp: req.session.loggedInUserPfp,
+            user: req.session.loggedInUser,
+            loggedInUserId: req.session.loggedInUserId
         });
     }).catch(errorFn);
 });

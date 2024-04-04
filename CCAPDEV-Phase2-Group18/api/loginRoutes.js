@@ -53,7 +53,7 @@ router.post('/check_login', function(req,resp){
 
             req.session.loggedInUser = user.username;
             req.session.loggedInUserPfp = user.profpic;
-            req.session.loggedInUserId = user._id;
+            req.session.loggedInUserId = user.userid;
 
             resp.render('check-login',{
                 title: 'Log In | Coffee Lens',
@@ -69,7 +69,7 @@ router.post('/check_login', function(req,resp){
     }).catch(errorFn);
 });
 
-router.post('/logout', function(req, resp){
+router.get('/logout', function(req, resp){
     req.session.destroy(function(err) {
         resp.redirect('/login');
     });

@@ -99,9 +99,9 @@ router.get('/view_profile', function(req,resp){
                 title: 'Profile | Coffee Lens',
                 'posts': posts,
                 'user-data': profile,
-                userPfp: loggedInUserPfp,
+                userPfp: req.session.loggedInUserPfp,
                 'isLoggedIn': isLoggedIn,
-                loggedInUserId: loggedInUserId
+                loggedInUserId: req.session.loggedInUserId
             });
             
         }).catch(errorFn);
