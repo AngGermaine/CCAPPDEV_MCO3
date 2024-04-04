@@ -138,8 +138,49 @@ router.get('/post_promo', function(req, resp){
             'cafe-data': cafes,
             currentDate: formattedDate,
             userPfp: req.session.loggedInUserPfp,
+            user: req.session.loggedInUser,
             loggedInUserId: req.session.loggedInUserId
         });
+    }).catch(errorFn);
+});
+
+router.post('/post_promo', async function(req, resp){
+    const previousPost = await post.findOne().sort({postid: -1}).exec();
+    let previousPostId;
+    if (previousPost) {
+        previousPostId = previousPost.postid + 1;
+    } else {
+        previousPostId = 3000;
+    }
+
+    let image;
+    if (req.body.filename.startsWith('http')) {
+        image = req.body.filename; 
+    } else {
+        // If it's a file, read and convert to base64
+    }
+    const storeid = req.body.cafeid.toString();
+
+    const postInstance = new post({
+        authorid: req.body.authorid,
+        upvote: 0,
+        downvote: 0,
+        title: req.body.title,
+        description: req.body.promo_content,
+        image: image,
+        isPromo: true,
+        storeid: storeid,
+        postid: previousPostId,
+        rating: null,
+        createdate: req.body.currentDate,
+        updatedate: req.body.currentDate,
+        dateposted: req.body.currentDate,
+        likedby:[0],
+        dislikedby:[0]
+    });
+
+    postInstance.save().then(function() {
+      resp.redirect('/?success=true');
     }).catch(errorFn);
 });
 
@@ -314,6 +355,24 @@ router.post('/like_post',function(req,resp){
             resp.send({status: 'success'});
         });
     }).catch(errorFn);
+});
+
+router.post('/post_comment', function(req,resp){
+    const postId = req.body.postId;
+    const content = req.body.content;
+    const newComment = new comment({
+        upvote: 0,
+        downvote: 0,
+        content: content,
+        authorid: req.session.loggedInUserId,
+        likedby: [0],
+        postid: postId,
+        dislikedby:[0]
+    });
+    newComment.save().then(function(){
+        console.log('Comment Added Successfully');
+        resp.redirect(`/view_post?postId=${postId}`);
+    });
 });
 
 module.exports = router;

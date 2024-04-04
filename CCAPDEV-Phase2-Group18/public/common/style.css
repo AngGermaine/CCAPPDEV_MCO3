@@ -742,7 +742,6 @@ form .post button:hover, .back button:hover{
 }
 
 .edit-profile-container,
-.edit-cafe-container,
 .post-promo-container{
     display:flex;
     width:25%;
@@ -761,16 +760,14 @@ form .post button:hover, .back button:hover{
 }
 
 .edit-profile-btn:hover,
-.post-promo-btn:hover,
-.edit-cafe-btn:hover{
+.post-promo-btn:hover{
     background-color:#EDE0D4;
     cursor: pointer;
 }
 
 
 .post-promo-btn,
-.edit-profile-btn,
-.edit-cafe-btn {
+.edit-profile-btn{
     display: flex;
     width: 100%;
     height: 73px;
@@ -786,8 +783,7 @@ form .post button:hover, .back button:hover{
 
 
 .post-promo-btn > a, 
-.edit-profile-btn > a,
-.edit-cafe-btn > a{
+.edit-profile-btn > a{
     text-decoration: none;
     color: inherit;
 }
@@ -967,6 +963,41 @@ form .post button:hover, .back button:hover{
     padding-left: 13px;
 }
 
+.cafe-name{
+    display: flex;
+
+}
+
+.edit-cafe-container{
+    margin: 10px;
+}
+
+
+.edit-cafe-btn{
+    display: flex;
+    width: auto;
+    height: auto;
+    color: white;
+    background-color:#7f5539e5;
+    padding: 10px;
+    border-radius: 1em;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.edit-cafe-btn:hover{
+    background-color: white;
+    cursor: pointer;
+    color: #7F5539;
+}
+
+.edit-cafe-btn > a{
+    text-decoration: none;
+    color: inherit;
+}
+
+
 .intro::-webkit-scrollbar {
     display: none;
   }
@@ -1041,6 +1072,8 @@ form .login button:hover{
     box-shadow:  16px 16px 3px #bb896a;
     
 }
+
+
 
 .login-box > form{
     padding-top: 20%;
@@ -1538,5 +1571,48 @@ form .login button:hover{
     cursor: pointer;
     font-size: 25px;
     color: #7F5539;
+}
+
+.edit-add-cafe-page {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 90vh; 
+}
+
+.edit-add-cafe-box {
+    width: 60vh;
+    background-color: #573824;
+}
+
+.edit-add-cafe-box .inputbox{
+    padding-top: 20px;
+}
+
+
+.edit-add-cafe-page {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+}
+
+.edit-add-cafe-box {
+    width: 60vh;
+    background-color: #573824;
+    border-radius: 2em;
+}
+
+.edit-add-cafe-box > .inputbox{
+    padding-top: 20px;
+}
+.edit-add-cafe-box .post button, .edit-add-cafe-box .back button{
+    font-size: 20px;
+    height: 50px;
+    width: 100px;
+}
+
+.edit-add-cafe-box .btns{
+    margin-top: 0px;
 }
 

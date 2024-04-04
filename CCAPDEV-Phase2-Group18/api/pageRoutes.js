@@ -19,12 +19,9 @@ function errorFn(err){
 
 function calculateAverageRating(posts) {
     let totalRating = 0;
-    console.log('Number of posts:', posts.length);
     posts.forEach(post => {
-        console.log('Rating of post:', post.rating);
         totalRating += post.rating;
     });
-    console.log('Total rating:', totalRating);
 
     const averageRating = totalRating / posts.length;
 

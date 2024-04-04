@@ -8,18 +8,18 @@
             <img src = "{{cafe-data.logo}}">
         </div>
         <div class = "cafe-info">
-            <div class = "cafe-name">{{cafe-data.cafename}}</div>
+            <div class = "cafe-name">{{cafe-data.cafename}}
+                {{#if isLoggedIn}}
+                    <div class="edit-cafe-container">
+                        <div class="edit-cafe-btn" data-cafeid="{{cafe-data.cafeid}}">Edit Cafe</div>
+                    </div>
+                {{/if}}</div>
                 <div class ="cafe-description-container">
                     <div class ="description">{{cafe-data.cafedesc}}</div>
                         <div class="rating">Rating: 
                             {{{generateStarIcons cafe-data.rating}}}
                         </div>
                 </div>
-                {{#if isLoggedIn}}
-                    <div class="edit-cafe-container">
-                        <div class="edit-cafe-btn" data-cafeid="{{cafe-data.cafeid}}"></div>
-                    </div>
-                {{/if}}
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', function () {

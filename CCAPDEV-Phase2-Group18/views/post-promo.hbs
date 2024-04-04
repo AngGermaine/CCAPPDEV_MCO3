@@ -1,14 +1,16 @@
 {{>top-nav}}
 
-<form action="#">
+<form action="/post_promo" method="POST"> 
 <div class="postbox-main">
     <div class="infobox">
         <div class="profile-detail"> <!-- Profile Icon-->
-            <img src = "assets/cafe-owner/jake.jpg">
-            @jakesim
+            <img src="{{userPfp}}">
+            {{user}}
+            <input type="hidden" name="authorid" value="{{loggedInUserId}}"> 
         </div>
         <div class="date-posted">
-            Date: {{formatDate currentDate}}
+            Date: {{currentDate}}
+            <input type="hidden" name="currentDate" value="{{currentDate}}">
         </div>
     </div> 
     <div class="infobox">
@@ -21,17 +23,17 @@
                 </div>
                 <ul class="menu">
                     {{#each cafe-data}}
-                            <li class="cafe-item">{{cafename}}</li>
+                            <li class="cafe-item" data-storeid="{{cafeid}}">{{cafename}}</li>
                     {{/each}}
                 </ul>
+                <input type="hidden" name="cafeid" id="selectedCafeId"> 
             </div>
         </div> 
-        
     </div>
     <div class="inputbox">
-        <input type="text" placeholder="Title" class="title-input">
+        <input type="text" name="title" placeholder="Title" class="title-input"> 
         <div class="textarea">
-            <textarea cols="30" placeholder="Enter Promo details..."></textarea>
+            <textarea cols="30" name="promo_content" placeholder="Enter Promo details..."></textarea> 
         </div>
         <div class="file-upload">
             <input type="file" id="myFile" name="filename">
@@ -50,7 +52,7 @@
         
     </div>
     <div class="post">
-        <button id = "add-review" type="submit">POST</button>
+        <button id="post" type="submit">POST</button> 
     </div>
 </div>
 </form>
@@ -70,9 +72,14 @@
             // Add 'active' class to the clicked cafe item
             this.classList.add('active');
 
-            // Update the selected cafe text
             const selectedCafe = this.textContent;
             document.querySelector('.select-cafe .selected').textContent = selectedCafe;
+        
+            const cafeid = this.dataset.storeid;
+            document.getElementById('selectedCafeId').value = cafeid;
+
+            console.log("Selected Store ID:", cafeid);   
+
         });
     });
 </script>
