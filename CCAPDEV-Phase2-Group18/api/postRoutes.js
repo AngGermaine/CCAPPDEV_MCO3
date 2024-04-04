@@ -316,4 +316,21 @@ router.post('/like_post',function(req,resp){
     }).catch(errorFn);
 });
 
+router.post('/post_comment', function(req,resp){
+    const postId = req.body.postId;
+    const content = req.body.content;
+    const newComment = new comment({
+        upvote: 0,
+        downvote: 0,
+        content: content,
+        authorid: req.session.loggedInUserId,
+        likedby: [0],
+        postid: postId,
+        dislikedby:[0]
+    });
+    newComment.save().then(function(){
+        console.log('Comment Added Successfully');
+        resp.redirect(`/view_post?postId=${postId}`);
+    });
+});
 module.exports = router;
