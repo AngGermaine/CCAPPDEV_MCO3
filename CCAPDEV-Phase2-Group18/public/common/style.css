@@ -314,8 +314,7 @@ body
 /*View Cafe Profile Page*/
 .cafe-profile-main,
 .user-profile-main,
-.edit-profile-main,
-.create-cafe-main{
+.edit-profile-main{
     display: flex;
     flex-direction: column;
     padding-left: 192px;
@@ -1285,7 +1284,7 @@ form .login button:hover{
 }
 
 /*Edit Profile*/
-.edit-profile-main, .create-cafe-main{
+.edit-profile-main{
     flex-direction: unset;
     margin-right: 30vh;
     margin-left: 30vh;
@@ -1526,4 +1525,18 @@ form .login button:hover{
     padding: 20px 31px;
     margin-bottom: 31px;
     align-items: center;
+    font-size: 25px;
 }
+
+.search-result:hover{
+    width:100%;
+    display:flex;
+    background-color: white;
+    padding: 20px 31px;
+    margin-bottom: 31px;
+    align-items: center;
+    cursor: pointer;
+    font-size: 25px;
+    color: #7F5539;
+}
+

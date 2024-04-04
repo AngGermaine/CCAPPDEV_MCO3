@@ -3,17 +3,31 @@
 <h1>Search Results:</h1>
 
 {{#each results }}
-    <div class="search-result"> 
+    <div class="search-result" data-cafename="{{ cafename }}" data-cafeid="{{ cafeid }}"> 
         <div style="display: flex;"> 
             <div> 
                 <img src = "{{logo}}" style="width: 150px; height: 150px; border-radius: 30px;">
             </div>
-            <div style="font-size: 25px; color: white; padding: 1cm"> 
-                {{cafename}}<br> 
+            <div style = "padding-left: 2cm;">
+                <h3> {{cafename}} </h3>
                 {{cafedesc }} <br> 
             </div>
         </div>
     </div>
 {{/each }}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const viewCafeOnSearch = document.querySelectorAll('.search-result');
+        
+        viewCafeOnSearch.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const cafename = button.getAttribute('data-cafename');
+                const cafeid = button.getAttribute('data-cafeid'); 
+                window.location.href = '/view_cafe?id=' + encodeURIComponent(cafeid);
+            });
+        });
+    });
+</script>
 
 
