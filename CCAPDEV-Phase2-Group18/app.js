@@ -1,5 +1,5 @@
 /*Install Command:
-    npm init
+    npm init -y
     npm i express express-handlebars body-parser mongoose passport passport-local express-session connect-mongodb-session
 */
 

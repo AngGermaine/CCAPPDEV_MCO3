@@ -58,21 +58,21 @@ router.post('/create_acc', async function(req,resp){
 });
 
 router.get('/edit_profile', function(req,resp){
-    const userId = loggedInUserId;
+    const userId = req.session.loggedInUserId;
     user.findOne({userid: userId}).lean().then(function(user){
         console.log(user);
         resp.render('edit-profile',{
             title: 'Edit Profile | Coffee Lens',
             'user-data': user,
-            'userPfp': loggedInUserPfp,
-            loggedInUserId: loggedInUserId
+            'userPfp': user.profpic,
+            loggedInUserId: userId
         });
     }).catch(errorFn);
 }); 
 
 router.post('/edit_profile', function(req, resp){
     const{username, password, filename} = req.body;
-    user.findOneAndUpdate({userid: loggedInUserId}, 
+    user.findOneAndUpdate({userid: req.session.loggedInUserId}, 
         {
             username: username,
             password: password,
@@ -90,7 +90,7 @@ router.get('/view_profile', function(req,resp){
     user.findOne({userid: userId}).lean().then(function(profile){
         post.find({authorid: userId}).lean().then(function(posts){
             var isLoggedIn
-            if(loggedInUserId === profile.userid){
+            if(req.session.loggedInUserId === profile.userid){
                 isLoggedIn = true;
             } else{
                 isLoggedIn = false;

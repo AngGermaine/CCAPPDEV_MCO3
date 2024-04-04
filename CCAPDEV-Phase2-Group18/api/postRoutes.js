@@ -41,7 +41,7 @@ router.get('/view_post', function(req, resp){
                                 };
                             });
                             var isLoggedIn;
-                            if(post.authorid===loggedInUserId){
+                            if(post.authorid===req.session.loggedInUserId){
                                 isLoggedIn = true;
                             } else{
                                 isLoggedIn = false;
@@ -239,7 +239,7 @@ router.get("/delete/:postId", async function (req, res) {
 router.post('/like_comment', function(req, resp){
     const commentId = req.body.commentId;
     const likeOrDislike = req.body.likeOrDislike;
-    const userId = loggedInUserId;
+    const userId = req.session.loggedInUserId;
     
     comment.findById(commentId).lean().then(function(commentToUpdate){
         console.log(commentToUpdate);
@@ -280,7 +280,7 @@ router.post('/like_post',function(req,resp){
     const postId = req.body.postId;
     const likeOrDislike = req.body.likeOrDislike;
     var postInstance;
-    const userId = loggedInUserId;
+    const userId = req.session.loggedInUserId;
     post.findById(postId).lean().then(function(postToUpdate){
         console.log(postToUpdate);
         console.log(postId);
