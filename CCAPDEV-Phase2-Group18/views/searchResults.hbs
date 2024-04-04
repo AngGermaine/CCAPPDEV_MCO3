@@ -1,0 +1,19 @@
+{{> top-nav}}
+
+<h1>Search Results:</h1>
+
+{{#each results }}
+    <div class="search-result"> 
+        <div style="display: flex;"> 
+            <div> 
+                <img src = "{{logo}}" style="width: 150px; height: 150px; border-radius: 30px;">
+            </div>
+            <div style="font-size: 25px; color: white; padding: 1cm"> 
+                {{cafename}}<br> 
+                {{cafedesc }} <br> 
+            </div>
+        </div>
+    </div>
+{{/each }}
+
+
