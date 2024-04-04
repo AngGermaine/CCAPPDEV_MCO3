@@ -19,7 +19,8 @@ var loggedInUser = "cinnamoroll";
 var loggedInUserPfp = "https://i.pinimg.com/736x/96/c6/5d/96c65d40ec3d11eb24b73e0e33b568f7.jpg";
 var loggedInUserId = 1001;
 
-router.post('/check_login', function(req,resp){
+//commented out for now
+/* router.post('/check_login', function(req,resp){ 
     const searchQuery = { username: req.body.username, password: req.body.password };
     user.findOne(searchQuery).then(function(user){
         if(user){
@@ -39,6 +40,11 @@ router.post('/check_login', function(req,resp){
         }
         
     }).catch(errorFn);
-}); 
+}); */
+
+router.post('/check_login', passport.authenticate('local'), function(req,resp){
+    res.send(200);
+});
+
 
 module.exports = router;
