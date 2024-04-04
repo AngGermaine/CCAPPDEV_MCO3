@@ -42,9 +42,38 @@ var loggedInUserId = 1001;
     }).catch(errorFn);
 }); */
 
-router.post('/check_login', passport.authenticate('local'), function(req,resp){
-    res.send(200);
+router.post('/check_login', function(req,resp){ 
+    const searchQuery = { username: req.body.username, password: req.body.password };
+    user.findOne(searchQuery).then(function(user){
+        if(user){
+            //console.log('Finding User');
+            //loggedInUser = user.username;
+            //loggedInUserPfp = user.profpic;
+            //loggedInUserId = user.userid;
+
+            req.session.loggedInUser = user.username;
+            req.session.loggedInUserPfp = user.profpic;
+            req.session.loggedInUserId = user._id;
+
+            resp.render('check-login',{
+                title: 'Log In | Coffee Lens',
+                success: true
+            });
+        } else{
+            resp.render('check-login',{
+                title: 'Log In | Coffee Lens',
+                success: false
+            });
+        }
+        
+    }).catch(errorFn);
 });
 
+router.post('/logout', function(req, resp){
+    req.session.destroy(function(err) {
+        resp.redirect('/login');
+    });
+
+});
 
 module.exports = router;

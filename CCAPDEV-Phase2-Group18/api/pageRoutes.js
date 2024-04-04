@@ -37,6 +37,11 @@ function calculateAverageRating(posts) {
 
 // for testing retrieval of data
 router.get('/', function(req, resp) {
+
+    if(req.session.loggedInUserId == undefined) {
+        resp.redirect('/login');
+        return;
+    }
     const searchQuery = {};
     const searchQueryLoggedInuser = { username: loggedInUser };
     comment.find(searchQuery).lean().then(function(comments) {

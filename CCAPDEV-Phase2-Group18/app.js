@@ -1,12 +1,14 @@
 /*Install Command:
     npm init
-    npm i express express-handlebars body-parser mongoose passport passport-local express-session
+    npm i express express-handlebars body-parser mongoose passport passport-local express-session connect-mongodb-session
 */
 
 const express = require('express');
 const server = express();
-const passport = require("passport");
-const local = require("./strategies/local");
+const passport = require('passport');
+const local = require('./strategies/local');
+const session = require('express-session');
+
 
 const bodyParser = require('body-parser')
 server.use(express.json()); 
@@ -49,7 +51,9 @@ server.use(express.static('public'));
 
 //for the DB
 const mongoose = require('mongoose');
+const mongo_uri = 'mongodb+srv://user:appdevmco2@cluster0.gysra2q.mongodb.net/mco';
 mongoose.connect('mongodb+srv://user:appdevmco2@cluster0.gysra2q.mongodb.net/mco');
+
 
 // import routes 
 const loginRoute = require("./api/loginRoutes.js");
@@ -58,11 +62,22 @@ const pageRoute = require("./api/pageRoutes.js");
 const postRoute = require("./api/postRoutes.js");
 const userRoute = require("./api/userRoutes.js");
 
+//initialization for auth and session
+const mongoStore = require('connect-mongodb-session')(session);
+server.use(session({
+    secret: 'something secret',
+    saveUninitialized: true,
+    resave: false,
+    store: new mongoStore({
+        uri: mongo_uri,
+        collection: 'session',
+        expires: 1000*60*60 //1hour
+    })
+}))
 
-//passport initialization for auth and session
-server.use(passport.initialize());
-server.use(passport.session());
-
+//maybe implement passport-local
+//server.use(passport.initialize());
+//server.use(passport.session());
 
 server.use(loginRoute); 
 server.use(cafeRoute); 
