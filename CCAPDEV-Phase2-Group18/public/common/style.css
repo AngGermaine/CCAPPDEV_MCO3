@@ -314,7 +314,8 @@ body
 /*View Cafe Profile Page*/
 .cafe-profile-main,
 .user-profile-main,
-.edit-profile-main{
+.edit-profile-main,
+.create-cafe-main{
     display: flex;
     flex-direction: column;
     padding-left: 192px;
@@ -1284,7 +1285,7 @@ form .login button:hover{
 }
 
 /*Edit Profile*/
-.edit-profile-main{
+.edit-profile-main, .create-cafe-main{
     flex-direction: unset;
     margin-right: 30vh;
     margin-left: 30vh;

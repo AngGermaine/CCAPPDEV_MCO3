@@ -107,6 +107,28 @@ router.get('/create_cafe', function(req,resp){
     });
 });
 
+router.post('/create_cafe', async function(req, resp){
+    const previousCafe = await cafeModel.findOne().sort({userid: -1}).exec();
+    let previousCafeId;
+    if (previousCafe) {
+        previousCafeId = previousCafe.cafeid + 1;
+    } else {
+        previousCafeId = 2000;
+    }
+    const{cafename, cafedesc, filename} = req.body;
+    const newCafe = new cafeModel({
+        cafeid: cafeid,
+        cafename: cafename,
+        logo: filename,
+        ownerid: req.session.loggedInUserId,
+        cafedesc: cafedesc
+    });
+
+    newCafe.save().then(function(){
+        console.log('Added Cafe Successfully');
+        resp.redirect('/');
+    });
+});
 
 router.get('/edit_cafe', function(req,resp){
     resp.render('edit-cafe', {

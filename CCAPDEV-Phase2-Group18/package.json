@@ -19,6 +19,9 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0"
   },
+<<<<<<< HEAD
   "keywords": [],
+=======
+>>>>>>> 6d1a443f903fda1ac2eb11ae5e19a5e6d52459ab
   "description": ""
 }

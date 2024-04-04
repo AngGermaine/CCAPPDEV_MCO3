@@ -1,27 +1,29 @@
-<div class="login-page"> 
+{{>top-nav}}
 
-    <div class="login-box"> <!-- log in box-->
+<div class="create-cafe-main"> 
 
-    <form action="#"> 
+    <div class="edit-profile-container"> <!-- log in box-->
 
-    <div class="inputs"> <!-- username/password-->
-        <label for="cafe-name">Cafe: &nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;</label>
-        <input type="text" id="cafename"><br><br>
-        <label for="description">Description: &nbsp;&emsp;&emsp;&emsp;&nbsp;</label>
-        <input type="text" id="description" name="username"><br><br>
-        <div class="file-upload">
-            <input type="file" id="myFile" name="filename">
-        </div>
+        <form action="/create_cafe" method="POST"> 
 
-    </div>
+            <div class="inputs"> <!-- username/password-->
+                <label for="cafe-name">Cafe: &nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;</label>
+                <input type="text" id="cafename" name="cafename"><br><br>
+                <label for="description">Description: &nbsp;&emsp;&emsp;&emsp;&nbsp;</label>
+                <input type="text" id="description" name="cafedesc"><br><br>
+                <div class="file-upload">
+                    <input type="file" id="myFile" name="filename">
+                </div>
 
-    <div class="btns"> <!-- login button -->
-        <div class="login">
+            </div>
+
+            <div class="btns"> <!-- login button -->
+                <div class="login">
             
-            <button formaction="/"> Create Cafe </button>
+                    <button action="submit"> Create Cafe </button>
             
-        </div>                      
-    </div>
-    </form>
+                </div>                      
+            </div>
+        </form>
     </div>
 </div> 
