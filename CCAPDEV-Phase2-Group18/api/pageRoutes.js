@@ -97,8 +97,10 @@ router.get('/about', function(req,resp){
 router.get('/search', async (req, res) => {
     try {
         const searchQuery = req.query.query;
-        const results = await cafe.find({ cafename: { $regex: new RegExp(searchQuery, 'i')}});
-        const plainResults = results.map(doc => doc.toObject()); // convert to access the cafename, desc and logo from the hbs
+        const cafes = await cafe.find({ cafename: { $regex: new RegExp(searchQuery, 'i')}});
+        const posts = await post.find({ $and: [{ title: { $regex: new RegExp(searchQuery, 'i')}},{ isPromo: false }]});
+        const results = [...cafes, ...posts];
+        const plainResults = results.map(doc => doc.toObject()); // convert para ma-access ng hbs
         res.render('searchResults', { results: plainResults });
     } catch (error) {
         console.error('Error:', error); 
