@@ -84,24 +84,17 @@ router.get('/about', function(req,resp){
     });
 }); 
 
-router.get('/search', async (req, resp) => {
+router.get('/search', async (req, res) => {
     try {
         const searchQuery = req.query.query;
-        // console.log('Search Query:', searchQuery); for checking if nakukuha nya ung input ng search bar
-        
-        if (!searchQuery) {
-            // If search query is empty, render the search page without querying MongoDB
-            return resp.render('search', { results: [] });
-        }
-
-        const results = await cafe.find({ cafename: { $regex: new RegExp(searchQuery, 'i') } }); 
-        resp.render('search', { results });
+        const results = await cafe.find({ cafename: { $regex: new RegExp(searchQuery, 'i')}});
+        const plainResults = results.map(doc => doc.toObject()); // convert to access the cafename, desc and logo from the hbs
+        res.render('searchResults', { results: plainResults });
     } catch (error) {
-        console.error(error);
-        resp.status(500).send('Internal Server Error');
+        console.error('Error:', error); 
+        res.status(500).send('Internal Server Error');
     }
-}); 
-
+});
 
 
 module.exports = router;
