@@ -150,7 +150,10 @@ router.get("/search", async (req, res) => {
     );
 
     const results = [...cafeObjects, ...postsWithUsers];
-    res.render("searchResults", { results });
+    res.render("searchResults", { 
+      results: results,
+      userPfp: req.session.loggedInUserPfp
+    });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
