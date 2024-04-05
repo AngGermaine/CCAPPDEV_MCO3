@@ -1283,30 +1283,30 @@ form .login button:hover{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
     padding: 10px;
-    box-sizing: border-box;
 }
 
 .create-reply .reply-form {
     display: flex;
-    width: 100%;
+    align-items: flex-start; 
 }
 
 .create-reply .column {
-    flex-grow: 1;
-    padding: 0 10px; /* Adjust padding as needed */
+    margin: 0 10px; 
 }
 
 .create-reply p {
     margin: 0;
     font-size: 20px;
+    margin-bottom: 10px;
 }
 
 .create-reply button {
+    align-self: center;
     background-color: #7F5539;
     color: white;
     font-size: 15px;
+    width: 100px; 
     cursor: pointer;
 }
 
@@ -1319,12 +1319,11 @@ form .login button:hover{
 
 .create-reply textarea {
     resize: none;
-    min-height: 50px;
+    width: 100%; /* Take up all available space */
 }
 
-
-.create-reply form{
-    margin: 0px;
+.create-reply form {
+    margin: 0;
 }
 
 /*Edit Profile*/
