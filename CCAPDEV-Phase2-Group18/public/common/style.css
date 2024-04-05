@@ -1283,16 +1283,24 @@ form .login button:hover{
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1em;
-    width: 100%; /* Ensure the width takes the full space */
+    width: 100%;
     padding: 10px;
-    box-sizing: border-box; /* Ensure padding is included in width calculation */
+    box-sizing: border-box;
+}
+
+.create-reply .reply-form {
+    display: flex;
+    width: 100%;
+}
+
+.create-reply .column {
+    flex-grow: 1;
+    padding: 0 10px; /* Adjust padding as needed */
 }
 
 .create-reply p {
-    margin: 0px;
+    margin: 0;
     font-size: 20px;
-    flex-grow: 1;
 }
 
 .create-reply button {
@@ -1311,9 +1319,12 @@ form .login button:hover{
 
 .create-reply textarea {
     resize: none;
-    width: 100%;
-    flex-grow: 1; 
-    min-height: 50px; /* Set a minimum height for the textarea */
+    min-height: 50px;
+}
+
+
+.create-reply form{
+    margin: 0px;
 }
 
 /*Edit Profile*/

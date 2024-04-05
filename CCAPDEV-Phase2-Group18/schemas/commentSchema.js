@@ -5,7 +5,6 @@ const commentSchema = new mongoose.Schema({
     downvote: {type: Number},
     content: {type: String},
     authorid: {type: Number}, 
-    dateposted: {type: String},
     postid: {type: Number},
     likedby: [{type: Number}],
     dislikedby: [{type: Number}]

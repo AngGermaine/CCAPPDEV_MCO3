@@ -359,6 +359,7 @@ router.post('/like_post',function(req,resp){
 
 router.post('/post_comment', function(req,resp){
     const postId = req.body.postId;
+    const postId2 = req.body.postId2; //for redirect
     const content = req.body.content;
     const newComment = new comment({
         upvote: 0,
@@ -371,7 +372,7 @@ router.post('/post_comment', function(req,resp){
     });
     newComment.save().then(function(){
         console.log('Comment Added Successfully');
-        resp.redirect(`/view_post?postId=${postId}`);
+        resp.redirect(`/view_post?postId=${postId2}`);
     });
 });
 

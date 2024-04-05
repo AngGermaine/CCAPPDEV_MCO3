@@ -75,11 +75,22 @@
             
             
         </div>
-        
 
-        <div class = "create-reply"> 
-            <p> Post a reply: </p>
-            <textarea rows="4" cols="50" id="content"> </textarea>
-            <button formaction="/post_comment" method="POST" type="submit"> Post </button>
+        <div class="create-reply"> 
+            <form action="/post_comment" method="POST" class="reply-form"> 
+                <div class="column">
+                    <p> Post a reply: </p>
+                </div>
+                <div class="column">
+                    <textarea rows="4" cols="50" id="content" name="content"></textarea>
+                    <input type="hidden" name="postId" value="{{post-data.postid}}"> 
+                    <input type="hidden" name="postId2" value="{{post-data._id}}">
+                </div>
+                <div class="column">
+                    <button type="submit"> Post </button> 
+                </div>
+            </form>
         </div>
+
+
     </div>
