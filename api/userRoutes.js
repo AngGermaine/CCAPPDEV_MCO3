@@ -74,16 +74,19 @@ router.get('/edit_profile', function(req,resp){
 }); 
 
 router.post('/edit_profile', function(req, resp){
-    const{username, filename} = req.body;
-    user.findOneAndUpdate({userid: req.session.loggedInUserId}, 
+    const { username, filename } = req.body;
+    const loggedInUserId = req.session.loggedInUserId;
+
+    user.findOneAndUpdate({ userid: loggedInUserId }, 
         {
             username: username,
             profpic: filename
-        }, {new: true}).then(function(){
+        }, { new: true }).then(function(updatedUser){
             console.log('Updated Profile Successfully');
+            // Update the session with the new profile picture filename
+            req.session.loggedInUserPfp = updatedUser.profpic;
             resp.redirect('/');
-        }
-    );
+        }).catch(errorFn);
 });
 
 router.get('/view_profile', function(req,resp){
