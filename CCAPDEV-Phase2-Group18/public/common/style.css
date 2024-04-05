@@ -1549,7 +1549,7 @@ form .login button:hover{
     margin-left: 10px;
 }
 
-.search-result
+.search-result, .search-result-review
 {
     width:100%;
     display:flex;
@@ -1561,7 +1561,8 @@ form .login button:hover{
     font-size: 25px;
 }
 
-.search-result:hover{
+.search-result:hover,
+.search-result-review:hover{
     width:100%;
     display:flex;
     background-color: white;
