@@ -10,6 +10,7 @@
     "archetype": "^0.13.0",
     "array-flatten": "^1.1.1",
     "balanced-match": "^1.0.2",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "brace-expansion": "^2.0.1",
     "bson": "^6.6.0",
