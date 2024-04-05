@@ -2,7 +2,7 @@
 
 <h1>Search Results:</h1>
 
-{{#each results }} 
+{{#each results }}
     {{#if cafename}} <!-- cafe -->
         <div class="search-result" data-cafename="{{ cafename }}" data-cafeid="{{ cafeid }}"> 
             <div style="display: flex;"> 
@@ -16,7 +16,7 @@
             </div>
         </div>
     {{else}} <!-- review -->
-        <div class="search-result">
+        <div class="search-result-review" data-postid = "{{_id}}">
             <div style="display: flex;">
                 <div>
                     <img src="{{profpic}}" style="width: 150px; height: 150px; border-radius: 30px;">
@@ -40,6 +40,17 @@
                 const cafename = button.getAttribute('data-cafename');
                 const cafeid = button.getAttribute('data-cafeid'); 
                 window.location.href = '/view_cafe?id=' + encodeURIComponent(cafeid);
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const viewReviewOnSearch = document.querySelectorAll('.search-result-review');
+            
+        viewReviewOnSearch.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const postId = button.getAttribute('data-postid'); 
+                window.location.href = '/view_post?postId=' + encodeURIComponent(postId);
             });
         });
     });
