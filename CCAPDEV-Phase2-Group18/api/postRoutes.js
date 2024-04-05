@@ -145,20 +145,12 @@ router.get('/post_promo', function(req, resp){
 });
 
 router.post('/post_promo', async function(req, resp){
-    const previousPost = await post.findOne().sort({postid: -1}).exec();
-    let previousPostId;
-    if (previousPost) {
-        previousPostId = previousPost.postid + 1;
-    } else {
-        previousPostId = 3000;
-    }
+    // Fetch all posts and sort them by postid in descending order
+    const posts = await post.find().sort({ postid: -1 }).exec();
+        
+    // Get the highest postid or set it to 3000 if no posts exist
+    let previousPostId = posts.length > 0 ? posts[0].postid + 1 : 3000;
 
-    let image;
-    if (req.body.filename.startsWith('http')) {
-        image = req.body.filename; 
-    } else {
-        // If it's a file, read and convert to base64
-    }
     const storeid = req.body.cafeid.toString();
 
     const postInstance = new post({
@@ -167,7 +159,7 @@ router.post('/post_promo', async function(req, resp){
         downvote: 0,
         title: req.body.title,
         description: req.body.promo_content,
-        image: image,
+        image: req.body.filename,
         isPromo: true,
         storeid: storeid,
         postid: previousPostId,
@@ -209,12 +201,6 @@ router.post('/post_review', async function(req, resp){
         // Get the highest postid or set it to 3000 if no posts exist
         let previousPostId = posts.length > 0 ? posts[0].postid + 1 : 3000;
 
-        let image;
-        if (req.body.filename.startsWith('http')) {
-            image = req.body.filename; 
-        } else {
-            // If it's a file, read and convert to base64
-        }
 
         const rating = parseInt(req.body.rate);
         const storeid = req.body.cafeid.toString();
@@ -225,7 +211,7 @@ router.post('/post_review', async function(req, resp){
             downvote: 0,
             title: req.body.title,
             description: req.body.review_content,
-            image: image,
+            image: req.body.filename,
             isPromo: false,
             storeid: storeid,
             postid: previousPostId,

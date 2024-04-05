@@ -645,18 +645,13 @@ input:checked ~ label{
 
 .file-upload {
     background-color: #EDE0D4;
-    border-radius: 5em;
+    border-radius: 0.5em;
     padding: 4px;
     color: white;
     
 }
 
 
-.file-upload input {
-    display: block;
-    color: #573824;
-    margin-left: 10px; 
-}
 
 .textarea{
     height: 30vh;
@@ -1360,12 +1355,19 @@ form .login button:hover{
 
 .pfp-upload{
     background-color: #EDE0D4;
-    border-radius: 5em;
+    border-radius: 0.5em;
     padding: 4px;
     color:#573824;
     padding-left: 12px;
     margin-top:10px;
 }
+
+.pfp-upload > .file-input{
+    margin-left: 6px;
+    width: 99%;
+}
+
+
 
 /*Edit Review*/
 
