@@ -108,31 +108,37 @@ router.get('/create_cafe', function(req,resp){
 });
 
 router.post('/create_cafe', async function(req, resp){
-    const previousCafe = await cafeModel.findOne().sort({userid: -1}).exec();
-    let previousCafeId;
-    if (previousCafe) {
-        previousCafeId = previousCafe.cafeid + 1;
-    } else {
-        previousCafeId = 2000;
-    }
-    const{cafename, cafedesc, filename} = req.body;
-    const newCafe = new cafeModel({
-        cafeid: cafeid,
-        cafename: cafename,
-        logo: filename,
-        ownerid: req.session.loggedInUserId,
-        cafedesc: cafedesc
-    });
+    try {
+        // Fetch all cafes and sort them by cafeid in descending order
+        const cafes = await cafeModel.find().sort({ cafeid: -1 }).exec();
+        
+        // Get the highest cafeid or set it to 2000 if no cafes exist
+        let previousCafeId = cafes.length > 0 ? cafes[0].cafeid + 1 : 2000;
 
-    newCafe.save().then(function(){
+        const { cafename, cafedesc, filename } = req.body;
+
+        const newCafe = new cafeModel({
+            cafeid: previousCafeId,
+            cafename: cafename,
+            logo: filename,
+            ownerid: req.session.loggedInUserId,
+            rating: 0,
+            cafedesc: cafedesc
+        });
+
+        await newCafe.save();
         console.log('Added Cafe Successfully');
         resp.redirect('/');
-    });
+    } catch (error) {
+        console.error(error);
+        resp.status(500).send('Internal Server Error');
+    }
 });
+
 
 router.get('/edit_cafe', function(req,resp){
     resp.render('edit-cafe', {
-        title: 'Edit Profile | Coffee Lens'
+        title: 'Edit Cafe | Coffee Lens'
     });
 });
 
