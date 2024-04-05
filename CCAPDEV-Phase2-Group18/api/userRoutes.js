@@ -4,6 +4,8 @@ const post = require("../schemas/postSchema");
 const passport = require("passport");
 const express = require("express");
 const router = express.Router();
+const bcrypt = require('bcrypt');
+const saltRounds = 11;
 
 // current logged in user
 var loggedInUser = "cinnamoroll";
@@ -42,18 +44,20 @@ router.post('/create_acc', async function(req,resp){
     const isOwner = accountType === 'owner';
     const currentDate = new Date();
     const formattedDate = formatDate(currentDate);
-    const newUser = new user({
-        userid: previousUserId,
-        username: username,
-        password: password,
-        joindate: formattedDate,
-        isOwner: isOwner,
-        profpic: null
-    });
-    
-    newUser.save().then(function(){
-        resp.redirect('/login');
-        console.log('Registered Successfully');
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+        const newUser = new user({
+            userid: previousUserId,
+            username: username,
+            password: hash,
+            joindate: formattedDate,
+            isOwner: isOwner,
+            profpic: null
+        });
+        
+        newUser.save().then(function(){
+            resp.redirect('/login');
+            console.log('Registered Successfully');
+        });
     });
 });
 
