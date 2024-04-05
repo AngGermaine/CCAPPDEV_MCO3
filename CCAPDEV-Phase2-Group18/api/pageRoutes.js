@@ -41,6 +41,7 @@ router.get("/", function (req, resp) {
   const searchQuery = {};
   const searchQueryLoggedInuser = { username: loggedInUser };
   const isOwner = loggedInUser.isOwner || false;
+  const userPfp = req.session.loggedInUserPfp;
   // Fetch the currently logged in user
   comment.find(searchQuery).lean().then(function(comments) {
     cafe.find(searchQuery).lean().then(function(cafes) {
@@ -64,7 +65,7 @@ router.get("/", function (req, resp) {
                     'cafe-data': cafes,
                     'user-data': users, 
                     'post-data': posts,
-                    userPfp: req.session.loggedInUserPfp,
+                    userPfp: userPfp,
                     loggedInUserId: req.session.loggedInUserId,
                     isOwner: 'isOwner'
                 });
