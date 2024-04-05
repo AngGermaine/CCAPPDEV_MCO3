@@ -38,42 +38,48 @@ router.get("/", function (req, resp) {
     resp.redirect("/login");
     return;
   }
+
   const searchQuery = {};
-  const searchQueryLoggedInuser = { username: loggedInUser };
-  const isOwner = loggedInUser.isOwner || false;
-  const userPfp = req.session.loggedInUserPfp;
+  const loggedInUserId = req.session.loggedInUserId;
+
   // Fetch the currently logged in user
-  comment.find(searchQuery).lean().then(function(comments) {
-    cafe.find(searchQuery).lean().then(function(cafes) {
+  user.findOne({ userid: loggedInUserId }).lean().then(function(loggedInUser) {
+    const isOwner = loggedInUser.isOwner || false;
+    const userPfp = req.session.loggedInUserPfp;
+
+    comment.find(searchQuery).lean().then(function(comments) {
+      cafe.find(searchQuery).lean().then(function(cafes) {
         user.find(searchQuery).lean().then(function(users) {
-            post.find(searchQuery).lean().then(async function(posts) {
-                for (let i = 0; i < cafes.length; i++) {
-                    const cafePosts = posts.filter(post => post.storeid === cafes[i].cafeid.toString() && !post.isPromo);
-                    const averageRating = calculateAverageRating(cafePosts);
-                    cafes[i].rating = averageRating;
+          post.find(searchQuery).lean().then(async function(posts) {
+            for (let i = 0; i < cafes.length; i++) {
+              const cafePosts = posts.filter(post => post.storeid === cafes[i].cafeid.toString() && !post.isPromo);
+              const averageRating = calculateAverageRating(cafePosts);
+              cafes[i].rating = averageRating;
 
-                    const updateResult = await cafe.updateOne({ cafeid: cafes[i].cafeid }, { rating: averageRating }).exec();
-                }
+              const updateResult = await cafe.updateOne({ cafeid: cafes[i].cafeid }, { rating: averageRating }).exec();
+            }
 
-                // Sort cafes by descending order of rating
-                cafes.sort((a, b) => b.rating - a.rating);
+            // Sort cafes by descending order of rating
+            cafes.sort((a, b) => b.rating - a.rating);
 
-                resp.render('main', {
-                    layout: 'index',
-                    title: 'Home | Coffee Lens',
-                    'comments-data': comments,
-                    'cafe-data': cafes,
-                    'user-data': users, 
-                    'post-data': posts,
-                    userPfp: userPfp,
-                    loggedInUserId: req.session.loggedInUserId,
-                    isOwner: 'isOwner'
-                });
-            }).catch(errorFn); // postmodel fn
+            resp.render('main', {
+              layout: 'index',
+              title: 'Home | Coffee Lens',
+              'comments-data': comments,
+              'cafe-data': cafes,
+              'user-data': users, 
+              'post-data': posts,
+              userPfp: userPfp,
+              loggedInUserId: loggedInUserId,
+              isOwner: isOwner
+            });
+          }).catch(errorFn); // postmodel fn
         }).catch(errorFn); // usermodel fn
-    }).catch(errorFn); //cafemodel fn
-}).catch(errorFn); // commentmodel fn
+      }).catch(errorFn); //cafemodel fn
+    }).catch(errorFn); // commentmodel fn
+  }).catch(errorFn); // usermodel fn
 });
+
 
 router.get("/about", function (req, resp) {
   resp.render("about", {
