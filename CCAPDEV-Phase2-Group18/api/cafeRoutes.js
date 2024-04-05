@@ -108,56 +108,48 @@ router.get('/create_cafe', function(req,resp){
 });
 
 router.post('/create_cafe', async function(req, resp){
-    try {
-        // Fetch all cafes and sort them by cafeid in descending order
-        const cafes = await cafeModel.find().sort({ cafeid: -1 }).exec();
-        
-        // Get the highest cafeid or set it to 2000 if no cafes exist
-        let previousCafeId = cafes.length > 0 ? cafes[0].cafeid + 1 : 2000;
+    const previousCafe = await cafeModel.findOne().sort({userid: -1}).exec();
+    let previousCafeId;
+    if (previousCafe) {
+        previousCafeId = previousCafe.cafeid + 1;
+    } else {
+        previousCafeId = 2000;
+    }
+    const{cafename, cafedesc, filename} = req.body;
+    const newCafe = new cafeModel({
+        cafeid: cafeid,
+        cafename: cafename,
+        logo: filename,
+        ownerid: req.session.loggedInUserId,
+        cafedesc: cafedesc
+    });
 
-        const { cafename, cafedesc, filename } = req.body;
-
-        const newCafe = new cafeModel({
-            cafeid: previousCafeId,
-            cafename: cafename,
-            logo: filename,
-            ownerid: req.session.loggedInUserId,
-            rating: 0,
-            cafedesc: cafedesc
-        });
-
-        await newCafe.save();
+    newCafe.save().then(function(){
         console.log('Added Cafe Successfully');
         resp.redirect('/');
-    } catch (error) {
-        console.error(error);
-        resp.status(500).send('Internal Server Error');
-    }
+    });
 });
-
 
 router.get('/edit_cafe', function(req,resp){
     resp.render('edit-cafe', {
-        title: 'Edit Cafe | Coffee Lens'
+        title: 'Edit Profile | Coffee Lens'
     });
 });
 
 router.post('/edit_cafe', async function(req, resp){
     const {cafeid, action} = req.body;
-    curCafe = cafeModel.findOne({cafeid: cafeid}).lean().then(function(cafe){
-        console.log(cafe);
-    }).catch(errorFn);
-
     if(action==='delete'){
         cafeModel.findOneAndDelete({cafeid: cafeid}).then(function(){
             console.log('Cafe Deleted Successfully');
             resp.redirect('/');
         }).catch(errorFn);
     } else{
-        const {cafename, cafedesc} = req.body;
-        cafe.cafename = cafename;
-        cafe.cafedesc = cafedesc;
-        await cafe.save().then(function(){
+        const {cafename, cafedesc, filename} = req.body;
+        cafeModel.findOneAndUpdate({cafeid: cafeid}, {
+            cafename: cafename,
+            cafedesc: cafedesc,
+            logo: filename
+        }).then(function(){
             console.log('Cafe Edited Successfully');
             resp.redirect('/view_cafe?id=' + cafeid);
         }).catch(errorFn);
