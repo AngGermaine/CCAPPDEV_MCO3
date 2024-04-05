@@ -1,7 +1,7 @@
 const user = require("../schemas/userSchema");
 const post = require("../schemas/postSchema");
 
-const passport = require("passport");
+
 const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcrypt');
@@ -78,11 +78,10 @@ router.get('/edit_profile', function(req,resp){
 }); 
 
 router.post('/edit_profile', function(req, resp){
-    const{username, password, filename} = req.body;
+    const{username, filename} = req.body;
     user.findOneAndUpdate({userid: req.session.loggedInUserId}, 
         {
             username: username,
-            password: password,
             profpic: filename
         }, {new: true}).then(function(updatedProfile){
             console.log('Updated Profile Successfully');

@@ -4,7 +4,7 @@ const cafe =  require("../schemas/cafeSchema");
 const comment =  require("../schemas/commentSchema");
 const archive = require("../schemas/archiveSchema");
 
-const passport = require("passport");
+
 const express = require("express");
 const router = express.Router();
 
