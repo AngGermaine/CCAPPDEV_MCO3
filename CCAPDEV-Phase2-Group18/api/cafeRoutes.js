@@ -142,4 +142,26 @@ router.get('/edit_cafe', function(req,resp){
     });
 });
 
+router.post('/edit_cafe', async function(req, resp){
+    const {cafeid, action} = req.body;
+    curCafe = cafeModel.findOne({cafeid: cafeid}).lean().then(function(cafe){
+        console.log(cafe);
+    }).catch(errorFn);
+
+    if(action==='delete'){
+        cafeModel.findOneAndDelete({cafeid: cafeid}).then(function(){
+            console.log('Cafe Deleted Successfully');
+            resp.redirect('/');
+        }).catch(errorFn);
+    } else{
+        const {cafename, cafedesc} = req.body;
+        cafe.cafename = cafename;
+        cafe.cafedesc = cafedesc;
+        await cafe.save().then(function(){
+            console.log('Cafe Edited Successfully');
+            resp.redirect('/view_cafe?id=' + cafeid);
+        }).catch(errorFn);
+    }
+});
+
 module.exports = router;
