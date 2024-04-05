@@ -66,7 +66,7 @@ router.get("/", function (req, resp) {
                     'post-data': posts,
                     userPfp: req.session.loggedInUserPfp,
                     loggedInUserId: req.session.loggedInUserId,
-                    isOwner: isOwner
+                    isOwner: 'isOwner'
                 });
             }).catch(errorFn); // postmodel fn
         }).catch(errorFn); // usermodel fn
