@@ -136,14 +136,18 @@ router.post('/create_cafe', async function(req, resp){
     }
 });
 
-router.get('/edit_cafe', function(req,resp){
+router.get('/edit_cafe/', function(req,resp){
+    const cafeId = req.query.cafeId;
     resp.render('edit-cafe', {
-        title: 'Edit Cafe | Coffee Lens'
+        title: 'Edit Cafe | Coffee Lens',
+        cafeId:cafeId
     });
 });
 
 router.post('/edit_cafe', async function(req, resp){
-    const {cafeid, action} = req.body;
+    const {action} = req.body;
+    const cafeid = req.query.cafeId;
+    console.log(cafeid);
     if(action==='delete'){
         cafeModel.findOneAndDelete({cafeid: cafeid}).then(function(){
             console.log('Cafe Deleted Successfully');
@@ -162,4 +166,9 @@ router.post('/edit_cafe', async function(req, resp){
     }
 });
 
+/*
+"Prelude Cafe"
+"https://th.bing.com/th/id/R.a600dae3d1e7ad807c5ff68070f3edcf?rik=qTSoL…"
+"Great food & Specialty Coffee!"
+*/
 module.exports = router;

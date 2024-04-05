@@ -70,20 +70,22 @@ router.get("/", function (req, resp) {
                     .lean()
                     .then(async function (posts) {
                       for (let i = 0; i < cafes.length; i++) {
-                        const cafePosts = posts.filter(
-                          (post) =>
-                            post.storeid === cafes[i].cafeid.toString() &&
-                            !post.isPromo
-                        );
-                        const averageRating = calculateAverageRating(cafePosts);
-                        cafes[i].rating = averageRating;
+                        if(cafes[i] && cafes[i].cafeid){
+                          const cafePosts = posts.filter(
+                            (post) =>
+                              post.storeid === (cafes[i].cafeid.toString() &&
+                              !post.isPromo)
+                          );
 
-                        const updateResult = await cafe
-                          .updateOne(
-                            { cafeid: cafes[i].cafeid },
-                            { rating: averageRating }
-                          )
-                          .exec();
+                          const averageRating = calculateAverageRating(cafePosts);
+                          cafes[i].rating = averageRating;
+
+                          const updateResult = await cafe
+                            .updateOne(
+                              { cafeid: cafes[i].cafeid },
+                              { rating: averageRating }
+                            ).exec();
+                        } 
                       }
 
                       // Sort cafes by descending order of rating
