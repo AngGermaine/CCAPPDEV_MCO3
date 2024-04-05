@@ -1559,9 +1559,26 @@ form .login button:hover{
     margin-left: 10px;
 }
 
+.search-results-heading {
+    padding-left: 20px;
+}
+
+.search-result img,
+.search-result-review img {
+    width: 150px; 
+    height: 150px; 
+    border-radius: 30px; 
+}
+
+.search-result > div,
+.search-result-review > div {
+    height: 150px; 
+    margin-right: 20px; 
+}
+
+
 .search-result, .search-result-review
 {
-    width:100%;
     display:flex;
     background-color:#7F5539;
     color:white;
@@ -1569,6 +1586,24 @@ form .login button:hover{
     margin-bottom: 31px;
     align-items: center;
     font-size: 25px;
+    border-radius: 2em;
+}
+
+.search-info {
+    display: flex; 
+    align-items: flex-start; 
+}
+
+.search-info > div {
+    margin-right: 20px; 
+}
+
+.search-info > .search-text {
+    flex: 1; 
+}
+
+.search-text h3,.search-result h3{
+    margin:0;
 }
 
 .search-result:hover,
