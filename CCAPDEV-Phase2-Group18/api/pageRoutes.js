@@ -40,7 +40,7 @@ router.get("/", function (req, resp) {
   }
   const searchQuery = {};
   const searchQueryLoggedInuser = { username: loggedInUser };
-
+  const isOwner = loggedInUser.isOwner || false;
   // Fetch the currently logged in user
   comment.find(searchQuery).lean().then(function(comments) {
     cafe.find(searchQuery).lean().then(function(cafes) {
@@ -66,6 +66,7 @@ router.get("/", function (req, resp) {
                     'post-data': posts,
                     userPfp: req.session.loggedInUserPfp,
                     loggedInUserId: req.session.loggedInUserId,
+                    isOwner: isOwner
                 });
             }).catch(errorFn); // postmodel fn
         }).catch(errorFn); // usermodel fn
