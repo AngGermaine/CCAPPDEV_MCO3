@@ -41,7 +41,10 @@ router.post('/create_acc', async function(req,resp){
     }
 
     const {email, username, password, confirmPassword, accountType} = req.body;
-    const isOwner = accountType === 'owner';
+    let isOwner = false;
+    if(accountType == 'owner'){
+        isOwner = true;
+    } //dunno if this fixes it
     const currentDate = new Date();
     const formattedDate = formatDate(currentDate);
     bcrypt.hash(password, saltRounds, function(err, hash) {
@@ -51,7 +54,7 @@ router.post('/create_acc', async function(req,resp){
             password: hash,
             joindate: formattedDate,
             isOwner: isOwner,
-            profpic: null
+            profpic: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
         });
         
         newUser.save().then(function(){
