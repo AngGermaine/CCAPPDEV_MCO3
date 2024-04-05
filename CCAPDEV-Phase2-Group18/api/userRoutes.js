@@ -7,11 +7,6 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const saltRounds = 11;
 
-// current logged in user
-var loggedInUser = "cinnamoroll";
-var loggedInUserPfp = "https://i.pinimg.com/736x/96/c6/5d/96c65d40ec3d11eb24b73e0e33b568f7.jpg";
-var loggedInUserId = 1001;
-
 function errorFn(err){
     console.log('Error found');
     console.error(err);
@@ -40,7 +35,7 @@ router.post('/create_acc', async function(req,resp){
         previousUserId = 1000;
     }
 
-    const {email, username, password, confirmPassword, accountType} = req.body;
+    const {username, password, confirmPassword, accountType} = req.body;
     let isOwner = false;
     if(accountType == 'owner'){
         isOwner = true;
@@ -67,11 +62,12 @@ router.post('/create_acc', async function(req,resp){
 router.get('/edit_profile', function(req,resp){
     const userId = req.session.loggedInUserId;
     user.findOne({userid: userId}).lean().then(function(user){
-        console.log(user);
+        //console.log(user);
         resp.render('edit-profile',{
             title: 'Edit Profile | Coffee Lens',
             'user-data': user,
             'userPfp': user.profpic,
+            password: user.password,
             loggedInUserId: userId
         });
     }).catch(errorFn);
@@ -83,7 +79,7 @@ router.post('/edit_profile', function(req, resp){
         {
             username: username,
             profpic: filename
-        }, {new: true}).then(function(updatedProfile){
+        }, {new: true}).then(function(){
             console.log('Updated Profile Successfully');
             resp.redirect('/');
         }
